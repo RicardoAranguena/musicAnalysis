@@ -31,7 +31,9 @@
 	
 	
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
-		var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
+	
+	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
+	var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
 		s-man ,dangerous thoughts,dance,-12.733,0.626,3,121,2014,0.0808,535223,14,0.5183\n\
 		pitbull,el taxi,latinParty,-10.249,0.823,2,101,2015,0.1232,539182,21,0.2129\n\
 		bontan,firefly,dance,-7.134,0.923,8,95,1999,0.9213,497493,9,0.4382\n\
@@ -68,7 +70,7 @@
 		//here we will make the canvas where we will put the circles 
 		var container = d3.select(".canvas").append("svg").attr("width",650).attr("height",550).attr("class","svgCanvas");
 //		var cleaner = d3.select("svg").append("svg").attr("width",500).attr("height",500);
-		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+	//	var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 		
  //		var axeX = container.append("line").attr("x1",500).attr("y1",0).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",1);
  		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
@@ -78,9 +80,7 @@
 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 //		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",500).attr("y2",0).attr("stroke","black").attr("stroke-width",2);
 		
-		var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","yellow");
-		var titleY = container.append("rect").attr("x",20).attr("y",170).attr("width",46).attr("height",160).attr("fill","yellow");
-		
+	
 		function parseCSV(music){
 			  var lines = music.split("\n"); //split the csv in rows
 			  var metadata = lines[0].split(","); //first row of the csv file that contains the name of the metadata that we are using 
@@ -99,7 +99,6 @@
 			  return data;
 	}
 
-//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
 		
 	
 	//var parsedCSV = parseCSV(music);
@@ -115,32 +114,32 @@
 		rowObject["hotness"] = parseFloat(rowObject["hotness"]);
 		return rowObject;
 	});
-	
-	//console.log(parsedCSV);
 
-	var counter = parsedCSV.length;	
-		
-	//console.log("length of object array " + parsedCSV.length);
-	//console.log("object in position 3 " + getFields(parsedCSV,"energy (from 0.0 to 1.0)"));
+//	var counter = parsedCSV.length;	
+	
 	var xAchseOption;
 	var xAchse;
 	var yAchseOption;	
 	var kreisGrosseOption;
 	
+// 	function cleaner(){
+// 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+// 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+// 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+// 	return;
+// 	}
+	
 	$(document).ready(function(){
-		/*
 		
-		function getFields(input, field) {
-		    var output = [];
-		    for (var i=0; i < input.length ; ++i)
-		        output.push(input[i][field]);
-		    return output;
-		}*/
+		
 		
 		// Achse select
 		$('#achsen').change(function(){ 
 			xAchseOption = $("#xAchse option:selected");
-			if 		(xAchseOption.val() ==="danceability")	{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}		
+			if 		(xAchseOption.val() ==="danceability")	{ xAchse = xAchseOption.val();	console.log("xAchse variable " + xAchse);}
+			
 			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}		
 			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
@@ -148,15 +147,24 @@
 			else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 
+			var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","yellow");
+			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
+			
 			yAchseOption = $("#yAchse option:selected");
 			
-			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}		
+			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();  var yTextContainer =  container.append("text").attr("x",20).attr("y",170).attr("transform","rotate(90 46,160)").attr("id","yAchseText").data(yAchse);
+			console.log("yAchse variable " + yAchse);}		
 			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}		
 			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+			
+			var titleY = container.append("rect").attr("x",20).attr("y",170).attr("width",46).attr("height",160).attr("fill","yellow");
+			var yText =  container.append("text").attr("x",20).attr("y",170).attr("transform","rotate(90 0,0)").attr("id","yAchseText").style("text-align","center").text(yAchse);
+			
+			
 		});
 
 // 		$('#kreisGrosse').change(function(){ 
@@ -198,17 +206,24 @@
             else if (key ===11) {return "rgb(255,255,153)"	}		            
             else{ return "black" };  
 		};
+// 		function cleaner(){
+// 			var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+// 			var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 			var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+// 			var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 			var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+// 		};
 		
 		$('#colorFilter').change(function(){ 
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="1"){ 
-				//this 3 lines are for "cleaning" the canvas for a new request
+		 //		cleaner();
 				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-				
+		 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+		 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+			
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();		
@@ -216,6 +231,7 @@
 				$("#colorKey").hide();
 			}
 		 	if (colorOption.val()==="2"){ 
+		 //		cleaner();
 				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
@@ -229,6 +245,8 @@
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="3"){ 
+	//			cleaner();
+			
 				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
@@ -274,13 +292,12 @@
 			
 			}
 			if (colorOption.val()==="5"){ //key is the color of the circles
+//				cleaner();	
 				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-				
-				//var container = d3.select("#canvas").append("svg").attr("width",500).attr("height",500);
+		 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+		 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
