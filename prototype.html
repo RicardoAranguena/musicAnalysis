@@ -12,7 +12,7 @@
 		<script src="d3.min.js"></script>
 		<script src="d3.js"></script>
 		<script src="jquery-1.12.4.min.js"></script>
-<<<<<<< HEAD
+
 		
 		<script type="text/javascript" src="js/jshashtable-2.1_src.js"></script>
 		<script type="text/javascript" src="js/jquery.numberformatter-1.2.3.js"></script>
@@ -23,11 +23,6 @@
 		
 		<title>Prototype Music Analysis </title>
 		
-=======
-
-		
-		<title>Prototype Music Analysis </title>
->>>>>>> origin/master
 		<style>
 		.slider {
 		    padding: 40px 0px;
@@ -41,6 +36,8 @@
 		}
 		
 		</style>
+		
+	
 </head>
 <body>
 
@@ -259,6 +256,9 @@
 				$("#colorTempo").hide();		
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
+				
+				buildSliders();
+				
 			}
 		 	if (colorOption.val()==="2"){ 
 		 //		cleaner();
@@ -355,13 +355,11 @@
 						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));					
 					}
-					
-					
-				}
-			}
-		
-		  });
-				
+				}//end for 
+			}//end if option 5
+		});//end color filter	
+
+
 		function buildSliders() {
 			var danceability = $('#colorDanceability input');
 			var energy = $('#colorEnergy input');
@@ -371,7 +369,7 @@
 			danceability.slider({
 				from: 0,
 				to: 1,
-				step: 0.1,
+				step: 0.001,
 				smooth: false,
 				round: 1,
 				scale: [0, '|', .5, '|', 1],
@@ -381,16 +379,16 @@
 			energy.slider({
 				from: 0,
 				to: 1,
-				step: 0.1,
+				step: 0.001,
 				smooth: false,
 				round: 1,
 				scale: [0, '|', .5, '|', 1],
 				skin: "plastic"
 			});
 			
-			jahr.slider({
-				from: 1990,
-				to: 2016,
+			tempo.slider({
+				from: 50,
+				to: 200,
 				step: 1,
 				round: 0,
 				scale: [50, '|', 125, '|', 200],
@@ -398,54 +396,18 @@
 			});
 		}
 		
-<<<<<<< HEAD
 		buildSliders();
-	});
-=======
-		});
-		
-	function buildSliders() {
-		var danceability = $('#colorDanceability input');
-		var energy = $('#colorEnergy input');
-		var tempo = $('#colorTempo input');
-		var jahr = $('#jahr input');
-		
-		danceability.slider({
-			from: 0,
-			to: 1,
-			step: 0.1,
-			smooth: false,
-			round: 1,
-			scale: [0, '|', .5, '|', 1],
-			skin: "plastic"
-		});
-		
-		energy.slider({
-			from: 0,
-			to: 1,
-			step: 0.1,
-			smooth: false,
-			round: 1,
-			scale: [0, '|', .5, '|', 1],
-			skin: "plastic"
-		});
-		
-		jahr.slider({
-			from: 1990,
-			to: 2016,
-			step: 1,
-			round: 0,
-			scale: [50, '|', 125, '|', 200],
-			skin: "plastic"
-		});
-	}
-	
-	buildSliders();
-});
-		
-</script>
->>>>>>> origin/master
 
+
+
+
+
+
+});//end document ready
+
+	
+	
+	
 </script>
 
 
@@ -453,7 +415,7 @@
 <p id="achsen">Achsen:
 	&nbsp;&nbsp;&nbsp; &nbsp;x:
   	<select id="xAchse" name="x">
-	    <option value="danceability">	Danceability	</option>
+	    <option value="danceability" selected>	Danceability	</option>
 	    <option value="energy">			Energy		</option>
 	    <option value="tempo">			Tempo		</option>
 	    <option value="playcount">		Playcount	</option>
@@ -464,7 +426,7 @@
 	&nbsp;&nbsp;&nbsp;&nbsp;y: 
   	<select id="yAchse" name="y">
 	    <option value="danceability">	Danceability	</option>
-	    <option value="energy">			Energy		</option>
+	    <option value="energy" selected>			Energy		</option>
 	    <option value="tempo">			Tempo		</option>
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
@@ -497,22 +459,22 @@
   	
   	
 <div id="colorDanceability"> 
-<span class="slider">
-	<input type="slider" name="price" value="0.1;0.9" />
-</span>
-<div class="colors">
-	<span style="background-color: rgba(153, 0, 0, .25)"></span>
-	<span style="background-color: rgba(153, 0, 0, .4)"></span>
-	<span style="background-color: rgba(153, 0, 0, .55)"></span>
-	<span style="background-color: rgba(153, 0, 0, .7)"></span>
-	<span style="background-color: rgba(153, 0, 0, .85)"></span>
-	<span style="background-color: rgba(153, 0, 0, 1)"></span>
-</div>
+	<span class="slider">
+		<input type="slider" name="price" value="0.0;1.0" />
+	</span>
+	<div class="colors">
+		<span style="background-color: rgba(153, 0, 0, .25)"></span>
+		<span style="background-color: rgba(153, 0, 0, .4)"></span>
+		<span style="background-color: rgba(153, 0, 0, .55)"></span>
+		<span style="background-color: rgba(153, 0, 0, .7)"></span>
+		<span style="background-color: rgba(153, 0, 0, .85)"></span>
+		<span style="background-color: rgba(153, 0, 0, 1)"></span>
+	</div>
 </div>  	
 
 <div id="colorEnergy"> 
 <span class="slider">
-	<input type="slider" name="price" value="0.1;0.9" />
+	<input type="slider" name="price" value="0.0;1.0" />
 </span>
 <div class="colors">
 	<span style="background-color: rgba(153, 0, 0, .25)"></span>
@@ -537,13 +499,6 @@
 	<span style="background-color: rgba(153, 0, 0, 1)"></span>
 </div>
 </div>
-
-<div id="jahr"> 
-<p><strong>Jahr:</strong></p> 
-<div class="slider">
-	<input type="slider" name="price" value="1990;2016" />
-</span>
-</div>    	
 
 <div id="colorKey">	
   	<!-- Keyboard with the colors that we are going to use -->
@@ -598,6 +553,8 @@
 		<text x="292" y="80" fill="black"> G# </text>
 		
 	</svg>
+	<p>Wenn die Metada "KEY" von eine Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
+	
 </div>
 
 <!-- Table for the color selection of genre -->
@@ -622,94 +579,6 @@
     </tr>
 </table>
 </div>
-
-
-<!-- this here is for the jquery show or no show
-
-
-
- 	$("#filterButton").click(function(){
-		    $("#language").toggle();
-		    $("#country").toggle();
-		   });
-		
-
-		<button id="filterButton" type="button" class="buttonFilter">Filters</button>
-		<div id="language" class="language" style="float: left; width: 110px;">
-			<br/>
-			<label > Language:</label>	
-		<input type="radio" name="group2" value="english" >English<br>
-			<input type="radio" name="group2" value="german">German<br>
-		<input type="radio" name="group2" value="italian">Italian<br>
-		<input type="radio" name="group2" value="french">French<br>
-	</div>	
-	
-	
-		<div id="country" class="country" style="float: left; width: 110px;">
-			<br/>
-			<label > Country:</label>
-		<input type="radio" name="group3" value="germany">Germany<br>
-			<input type="radio" name="group3" value="austria">Austria<br>
-		<input type="radio" name="group3" value="france">France<br>
-		<input type="radio" name="group3" value="italy">Italy<br>
-	</div>    
-	
-	 -->
-	 
-
-
-
-
-<script type="text/javascript">
-
-//		d3.csv("selbstgemachtCsvForPrototype2.csv", function(data) {
-/*	 teil von script der ist da zu sehen wie soll man data hochladen an eine html seite. noch nicht benutzt 				
-				console.log(data);
-				var body = d3.select("body");
-				var myDiv = body.append("div");
-				myDiv.text("PROTOTYPE MUSIC ANALYSIS");
-				
-				var container = d3.select("body").append("svg").attr("width",500).attr("height",500).attr("fill","yellow");
-				var containerBackground = container.append("rect").attr("width",500).attr("height",500).attr("fill","blue").attr("fill-opacity",0.1);
-				var circle = container.append("circle").attr("cx",100).attr("cy",100).attr("r",10).attr("fill","green");
-				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-					
-				data.forEach(function(d){ d.title = +d.title });
-//		});
-		
-			
-			d3.select("body").selectAll("p").data(data).enter().append("p").text(
-		 	function(d){
- 			return d + ",	";
- 			});
-
-			<!-- 2te tutorial 17.03.2016-->
-			
-			
-			var fruitData = d3.csv("fruit.csv", function(fruitData) {
-				console.log(fruitData);
-			d3.select("body").selectAll("p").data(fruitData).enter().append("p").text(
-		 	function(d){
- 			return d + ",	";
- 			});
-	
-			//selbstgemachtCsvForPrototype.csv
-		
-			d3.max(fruitData, function(d) {    //Returns 480
-    			console.log (d);
-			
-    			return d[0];  //References first value in each sub-array
-			});
-			
-			var myScale = d3.scale.linear()
-			.domain([0, 100])
-			.range([0, 10]);
-			myScale(50); //Maps 50 -> 5 and returns 5
-
-			});
-*/
-</script>
 
 	</body>
 </html>
