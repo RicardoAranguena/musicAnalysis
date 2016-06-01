@@ -1,0 +1,35 @@
+"Artist","title","genre","loudness (from -60 db to 0)","energy (from 0.0 to 1.0)","key (0 = C, 1 = C_/D_, 2 = D, and so on)","tempo","Jahr","danceability (from 0.0 to 1.0)","duration  (in milliseconds)","playcount","hotness"\n\
+"s-man","dangerous thoughts","dance","-12.733","0.626","3","121","2014","0.0808","535223","14","0.5183"\n\
+"pitbull","el taxi","latinParty","-10.249","0.823","2","101","2015","0.1232","539182","21","0.2129"\n\
+"bontan","firefly","dance","-7.134","0.923","8","95","1999","0.9213","497493","9","0.4382"\n\
+"Kieser.Velten","Bossa Jam","Lounge / Nu Jazz / House","-10.231","0.2129","12","120","2004","0.7543","728371","2","0.8847"\n\
+"The Fugees","Ready Or Not (Lucas Chambon remix)","house","-7.242","0.4382","4","124","2115","0.9232","832373","2","0.8372"\n\
+"The Notorious B.I.G.","Mo Money Mo Problems (Naxsy Extended Remix)","House","-6.234","0.8847","1","100","2010","0.6219","432393","3","0.5921"\n\
+"soul ii soul","back to life (follow me remix)","deepHouse","-12.123","0.8372","6","124","2015","0.4932","438293","2","0.9287"\n\
+"Osunlade","Break It Down","Dance","-5.123","0.5921","5","145","2015","0.2234","455432","1","0.7328"\n\
+"Jamie Woon","Night Air (Original Mix)","deepHouse","-6.634","0.9287","8","92","2012","0.8523","543726","8","0.2948"\n\
+"Mario","Let Me Love You (Sllash Remix)","deepHouse","-8.245","0.8847","0","90","2012","0.8221","548273","3","0.1938"\n\
+"Ace of Base","Cruel summer (YoGee house Remix 2014)","Deep House","-9.234","0.9273","3","87","2016","0.9134","593772","1","0.0479"\n\
+"Justin Timberlake","My Love (Lucas Chambon Remix)","house","-7.034","0.7474","2","94","2013","0.7283","682736","2","0.0736"\n\
+"e. avitabile","soul express (remix soul deep v.pisany)","house","-9.034","0.7231","2","97","2011","0.9277","527763","2","0.7231"\n\
+"daft punk","giorgio by moroder","house","-10.234","0.8272","1","100","2015","0.5183","578781","2","0.6219"\n\
+"zhu","Superfriends","deepHouse","-12.745","0.9476","8","99","2015","0.2129","548299","3","0.4932"\n\
+"zhu","Stolen Dance (Fear of Dawn Edit)","Deep House","-12.489","0.9273","7","103","2009","0.4382","498728","1","0.9273"\n\
+"Duke Dumont","Ocean Drive","deepHouse","-11.153","0.7474","5","105","2007","0.8847","563847","3","0.7474"\n\
+"The 2 Bears","Not This Time (Original Mix)","House","-10.745","0.7429","4","105","2009","0.8372","546729","5","0.7429"\n\
+"Karmon","No Illusion (Original Mix)","deepHouse","-10.123","0.8223","8","150","2007","0.5921","627367","2","0.8223"\n\
+"vance joy","riptide (flicflac remix)","deepHouse","-8.138","0.5318","9","87","2003","0.9287","656563","3","0.5318"\n\
+"Adrian Lux","Teenage Crime (Thomas Jack Remix)","TropicalHouse","-7.673","0.8472","12","89","2005","0.7328","654323","2","0.8472"\n\
+"Tamer Akgul","Back in Town","Electronic","-9.234","0.7283","11","125","1997","0.2948","564372","3","0.6219"\n\
+"ornette","crazy (noze remix extended club version)","deepHouse","-10.345","0.9277","1","130","1990","0.1938","5283494","2","0.4382"\n\
+"hot natured feautring anabel englund","reverse skydiving","deepHouse","-7.643","0.5183","1","130","2013","0.0479","562372","4","0.8523"\n\
+"James Dexter","Forward (Original Mix)","deepHouse","-12.647","0.2129","11","123","2011","0.0736","512638","3","0.9277"\n\
+"The Avener","Fade Out Lines (Original Mix)","Deep House","-12.593","0.4382","12","122","2016","0.7231","299865","1","0.5183"\n\
+"George Michael","Careless Whisper (Armando Junior Soulful Mix)","Deep House","-12.856","0.8523","6","115","2014","0.8272","2937476","1","0.2129"\n\
+"99 souls ft destiny’s child & brandy","the girl is mine","house","-6.176","0.8221","5","115","2010","0.9476","277382","3","0.4382"\n\
+"France Joli","Gonna Get Over You","Electro/Disco","-9.745","0.9134","7","124","2012","0.9273","162382","2","0.8847"\n\
+"Adele","Skyfall (Montmartre Remix)","deepHouse","-9.673","0.9213","8","110","2012","0.7474","172635","4","0.8372"\n\
+"marlon roudette ft stewart","everybody feeling something","house","-10.547","0.7543","9","107","2014","0.7429","362830","3","0.4932"\n\
+"Dayne S","Dat 80’s (Original Mix)","deepHouse","-6.572","0.9232","4","93","2016","0.8223","4576238","1","0.9273"\n\
+“Diana Waite"," Bluesoil”","No Matter (The Scientists Of Sound Remix)","House","-7.327","0.6219","2","95","2016","0.5318","421823","1","0.5318"\n\
+"Nina Kraviz","I’m Week (Original Mix)","deepHouse","-6.572","0.4932","8","96","2016","0.8472","10273645","2","0.8472"

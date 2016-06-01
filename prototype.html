@@ -1,0 +1,561 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+		<script src="d3.min.js"></script>
+		<script src="d3.js"></script>
+		<script src="jquery-1.12.4.min.js"></script>
+		<link href="nouislider.min.css" rel="stylesheet">
+		
+		<title>Prototype Music Analysis </title>
+</head>
+<body>
+
+	<p >PROTOTYPE MUSIC ANALYSIS</p>
+	<br>
+	<div class=canvas> </div>
+	
+	<script> 
+	
+	
+	// to do
+	// for para pegar los circulos fuera, se va a hacer un string que va a ser guardado en una variable 
+	//	y esa variable va a correr en el for de afuera, esa variable va a tener el comando de hacer el 
+	// att y todo lo demas.
+	// esa estring la va a ir haciendo los selects que se usen.
+	
+	//buscar el slider doble e instalarlo
+	
+	//hacer la informacion de spotify
+	
+	
+	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
+		var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
+		s-man ,dangerous thoughts,dance,-12.733,0.626,3,121,2014,0.0808,535223,14,0.5183\n\
+		pitbull,el taxi,latinParty,-10.249,0.823,2,101,2015,0.1232,539182,21,0.2129\n\
+		bontan,firefly,dance,-7.134,0.923,8,95,1999,0.9213,497493,9,0.4382\n\
+		Kieser.Velten,Bossa Jam,Lounge / Nu Jazz / House,-10.231,0.2129,12,120,2004,0.7543,728371,2,0.8847\n\
+		The Fugees,Ready Or Not (Lucas Chambon remix),house,-7.242,0.4382,4,124,2115,0.9232,832373,2,0.8372\n\
+		The Notorious B.I.G.,Mo Money Mo Problems (Naxsy Extended Remix),House,-6.234,0.8847,1,100,2010,0.6219,432393,3,0.5921\n\
+		soul ii soul,back to life (follow me remix),deepHouse,-12.123,0.8372,6,124,2015,0.4932,438293,2,0.9287\n\
+		Osunlade,Break It Down,Dance,-5.123,0.5921,5,145,2015,0.2234,455432,1,0.7328\n\
+		Jamie Woon,Night Air (Original Mix),deepHouse,-6.634,0.9287,8,92,2012,0.8523,543726,8,0.2948\n\
+		Mario,Let Me Love You (Sllash Remix),deepHouse,-8.245,0.8847,0,90,2012,0.8221,548273,3,0.1938\n\
+		Ace of Base,Cruel summer (YoGee house Remix 2014),Deep House,-9.234,0.9273,3,87,2016,0.9134,593772,1,0.0479\n\
+		Justin Timberlake,My Love (Lucas Chambon Remix),house,-7.034,0.7474,2,94,2013,0.7283,682736,2,0.0736\n\
+		e. avitabile,soul express (remix soul deep v.pisany),house,-9.034,0.7231,2,97,2011,0.9277,527763,2,0.7231\n\
+		daft punk,giorgio by moroder,house,-10.234,0.8272,1,100,2015,0.5183,578781,2,0.6219\n\
+		zhu,Superfriends,deepHouse,-12.745,0.9476,8,99,2015,0.2129,548299,3,0.4932\n\
+		zhu,Stolen Dance (Fear of Dawn Edit),Deep House,-12.489,0.9273,7,103,2009,0.4382,498728,1,0.9273\n\
+		Duke Dumont,Ocean Drive,deepHouse,-11.153,0.7474,5,105,2007,0.8847,563847,3,0.7474\n\
+		The 2 Bears,Not This Time (Original Mix),House,-10.745,0.7429,4,105,2009,0.8372,546729,5,0.7429\n\
+		Karmon,No Illusion (Original Mix),deepHouse,-10.123,0.8223,8,150,2007,0.5921,627367,2,0.8223\n\
+		vance joy,riptide (flicflac remix),deepHouse,-8.138,0.5318,9,87,2003,0.9287,656563,3,0.5318\n\
+		Adrian Lux,Teenage Crime (Thomas Jack Remix),TropicalHouse,-7.673,0.8472,12,89,2005,0.7328,654323,2,0.8472\n\
+		Tamer Akgul,Back in Town,Electronic,-9.234,0.7283,11,125,1997,0.2948,564372,3,0.6219\n\
+		ornette,crazy (noze remix extended club version),deepHouse,-10.345,0.9277,1,130,1990,0.1938,5283494,2,0.4382\n\
+		hot natured feautring anabel englund,reverse skydiving,deepHouse,-7.643,0.5183,1,130,2013,0.0479,562372,4,0.8523\n\
+		James Dexter,Forward (Original Mix),deepHouse,-12.647,0.2129,11,123,2011,0.0736,512638,3,0.9277\n\
+		The Avener,Fade Out Lines (Original Mix),Deep House,-12.593,0.4382,12,122,2016,0.7231,299865,1,0.5183\n\
+		George Michael,Careless Whisper (Armando Junior Soulful Mix),Deep House,-12.856,0.8523,6,115,2014,0.8272,2937476,1,0.2129\n\
+		99 souls ft destiny's child & brandy,the girl is mine,house,-6.176,0.8221,5,115,2010,0.9476,277382,3,0.4382\n\
+		France Joli,Gonna Get Over You,Electro/Disco,-9.745,0.9134,7,124,2012,0.9273,162382,2,0.8847\n\
+		Adele,Skyfall (Montmartre Remix),deepHouse,-9.673,0.9213,8,110,2012,0.7474,172635,4,0.8372\n\
+		marlon roudette ft stewart,everybody feeling something,house,-10.547,0.7543,9,107,2014,0.7429,362830,3,0.4932\n\
+		Dayne S,Dat 80's (Original Mix),deepHouse,-6.572,0.9232,4,93,2016,0.8223,4576238,1,0.9273";
+		
+		//here we will make the canvas where we will put the circles 
+		var container = d3.select(".canvas").append("svg").attr("width",650).attr("height",550).attr("class","svgCanvas");
+//		var cleaner = d3.select("svg").append("svg").attr("width",500).attr("height",500);
+		var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+		
+// 		var axeX = container.append("line").attr("x1",500).attr("y1",0).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",1);
+ 		var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		
+ 		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",500).attr("y2",0).attr("stroke","black").attr("stroke-width",2);
+		
+		var titleX = container.append("rect").attr("x",150).attr("y",505).attr("width",160).attr("height",45).attr("fill","yellow");
+		var titleY = container.append("rect").attr("x",505).attr("y",227).attr("width",46).attr("height",160).attr("fill","yellow");
+		
+		function parseCSV(music){
+			  var lines = music.split("\n"); //split the csv in rows
+			  var metadata = lines[0].split(","); //first row of the csv file that contains the name of the metadata that we are using 
+			  var rows = lines.slice(1); // Data without metadata tags
+			  var data= rows.map(function(row){//we prepair the object to be send 
+			      var entries = row.split(",");
+			      var rowObject={};
+			      var i=0;
+			      metadata.forEach(function(metadata,i ){
+			          //   console.log(metadata[i]);
+			          rowObject[metadata] = entries[i]; 
+			          i++;
+			      });
+			     return rowObject;
+			  });
+			  return data;
+	}
+
+//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
+		
+	
+	//var parsedCSV = parseCSV(music);
+	var parsedCSV = d3.csv.parse(music,function(rowObject){
+		rowObject["loudness"] = parseFloat(rowObject["loudness"]);
+		rowObject["energy"] = parseFloat(rowObject["energy"]);
+		rowObject["key"] = parseFloat(rowObject["key"]);
+		rowObject["tempo"] = parseFloat(rowObject["tempo"]);
+		rowObject["Jahr"] = parseFloat(rowObject["Jahr"]);
+		rowObject["danceability"] = parseFloat(rowObject["danceability"]);
+		rowObject["duration"] = parseFloat(rowObject["duration"]);
+		rowObject["playcount"] = parseFloat(rowObject["playcount"]);
+		rowObject["hotness"] = parseFloat(rowObject["hotness"]);
+		return rowObject;
+	});
+	
+	//console.log(parsedCSV);
+
+	var counter = parsedCSV.length;	
+		
+	//console.log("length of object array " + parsedCSV.length);
+	//console.log("object in position 3 " + getFields(parsedCSV,"energy (from 0.0 to 1.0)"));
+	var xAchseOption;
+	var xAchse;
+	var yAchseOption;	
+	var kreisGrosseOption;
+	
+	$(document).ready(function(){
+		/*
+		
+		function getFields(input, field) {
+		    var output = [];
+		    for (var i=0; i < input.length ; ++i)
+		        output.push(input[i][field]);
+		    return output;
+		}*/
+		
+		// Achse select
+		$('#achsen').change(function(){ 
+			xAchseOption = $("#xAchse option:selected");
+			if 		(xAchseOption.val() ==="danceability")	{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}		
+			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}		
+			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+			else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+			else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+			else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+
+			yAchseOption = $("#yAchse option:selected");
+			
+			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}		
+			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}		
+			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}
+			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+			else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+		});
+
+// 		$('#kreisGrosse').change(function(){ 
+// 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
+// 			if 		(kreisGrosseOption.val() ==="danceability")	{ xAchse = kreisGrosseOption.val();  console.log("xAchse variable " + xAchse);}		
+// 			else if (kreisGrosseOption.val() ==="energy")		{ xAchse = kreisGrosseOption.val();  console.log("xAchse variable " + xAchse);}		
+
+		
+		
+		
+		
+		
+		//color select
+		$("#colorDanceability").hide();
+		$("#colorEnergy").hide();
+		$("#colorTempo").hide();	
+		$("#colorGenre").hide();
+		function colorGenre(genre) {
+            if (genre ==="dance") {return "red"}
+            else if (genre ==="deepHouse") {return "green"}		            
+            else if (genre ==="house") {return "blue"}		            
+            else if (genre ==="latinParty") {return "pink"}		            
+            else{ return "black" };  
+		};
+		
+		$("#colorKey").hide();
+		function colorKey(key) {
+            if 		(key ===0) {return "rgb(31,120,180)"	}
+            else if (key ===1) {return "rgb(166,206,227)"	}		            
+            else if (key ===2) {return "rgb(106,61,154)"	}		            
+            else if (key ===3) {return "rgb(202,178,214)"	}		            
+            else if (key ===4) {return "rgb(177,89,40)"		}		            
+            else if (key ===5) {return "rgb(227,26,28)"		}		            
+            else if (key ===6) {return "rgb(251,154,153)"	}		            
+            else if (key ===7) {return "rgb(255,127,0)"		}		            
+            else if (key ===8) {return "rgb(253,191,111)"	}		            
+            else if (key ===9) {return "rgb(51,160,44)"		}		            
+            else if (key ===10) {return "rgb(178,223,138)"	}		            
+            else if (key ===11) {return "rgb(255,255,153)"	}		            
+            else{ return "black" };  
+		};
+		
+		$('#colorFilter').change(function(){ 
+			var colorOption = $('#colorFilter option:selected');
+			if (colorOption.val()==="1"){ 
+				//this 3 lines are for "cleaning" the canvas for a new request
+				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				
+				$("#colorDanceability").toggle();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();		
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+			}
+		 	if (colorOption.val()==="2"){ 
+		 		var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				
+				$("#colorDanceability").hide();
+				$("#colorEnergy").toggle();
+				$("#colorTempo").hide();		
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+			}
+			if (colorOption.val()==="3"){ 
+				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				
+				$("#colorDanceability").hide();		
+				$("#colorEnergy").hide();
+				$("#colorTempo").toggle();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+			}
+			if (colorOption.val()==="4"){ 
+				//var container = d3.select("#canvas").append("svg").attr("width",500).attr("height",500);
+				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				
+				
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();		
+				$("#colorGenre").toggle();
+				$("#colorKey").hide();
+				
+				//for x as energy (0 to 1 with 3 decimals) 
+				//for y danceability (0 to 1 with 3 decimals)
+				//for radio (big of the circle)  -> hotness
+				for (var i = 0; i < parsedCSV.length; i++) { 
+					
+					// making the function for doing the color selection in key
+					var genre = parsedCSV[i]["genre"];
+
+					
+					var circle = container.append("circle")
+					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) )
+					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
+					.attr("r",((parsedCSV[i]["hotness"]*20)))
+					.attr("fill",colorGenre(genre));
+				}
+				
+			
+			}
+			if (colorOption.val()==="5"){ //key is the color of the circles
+				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				
+				//var container = d3.select("#canvas").append("svg").attr("width",500).attr("height",500);
+
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();		
+				$("#colorGenre").hide();
+				$("#colorKey").toggle();
+				
+				
+				for (var i = 0; i < parsedCSV.length; i++) { 
+					
+					// making the function for doing the color selection in key
+					var key = parsedCSV[i]["key"];
+					
+					if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
+						var circle = container.append('circle')
+						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2) )
+						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+						.attr('r',((parsedCSV[i]['hotness']*20)))
+						.attr('fill',colorKey(key));					
+					}
+					if (xAchse ==="tempo"){
+						var circle = container.append('circle')
+						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400) )
+						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+						.attr('r',((parsedCSV[i]['hotness']*20)))
+						.attr('fill',colorKey(key));					
+					}
+					
+					
+				}
+			}
+		
+		  });
+		
+		});
+</script>
+
+
+
+
+<p id="achsen">Achsen:
+	&nbsp;&nbsp;&nbsp; &nbsp;x:
+  	<select id="xAchse" name="x">
+	    <option value="danceability">	Danceability	</option>
+	    <option value="energy">			Energy		</option>
+	    <option value="tempo">			Tempo		</option>
+	    <option value="playcount">		Playcount	</option>
+	    <option value="loudness">		Loudness	</option>
+	    <option value="jahr">			Jahr		</option>
+	  	<option value="key">			Key			</option>
+	</select>
+	&nbsp;&nbsp;&nbsp;&nbsp;y: 
+  	<select id="yAchse" name="y">
+	    <option value="danceability">	Danceability	</option>
+	    <option value="energy">			Energy		</option>
+	    <option value="tempo">			Tempo		</option>
+	    <option value="playcount">		Playcount	</option>
+	    <option value="loudness">		Loudness	</option>
+	    <option value="jahr">			Jahr		</option>
+	  	<option value="key">			Key			</option>
+  	</select>
+ </p>
+  
+ <p id="kreisGrose">Kreis Größe:
+
+	<select id="kreisGrosseSelect" name="x">
+	    <option value="danceability">	Danceability	</option>
+	    <option value="energy">			Energy		</option>
+	    <option value="tempo">			Tempo		</option>
+	    <option value="playcount">		Playcount	</option>
+	    <option value="loudness">		Loudness	</option>
+	    <option value="jahr">			Jahr		</option>
+	  	<option value="key">			Key			</option>
+	</select>
+</p>
+
+<p>Color Filter</p> 
+	<select id="colorFilter">
+    	<option value="1" >Danceability	</option>
+   		<option value="2" >Energy		</option>
+    	<option value="3" >Tempo		</option>
+    	<option value="4" >Genre		</option>
+    	<option value="5" >Key			</option>
+  	</select>
+  	
+  	
+<div id="colorDanceability"> 
+<!-- here comes the slider bar -->
+<p> test danceability</p>
+</div>  	
+
+<div id="colorEnergy"> 
+<!-- here comes the slider bar -->
+<p> test energy</p>
+</div>  	  
+
+<div id="colorTempo"> 
+<!-- here comes the slider bar -->
+<p> test tempo</p>
+</div>  	
+
+<div id="colorKey">	
+  	<!-- Keyboard with the colors that we are going to use -->
+	<br>
+
+	<svg width="350" height="150" >
+  
+  	<!-- notes (C,D,E,F,G,A,B)-->
+		<rect x="0" 	y="0" 	width="50" height="150" 	style="fill:rgb(31,120,180);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="50" 	y="0" 	width="50" height="150"		style="fill:rgb(106,61,154);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="100" 	y="0" 	width="50" height="150" 	style="fill:rgb(177,89,40);		stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="150" 	y="0" 	width="50" height="150" 	style="fill:rgb(227,26,28);		stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="200" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,127,0);		stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="250" 	y="0" 	width="50" height="150" 	style="fill:rgb(51,160,44);		stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="300" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,255,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+	
+	<!-- sharp notes (C# ,D# ,F#, G#, A#) -->
+		<rect x="35" 	y="50" 	width="30" height="50" 		style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="85" 	y="50" 	width="30" height="50" 		style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="185" 	y="50" 	width="30" height="50" 		style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="235" 	y="50" 	width="30" height="50" 		style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+		<rect x="285" 	y="50" 	width="30" height="50" 		style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+	
+		<rect x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+	<!-- circles for notes of keys -->	
+		<circle cx="24" cy="125" r="14"  fill="white" />
+		<circle cx="74" cy="125" r="14"  fill="white" />
+		<circle cx="124" cy="125" r="14"  fill="white" />
+		<circle cx="174" cy="125" r="14"  fill="white" />
+		<circle cx="224" cy="125" r="14"  fill="white" />
+		<circle cx="274" cy="125" r="14"  fill="white" />
+		<circle cx="324" cy="125" r="14"  fill="white" />
+	<!-- circles for notes of keys -->	
+		<text x="19" y="130" fill="black"> C </text>
+		<text x="69" y="130" fill="black"> D </text>
+		<text x="119" y="130" fill="black"> E </text>
+		<text x="169" y="130" fill="black"> F </text>
+		<text x="219" y="130" fill="black"> G </text>
+		<text x="269" y="130" fill="black"> A </text>
+		<text x="319" y="130" fill="black"> B </text>
+		
+		<circle cx="50" cy="75" r="12"  fill="white" />
+		<circle cx="100" cy="75" r="12"  fill="white" />
+		<circle cx="200" cy="75" r="12"  fill="white" />
+		<circle cx="250" cy="75" r="12"  fill="white" />
+		<circle cx="300" cy="75" r="12"  fill="white" />	
+		
+		<text x="42" y="80" fill="black"> C# </text>
+		<text x="92" y="80" fill="black"> D# </text>
+		<text x="192" y="80" fill="black"> F# </text>
+		<text x="242" y="80" fill="black"> A# </text>
+		<text x="292" y="80" fill="black"> G# </text>
+		
+	</svg>
+</div>
+
+<!-- Table for the color selection of genre -->
+
+<div id="colorGenre">
+<br>
+<table bgcolor="silver" cellpadding="5" align="left" width="20%">
+    <tr align="center">
+    <td>genre1</td>
+    <td bgcolor="blue">genre2</td>
+    <td bgcolor="red">genre3</td>
+    </tr>
+    <tr align="center">
+    <td bgcolor="green">genre4</td>
+    <td bgcolor="pink">genre5</td>
+    <td bgcolor="braun">genre6</td>
+    </tr>
+    <tr align="center" bgcolor="purple">
+    <td>genre7</td>
+    <td bgcolor="yellow">genre8</td>
+    <td bgcolor="orange">genre9</td>
+    </tr>
+</table>
+</div>
+
+
+<!-- this here is for the jquery show or no show
+
+
+
+ 	$("#filterButton").click(function(){
+		    $("#language").toggle();
+		    $("#country").toggle();
+		   });
+		
+
+		<button id="filterButton" type="button" class="buttonFilter">Filters</button>
+		<div id="language" class="language" style="float: left; width: 110px;">
+			<br/>
+			<label > Language:</label>	
+		<input type="radio" name="group2" value="english" >English<br>
+			<input type="radio" name="group2" value="german">German<br>
+		<input type="radio" name="group2" value="italian">Italian<br>
+		<input type="radio" name="group2" value="french">French<br>
+	</div>	
+	
+	
+		<div id="country" class="country" style="float: left; width: 110px;">
+			<br/>
+			<label > Country:</label>
+		<input type="radio" name="group3" value="germany">Germany<br>
+			<input type="radio" name="group3" value="austria">Austria<br>
+		<input type="radio" name="group3" value="france">France<br>
+		<input type="radio" name="group3" value="italy">Italy<br>
+	</div>    
+	
+	 -->
+	 
+<script src="nouislider.min.js">
+
+var range = document.getElementById('colorSlide');
+
+noUiSlider.create(range, {
+	start: [ 0.0000, 1.0000 ], // Handle start position
+	step: 0.0001, // Slider moves in increments of '10'
+	margin: 20, // Handles must be more than '20' apart
+	connect: true, // Display a colored bar between the handles
+	direction: 'rtl', // Put '0' at the bottom of the slider
+	orientation: 'horizontal', // Orient the slider vertically
+	behaviour: 'tap-drag', // Move handle on tap, bar is draggable
+	range: { // Slider can select '0' to '100'
+		'min': 0.0000,
+		'max': 1.0000
+	},
+	pips: { // Show a scale with the slider
+		mode: 'steps',
+		density: 2
+	}
+});</script>
+
+
+
+
+<script type="text/javascript">
+
+//		d3.csv("selbstgemachtCsvForPrototype2.csv", function(data) {
+/*	 teil von script der ist da zu sehen wie soll man data hochladen an eine html seite. noch nicht benutzt 				
+				console.log(data);
+				var body = d3.select("body");
+				var myDiv = body.append("div");
+				myDiv.text("PROTOTYPE MUSIC ANALYSIS");
+				
+				var container = d3.select("body").append("svg").attr("width",500).attr("height",500).attr("fill","yellow");
+				var containerBackground = container.append("rect").attr("width",500).attr("height",500).attr("fill","blue").attr("fill-opacity",0.1);
+				var circle = container.append("circle").attr("cx",100).attr("cy",100).attr("r",10).attr("fill","green");
+				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+					
+				data.forEach(function(d){ d.title = +d.title });
+//		});
+		
+			
+			d3.select("body").selectAll("p").data(data).enter().append("p").text(
+		 	function(d){
+ 			return d + ",	";
+ 			});
+
+			<!-- 2te tutorial 17.03.2016-->
+			
+			
+			var fruitData = d3.csv("fruit.csv", function(fruitData) {
+				console.log(fruitData);
+			d3.select("body").selectAll("p").data(fruitData).enter().append("p").text(
+		 	function(d){
+ 			return d + ",	";
+ 			});
+	
+			//selbstgemachtCsvForPrototype.csv
+		
+			d3.max(fruitData, function(d) {    //Returns 480
+    			console.log (d);
+			
+    			return d[0];  //References first value in each sub-array
+			});
+			
+			var myScale = d3.scale.linear()
+			.domain([0, 100])
+			.range([0, 10]);
+			myScale(50); //Maps 50 -> 5 and returns 5
+
+			});
+*/
+</script>
+
+	</body>
+</html>

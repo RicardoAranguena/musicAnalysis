@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<script src="d3.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<title></title>
+
+		<style>
+		table, th, td {
+		    border: 1px solid black;
+		    border-collapse: collapse;
+		}
+		th, td {
+		    padding: 15px;
+		}
+</style>
+
+	</head>
+	<body>
+	<!--
+		<div id="myID">This div has a unique ID. No other element can have the same. </div>
+		<div class="myClass">This div has member of a class. The class can be shared by multiple elements.
+		</div>
+
+		<svg width="800" height="400">
+			<rect x="0" y="0" width="75" height="75" fill="yellow" />
+			<line x1="0" y1="0" x2="800" y2="400" stroke="black" stroke-width="3" />
+			<ellipse cx="250" cy="150" rx="30" ry="50" fill="red" />
+			<text x="100" y="30" fill="green">wuzaaaaaap</text>
+			<ellipse cx="100" cy="100" rx="60" ry="60" fill="blue" />
+			<circle cx="25" cy="25" r="60" fill="purple" />
+
+
+		</svg>
+		 -->
+
+
+
+		<br>
+
+		<script>
+		$(document).ready(function(){
+		    $("i").click(function(){
+		        $(this).hide();
+		    });
+		});
+
+
+	/*		var body = d3.select("body");
+			var myDiv = body.append("div");
+			myDiv.text("PROTOTYPE MUSIC ANALYSIS");
+
+
+			var container = d3.select("body").append("svg").attr("width",500).attr("height",500).attr("fill","yellow");
+			var containerBackground = container.append("rect").attr("width",500).attr("height",500).attr("fill","yellow");
+			var circle = container.append("circle").attr("cx",100).attr("cy",100).attr("r",10).attr("fill","green");
+			var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+			var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+			//			var data = [2, 3 , 20,5, 31,30];
+*/
+			d3.csv("selbstgemachtCsvForPrototype.csv", function(data) {
+					console.log(data);
+
+					var body = d3.select("body");
+					var myDiv = body.append("div");
+					myDiv.text("PROTOTYPE MUSIC ANALYSIS");
+
+					var container = d3.select("body").append("svg").attr("width",500).attr("height",500).attr("fill","yellow");
+					var containerBackground = container.append("rect").attr("width",500).attr("height",500).attr("fill","blue").attr("fill-opacity",0.1);
+					var circle = container.append("circle").attr("cx",100).attr("cy",100).attr("r",10).attr("fill","green");
+					var circle2 = container.append("circle").attr("cx",200).attr("cy",200).attr("r",20).attr("fill","green");
+					var circle3 = container.append("circle").attr("cx",100).attr("cy",170).attr("r",10).attr("fill","orange");
+					var circle4 = container.append("circle").attr("cx",170).attr("cy",100).attr("r",10).attr("fill","yellow");
+					var circle5 = container.append("circle").attr("cx",300).attr("cy",270).attr("r",15).attr("fill","blue");
+					var circle6 = container.append("circle").attr("cx",400).attr("cy",470).attr("r",13).attr("fill","purple");
+					var circle7 = container.append("circle").attr("cx",420).attr("cy",160).attr("r",10).attr("fill","orange");
+					var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+					var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+
+
+			});
+
+
+			d3.select("body").selectAll("p").data(data).enter().append("p").text(
+		 	function(d){
+ 			return d + ",	";
+ 			});
+
+			/*<!-- 2te tutorial 17.03.2016-->*/
+
+
+			var fruitData = d3.csv("fruit.csv", function(fruitData) {
+				console.log(fruitData);
+
+
+
+			d3.select("body").selectAll("p").data(fruitData).enter().append("p").text(
+		 	function(d){
+ 			return d + ",	";
+ 			});
+
+			//selbstgemachtCsvForPrototype.csv
+
+			d3.max(fruitData, function(d) {    //Returns 480
+    			return d[0];  //References first value in each sub-array
+			});
+
+			var myScale = d3.scale.linear()
+			.domain([0, 100])
+			.range([0, 10]);
+			myScale(50); //Maps 50 -> 5 and returns 5
+
+
+			});
+
+			function myFunction() {
+			    document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+}
+		</script>
+
+
+
+<div>
+<i>trying the jquery</i>
+<p>Achsen :
+  <select name="x">
+    <option value="dancebility">Dancebility</option>
+    <option value="energy">Energy</option>
+    <option value="key">Key</option>
+    <option value="tempo">Tempo</option>
+    <option value="playcount">Playcount</option>
+    <option value="loudness">Loudness</option>
+    <option value="jahr">Jahr</option>
+  </select>
+
+    <select name="y">
+      <option value="dancebility">Dancebility</option>
+      <option value="energy">Energy</option>
+      <option value="key">Key</option>
+      <option value="tempo">Tempo</option>
+      <option value="playcount">Playcount</option>
+      <option value="loudness">Loudness</option>
+      <option value="jahr">Jahr</option>
+  </select>
+  </p>
+
+</div>
+
+<p>Kreis Größe :
+
+  <select name="x">
+    <option value="kunst">Dancebility</option>
+    <option value="natur">Energy</option>
+    <option value="natur">Tempo</option>
+    <option value="natur">Playcount</option>
+    <option value="natur">Loudness</option>
+    <option value="natur">Jahr</option>
+  </select>
+</p>
+
+<p>Kreis Farbe :
+
+  <select name="x">
+    <option value="kunst">Dancebility</option>
+    <option value="natur">Energy</option>
+    <option value="natur">Tempo</option>
+    <option value="natur">Genre</option>
+  </select>
+</p>
+
+
+<style>
+div.scroll
+{
+background-color:#00FFFF;
+height:10px;
+overflow-x:scroll;
+white-space: nowrap;
+}
+</style>
+
+
+<div class="scroll">You can use the overflow property when you want to have better control of the layout. The default value is visible.You can use the overflow property when you want to have better control of the layout. The default value is visible.</div>
+
+<br>
+<table bgcolor="silver" cellpadding="5" align="left" width="20%">
+    <tr align="center">
+    <td>genre1</td>
+    <td bgcolor="blue">genre2</td>
+    <td bgcolor="red">genre3</td>
+    </tr>
+    <tr align="center">
+    <td bgcolor="green">genre4</td>
+    <td bgcolor="pink">genre5</td>
+    <td bgcolor="braun">genre6</td>
+    </tr>
+    <tr align="center" bgcolor="purple">
+    <td>genre7</td>
+    <td bgcolor="yellow">genre8</td>
+    <td bgcolor="orange">genre9</td>
+    </tr>
+</table>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Keyboard with the colors that we are going to use -->
+<p>Key :</p>
+
+<svg width="350" height="150" >
+  <!-- notes (C,D,E,F,G,A,B)-->
+<rect x="0" 	y="0" 	width="50" height="150" 	style="fill:rgb(31,120,180);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="50" 	y="0" 	width="50" height="150"		style="fill:rgb(106,61,154);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="100" 	y="0" 	width="50" height="150" 	style="fill:rgb(177,89,40);		stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="150" 	y="0" 	width="50" height="150" 	style="fill:rgb(227,26,28);		stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="200" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,127,0);		stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="250" 	y="0" 	width="50" height="150" 	style="fill:rgb(51,160,44);		stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="300" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,255,153);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+	<!-- sharp notes (C# ,D# ,F#, G#, A#) -->
+<rect x="35" 	y="50" 	width="30" height="50" 		style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="85" 	y="50" 	width="30" height="50" 		style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="185" 	y="50" 	width="30" height="50" 		style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="235" 	y="50" 	width="30" height="50" 		style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+<rect x="285" 	y="50" 	width="30" height="50" 		style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(0,0,0)"/>
+
+<rect x="0" y="0" width="350" height="50" fill="black"/>
+
+</svg>
+
+<br>
+
+
+<br>
+<p>Filter :
+  <select name="x">
+    <option value="dancebility">Dancebility</option>
+    <option value="energy">Energy</option>
+    <option value="tempo">Tempo</option>
+    <option value="loudness">Loudness</option>
+    <option value="jahr">Jahr</option>
+  </select>
+</p>
+
+
+<div class="scroll">You can use the overflow property when you want to have better control of the layout. The default value is visible.You can use the overflow property when you want to have better control of the layout. The default value is visible.</div>
+
+	</body>
+</html>
