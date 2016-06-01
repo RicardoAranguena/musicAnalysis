@@ -2,16 +2,43 @@
 <html lang="en">
 <head>
 		<meta charset="UTF-8">
+		
+		<link rel="stylesheet" href="css/jslider.css" type="text/css">
+		<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
+		<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
+		<link rel="stylesheet" href="css/jslider.round.css" type="text/css">
+		<link rel="stylesheet" href="css/jslider.round.plastic.css" type="text/css">
+		
 		<script src="d3.min.js"></script>
 		<script src="d3.js"></script>
 		<script src="jquery-1.12.4.min.js"></script>
-		<link href="nouislider.min.css" rel="stylesheet">
+		
+		<script type="text/javascript" src="js/jshashtable-2.1_src.js"></script>
+		<script type="text/javascript" src="js/jquery.numberformatter-1.2.3.js"></script>
+		<script type="text/javascript" src="js/tmpl.js"></script>
+		<script type="text/javascript" src="js/jquery.dependClass-0.1.js"></script>
+		<script type="text/javascript" src="js/draggable-0.1.js"></script>
+		<script type="text/javascript" src="js/jquery.slider.js"></script>
 		
 		<title>Prototype Music Analysis </title>
+		
+		<style>
+		.slider {
+		    padding: 40px 0px;
+			display: inline-block;
+			width: 400px;
+		}
+		.colors span {
+			width: 50px;
+			height: 50px;
+			display: inline-block;
+		}
+		
+		</style>
 </head>
 <body>
 
-	<p >PROTOTYPE MUSIC ANALYSIS</p>
+	<p >PROTOTYPE MUSIC ANALYSIS probe</p>
 	<br>
 	<div class=canvas> </div>
 	
@@ -302,10 +329,47 @@
 			}
 		
 		  });
+				
+		function buildSliders() {
+			var danceability = $('#colorDanceability input');
+			var energy = $('#colorEnergy input');
+			var tempo = $('#colorTempo input');
+			var jahr = $('#jahr input');
+			
+			danceability.slider({
+				from: 0,
+				to: 1,
+				step: 0.1,
+				smooth: false,
+				round: 1,
+				scale: [0, '|', .5, '|', 1],
+				skin: "plastic"
+			});
+			
+			energy.slider({
+				from: 0,
+				to: 1,
+				step: 0.1,
+				smooth: false,
+				round: 1,
+				scale: [0, '|', .5, '|', 1],
+				skin: "plastic"
+			});
+			
+			jahr.slider({
+				from: 1990,
+				to: 2016,
+				step: 1,
+				round: 0,
+				scale: [50, '|', 125, '|', 200],
+				skin: "plastic"
+			});
+		}
 		
-		});
-</script>
+		buildSliders();
+	});
 
+</script>
 
 
 
@@ -356,19 +420,53 @@
   	
   	
 <div id="colorDanceability"> 
-<!-- here comes the slider bar -->
-<p> test danceability</p>
+<span class="slider">
+	<input type="slider" name="price" value="0.1;0.9" />
+</span>
+<div class="colors">
+	<span style="background-color: rgba(153, 0, 0, .25)"></span>
+	<span style="background-color: rgba(153, 0, 0, .4)"></span>
+	<span style="background-color: rgba(153, 0, 0, .55)"></span>
+	<span style="background-color: rgba(153, 0, 0, .7)"></span>
+	<span style="background-color: rgba(153, 0, 0, .85)"></span>
+	<span style="background-color: rgba(153, 0, 0, 1)"></span>
+</div>
 </div>  	
 
 <div id="colorEnergy"> 
-<!-- here comes the slider bar -->
-<p> test energy</p>
+<span class="slider">
+	<input type="slider" name="price" value="0.1;0.9" />
+</span>
+<div class="colors">
+	<span style="background-color: rgba(153, 0, 0, .25)"></span>
+	<span style="background-color: rgba(153, 0, 0, .4)"></span>
+	<span style="background-color: rgba(153, 0, 0, .55)"></span>
+	<span style="background-color: rgba(153, 0, 0, .7)"></span>
+	<span style="background-color: rgba(153, 0, 0, .85)"></span>
+	<span style="background-color: rgba(153, 0, 0, 1)"></span>
+</div>
 </div>  	  
 
 <div id="colorTempo"> 
-<!-- here comes the slider bar -->
-<p> test tempo</p>
-</div>  	
+<span class="slider">
+	<input type="slider" name="price" value="50;200" />
+</span>
+<div class="colors">
+	<span style="background-color: rgba(153, 0, 0, .25)"></span>
+	<span style="background-color: rgba(153, 0, 0, .4)"></span>
+	<span style="background-color: rgba(153, 0, 0, .55)"></span>
+	<span style="background-color: rgba(153, 0, 0, .7)"></span>
+	<span style="background-color: rgba(153, 0, 0, .85)"></span>
+	<span style="background-color: rgba(153, 0, 0, 1)"></span>
+</div>
+</div>
+
+<div id="jahr"> 
+<p><strong>Jahr:</strong></p> 
+<div class="slider">
+	<input type="slider" name="price" value="1990;2016" />
+</span>
+</div>    	
 
 <div id="colorKey">	
   	<!-- Keyboard with the colors that we are going to use -->
