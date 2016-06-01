@@ -5,9 +5,35 @@
 		<script src="d3.min.js"></script>
 		<script src="d3.js"></script>
 		<script src="jquery-1.12.4.min.js"></script>
-		<link href="nouislider.min.css" rel="stylesheet">
+		<!-- link href="nouislider.min.css" rel="stylesheet" -->
+		
+		<link rel="stylesheet" href="egorkhmelev-jslider-696822f/css/jslider.css" type="text/css">
+		<link rel="stylesheet" href="egorkhmelev-jslider-696822f/css/jslider.blue.css" type="text/css">
+		<link rel="stylesheet" href="egorkhmelev-jslider-696822f/css/jslider.plastic.css" type="text/css">
+		<link rel="stylesheet" href="egorkhmelev-jslider-696822f/css/jslider.round.css" type="text/css">
+		<link rel="stylesheet" href="egorkhmelev-jslider-696822f/css/jslider.round.plastic.css" type="text/css">
+		
+		<script type="text/javascript" src="egorkhmelev-jslider-696822f/js/jshashtable-2.1_src.js"></script>
+		<script type="text/javascript" src="egorkhmelev-jslider-696822f/js/jquery.numberformatter-1.2.3.js"></script>
+		<script type="text/javascript" src="egorkhmelev-jslider-696822f/js/tmpl.js"></script>
+		<script type="text/javascript" src="egorkhmelev-jslider-696822f/js/jquery.dependClass-0.1.js"></script>
+		<script type="text/javascript" src="egorkhmelev-jslider-696822f/js/draggable-0.1.js"></script>
+		<script type="text/javascript" src="egorkhmelev-jslider-696822f/js/jquery.slider.js"></script>
 		
 		<title>Prototype Music Analysis </title>
+		<style>
+		.slider {
+		    padding: 40px 0px;
+			display: inline-block;
+			width: 400px;
+		}
+		.colors span {
+			width: 50px;
+			height: 50px;
+			display: inline-block;
+		}
+		
+		</style>
 </head>
 <body>
 
@@ -174,9 +200,6 @@
 
 		
 		
-		
-		
-		
 		//color select
 		$("#colorDanceability").hide();
 		$("#colorEnergy").hide();
@@ -333,6 +356,46 @@
 		  });
 		
 		});
+		
+	function buildSliders() {
+		var danceability = $('#colorDanceability input');
+		var energy = $('#colorEnergy input');
+		var tempo = $('#colorTempo input');
+		var jahr = $('#jahr input');
+		
+		danceability.slider({
+			from: 0,
+			to: 1,
+			step: 0.1,
+			smooth: false,
+			round: 1,
+			scale: [0, '|', .5, '|', 1],
+			skin: "plastic"
+		});
+		
+		energy.slider({
+			from: 0,
+			to: 1,
+			step: 0.1,
+			smooth: false,
+			round: 1,
+			scale: [0, '|', .5, '|', 1],
+			skin: "plastic"
+		});
+		
+		jahr.slider({
+			from: 1990,
+			to: 2016,
+			step: 1,
+			round: 0,
+			scale: [50, '|', 125, '|', 200],
+			skin: "plastic"
+		});
+	}
+	
+	buildSliders();
+});
+		
 </script>
 
 
