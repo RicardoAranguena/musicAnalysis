@@ -26,6 +26,7 @@
 	
 	//buscar el slider doble e instalarlo
 	
+	//conseguir subir info desde un csv
 	//hacer la informacion de spotify
 	
 	
@@ -67,16 +68,18 @@
 		//here we will make the canvas where we will put the circles 
 		var container = d3.select(".canvas").append("svg").attr("width",650).attr("height",550).attr("class","svgCanvas");
 //		var cleaner = d3.select("svg").append("svg").attr("width",500).attr("height",500);
-		var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
+		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 		
-// 		var axeX = container.append("line").attr("x1",500).attr("y1",0).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",1);
- 		var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+ //		var axeX = container.append("line").attr("x1",500).attr("y1",0).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",1);
+ 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+			
+		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+//		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",500).attr("y2",0).attr("stroke","black").attr("stroke-width",2);
 		
- 		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-// 		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",500).attr("y2",0).attr("stroke","black").attr("stroke-width",2);
-		
-		var titleX = container.append("rect").attr("x",150).attr("y",505).attr("width",160).attr("height",45).attr("fill","yellow");
-		var titleY = container.append("rect").attr("x",505).attr("y",227).attr("width",46).attr("height",160).attr("fill","yellow");
+		var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","yellow");
+		var titleY = container.append("rect").attr("x",20).attr("y",170).attr("width",46).attr("height",160).attr("fill","yellow");
 		
 		function parseCSV(music){
 			  var lines = music.split("\n"); //split the csv in rows
@@ -200,9 +203,11 @@
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="1"){ 
 				//this 3 lines are for "cleaning" the canvas for a new request
-				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 				
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
@@ -211,9 +216,11 @@
 				$("#colorKey").hide();
 			}
 		 	if (colorOption.val()==="2"){ 
-		 		var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 				
 				$("#colorDanceability").hide();
 				$("#colorEnergy").toggle();
@@ -222,9 +229,11 @@
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="3"){ 
-				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 				
 				$("#colorDanceability").hide();		
 				$("#colorEnergy").hide();
@@ -233,10 +242,11 @@
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="4"){ 
-				//var container = d3.select("#canvas").append("svg").attr("width",500).attr("height",500);
-				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 				
 				
 				$("#colorDanceability").hide();
@@ -255,7 +265,7 @@
 
 					
 					var circle = container.append("circle")
-					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) )
+					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
 					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
 					.attr("r",((parsedCSV[i]["hotness"]*20)))
 					.attr("fill",colorGenre(genre));
@@ -264,9 +274,11 @@
 			
 			}
 			if (colorOption.val()==="5"){ //key is the color of the circles
-				var cleaner = container.append("rect").attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",0).attr("y1",500).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
-				var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",500).attr("stroke","black").attr("stroke-width",3);
+				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 				
 				//var container = d3.select("#canvas").append("svg").attr("width",500).attr("height",500);
 
@@ -284,14 +296,14 @@
 					
 					if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
 						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2) )
+						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
 						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
 						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));					
 					}
 					if (xAchse ==="tempo"){
 						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400) )
+						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
 						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
 						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));					
