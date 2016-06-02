@@ -267,6 +267,7 @@
             else{ return "black" };
 		};
 
+<<<<<<< Updated upstream
 // 		function cleaner(){
 // 			var cleaner = container.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",650).attr("fill","white");
 // 			var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
@@ -284,13 +285,24 @@
 			if (colorOption.val()==="1"){
 		 		window.cleaner();
 
+=======
+		$('#colorFilter').change(function(){ 
+			var colorOption = $('#colorFilter option:selected');
+			if (colorOption.val()==="danceability"){ 
+		 		window.cleaner();		
+		 		
+>>>>>>> Stashed changes
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
+<<<<<<< Updated upstream
 		 	if (colorOption.val()==="2"){
+=======
+		 	if (colorOption.val()==="energy"){ 
+>>>>>>> Stashed changes
 		 		window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -299,7 +311,11 @@
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
+<<<<<<< Updated upstream
 			if (colorOption.val()==="3"){
+=======
+			if (colorOption.val()==="tempo"){ 
+>>>>>>> Stashed changes
 				window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -308,9 +324,15 @@
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
+<<<<<<< Updated upstream
 			if (colorOption.val()==="4"){
 				window.cleaner();
 
+=======
+			if (colorOption.val()==="genre"){ 
+				window.cleaner();	
+	
+>>>>>>> Stashed changes
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -331,9 +353,15 @@
 
 
 			}
+<<<<<<< Updated upstream
 			if (colorOption.val()==="5"){ //key is the color of the circles
 				window.cleaner();
 
+=======
+			if (colorOption.val()==="key"){ //key is the color of the circles
+				window.cleaner();	
+			
+>>>>>>> Stashed changes
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -444,11 +472,11 @@
 
 <p>Color Filter</p>
 	<select id="colorFilter">
-    	<option value="1" >Danceability	</option>
-   		<option value="2" >Energy		</option>
-    	<option value="3" >Tempo		</option>
-    	<option value="4" >Genre		</option>
-    	<option value="5" >Key			</option>
+    	<option value="danceability" >	Danceability	</option>
+   		<option value="energy" >		Energy		</option>
+    	<option value="tempo" >			Tempo		</option>
+    	<option value="genre" >			Genre		</option>
+    	<option value="key" >			Key			</option>
   	</select>
 
 
