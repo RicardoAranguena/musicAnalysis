@@ -269,18 +269,18 @@
 		};
 
 
-		$('#colorFilter').change(function(){ 
+		$('#colorFilter').change(function(){
 			var colorOption = $('#colorFilter option:selected');
-			if (colorOption.val()==="danceability"){ 
-		 		window.cleaner();		
-		 		
+			if (colorOption.val()==="danceability"){
+		 		window.cleaner();
+
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
-		 	if (colorOption.val()==="energy"){ 
+		 	if (colorOption.val()==="energy"){
 		 		window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -289,7 +289,7 @@
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
-			if (colorOption.val()==="tempo"){ 
+			if (colorOption.val()==="tempo"){
 				window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -298,9 +298,9 @@
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
-			if (colorOption.val()==="genre"){ 
-				window.cleaner();	
-	
+			if (colorOption.val()==="genre"){
+				window.cleaner();
+
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -322,7 +322,7 @@
 
 			}
 			if (colorOption.val()==="key"){ //key is the color of the circles
-				window.cleaner();	
+				window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
