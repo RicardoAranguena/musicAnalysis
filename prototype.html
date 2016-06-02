@@ -41,27 +41,32 @@
 </head>
 <body>
 
-	<p >PROTOTYPE MUSIC ANALYSIS probe</p>
+	<p >PROTOTYPE MUSIC ANALYSIS</p>
 	<br>
 	<div class=canvas> </div>
 	
 	<script> 
 	
+	//ideas de otras visualizacion
+	//hacer una busqueda por teclado de un genero especifico y mostrarlo
+	//beliebheit einem genre durch ein jahr
+	//popularity of artist
+	
+	//para la proxima para la exposicion mostrar una visuaizacion en particular y luego de eso 
+	//explicar que se puede ver y que se puede entender de la visualizacion
 	
 	// to do
 	// for para pegar los circulos fuera, se va a hacer un string que va a ser guardado en una variable 
 	//	y esa variable va a correr en el for de afuera, esa variable va a tener el comando de hacer el 
 	// att y todo lo demas.
 	// esa estring la va a ir haciendo los selects que se usen.
-	
-	//buscar el slider doble e instalarlo
-	
+
 	//conseguir subir info desde un csv
 	//hacer la informacion de spotify
 	
 	
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
-	
+
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
 	var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
 		s-man ,dangerous thoughts,dance,-12.733,0.626,3,121,2014,0.0808,535223,14,0.5183\n\
@@ -97,6 +102,12 @@
 		marlon roudette ft stewart,everybody feeling something,house,-10.547,0.7543,9,107,2014,0.7429,362830,3,0.4932\n\
 		Dayne S,Dat 80's (Original Mix),deepHouse,-6.572,0.9232,4,93,2016,0.8223,4576238,1,0.9273";
 		
+	
+	d3.csv("fruit.csv", function(data) {
+		  console.log(data[0]);
+		});
+	
+	
 		//here we will make the canvas where we will put the circles 
 		var container = d3.select(".canvas").append("svg").attr("width",650).attr("height",550).attr("class","svgCanvas");
 //		var cleaner = d3.select("svg").append("svg").attr("width",500).attr("height",500);
@@ -110,7 +121,9 @@
 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
 //		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",500).attr("y2",0).attr("stroke","black").attr("stroke-width",2);
 		
-	
+		var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+		var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+		
 		function parseCSV(music){
 			  var lines = music.split("\n"); //split the csv in rows
 			  var metadata = lines[0].split(","); //first row of the csv file that contains the name of the metadata that we are using 
@@ -159,16 +172,30 @@
 	var sliderLinks;
 	var sliderRechts;
 	
-// 	function cleaner(){
+	function cleaner(){
+		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
+		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+		var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+		var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+	
+		return ;
+	}
+	
+	$(document).ready(function(){
+
+// 	 	function cleaner(){
 // 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 // 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 // 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
 // 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 // 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-// 	return;
-// 	}
-	
-	$(document).ready(function(){
+// 			return ;
+// 		}
+		
+		
 		
 		// Achse select
 		$('#achsen').change(function(){ 
@@ -222,6 +249,7 @@
 		};
 		
 		$("#colorKey").hide();
+		
 		function colorKey(key) {
             if 		(key ===0) {return "rgb(31,120,180)"	}
             else if (key ===1) {return "rgb(166,206,227)"	}		            
@@ -237,41 +265,33 @@
             else if (key ===11) {return "rgb(255,255,153)"	}		            
             else{ return "black" };  
 		};
+		
 // 		function cleaner(){
-// 			var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+// 			var cleaner = container.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",650).attr("fill","white");
 // 			var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 // 			var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
 // 			var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 // 			var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+// 			var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+// 			var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+			
+// 			return ;
 // 		};
 		
 		$('#colorFilter').change(function(){ 
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="1"){ 
-		 //		cleaner();
-				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-		 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-		 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-			
+		 		window.cleaner();		
+		 		
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();		
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
-				
-				buildSliders();
-				
 			}
 		 	if (colorOption.val()==="2"){ 
-		 //		cleaner();
-				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-				
+		 		window.cleaner();
+		
 				$("#colorDanceability").hide();
 				$("#colorEnergy").toggle();
 				$("#colorTempo").hide();		
@@ -279,13 +299,7 @@
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="3"){ 
-	//			cleaner();
-			
-				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
+				window.cleaner();
 				
 				$("#colorDanceability").hide();		
 				$("#colorEnergy").hide();
@@ -294,28 +308,19 @@
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="4"){ 
-				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-				
-				
+				window.cleaner();	
+	
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();		
 				$("#colorGenre").toggle();
 				$("#colorKey").hide();
 				
-				//for x as energy (0 to 1 with 3 decimals) 
-				//for y danceability (0 to 1 with 3 decimals)
-				//for radio (big of the circle)  -> hotness
 				for (var i = 0; i < parsedCSV.length; i++) { 
 					
 					// making the function for doing the color selection in key
 					var genre = parsedCSV[i]["genre"];
 
-					
 					var circle = container.append("circle")
 					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
 					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
@@ -326,13 +331,8 @@
 			
 			}
 			if (colorOption.val()==="5"){ //key is the color of the circles
-//				cleaner();	
-				var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-		 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);					
-		 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2); 		
-
+				window.cleaner();	
+			
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();		
