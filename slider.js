@@ -49,8 +49,9 @@
 		
 		function RangeSave(){
 		var range;
-			range = document.getElementByName("price");
-			alert(range);
+			range = document.getElementsByName("tempo");
+			nodeItem = nodeList.item(value);
+			console.log(range);
 		};
 		
 		
