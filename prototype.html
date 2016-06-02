@@ -149,8 +149,12 @@
 	
 	var xAchseOption;
 	var xAchse;
+	
 	var yAchseOption;	
+	var yAchse;
+	
 	var kreisGrosseOption;
+	var kreisGrosse;
 	
 	var sliderLinks;
 	var sliderRechts;
@@ -166,46 +170,43 @@
 	
 	$(document).ready(function(){
 		
-		
-		
 		// Achse select
 		$('#achsen').change(function(){ 
 			xAchseOption = $("#xAchse option:selected");
 			if 		(xAchseOption.val() ==="danceability")	{ xAchse = xAchseOption.val();	console.log("xAchse variable " + xAchse);}
-			
 			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}		
 			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-
+			//wort an die achsen schreiben
 			var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
 			
 			yAchseOption = $("#yAchse option:selected");
-			
-			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();  var yTextContainer =  container.append("text").attr("x",20).attr("y",170).attr("transform","rotate(90 46,160)").attr("id","yAchseText").data(yAchse);
-			console.log("yAchse variable " + yAchse);}		
+			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}		
 			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}		
 			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();  console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			
+			//wort an die achsen schreiben
 			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
-			
-			
 		});
 
-// 		$('#kreisGrosse').change(function(){ 
-// 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
-// 			if 		(kreisGrosseOption.val() ==="danceability")	{ xAchse = kreisGrosseOption.val();  console.log("xAchse variable " + xAchse);}		
-// 			else if (kreisGrosseOption.val() ==="energy")		{ xAchse = kreisGrosseOption.val();  console.log("xAchse variable " + xAchse);}		
-
-		
+		$("#kreisGrosse").change(function(){ 
+			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
+			if 		(kreisGrosseOption.val() ==="danceability")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			else if (kreisGrosseOption.val() ==="jahr")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			else if	(kreisGrosseOption.val() ==="key")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+		});
 		
 		//color select
 		$("#colorDanceability").hide();
@@ -318,7 +319,7 @@
 					var circle = container.append("circle")
 					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
 					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
-					.attr("r",((parsedCSV[i]["hotness"]*20)))
+					.attr("r",((parsedCSV[i][kreisGrosse]/10)))
 					.attr("fill",colorGenre(genre));
 				}
 				
@@ -398,19 +399,8 @@
 				skin: "plastic"
 			});
 		}
-		
 		buildSliders();
-
-
-
-
-
-
-});//end document ready
-
-	
-	
-	
+	});//end document ready
 </script>
 
 
@@ -438,10 +428,10 @@
   	</select>
  </p>
   
- <p id="kreisGrose">Kreis Größe:
+ <p id="kreisGrosse">Kreis Größe:
 
 	<select id="kreisGrosseSelect" name="x">
-	    <option value="danceability">	Danceability	</option>
+	    <option value="danceability">	Danceability</option>
 	    <option value="energy">			Energy		</option>
 	    <option value="tempo">			Tempo		</option>
 	    <option value="playcount">		Playcount	</option>
