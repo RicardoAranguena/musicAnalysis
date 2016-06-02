@@ -60,7 +60,8 @@
 	//	y esa variable va a correr en el for de afuera, esa variable va a tener el comando de hacer el
 	// att y todo lo demas.
 	// esa estring la va a ir haciendo los selects que se usen.
-
+	// etiqueten von values in die achsen schreiben
+	
 	//conseguir subir info desde un csv
 	//hacer la informacion de spotify
 
@@ -68,8 +69,8 @@
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
 
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
-	var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
-		s-man ,dangerous thoughts,dance,-12.733,0.626,3,121,2014,0.0808,535223,14,0.5183\n\
+	var music="	Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
+		s-man,dangerous thoughts,dance,-12.733,0.626,3,121,2014,0.0808,535223,14,0.5183\n\
 		pitbull,el taxi,latinParty,-10.249,0.823,2,101,2015,0.1232,539182,21,0.2129\n\
 		bontan,firefly,dance,-7.134,0.923,8,95,1999,0.9213,497493,9,0.4382\n\
 		Kieser.Velten,Bossa Jam,Lounge / Nu Jazz / House,-10.231,0.2129,12,120,2004,0.7543,728371,2,0.8847\n\
@@ -115,7 +116,7 @@
 
  //		var axeX = container.append("line").attr("x1",500).attr("y1",0).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",1);
  		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+ 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
 
 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
@@ -158,6 +159,8 @@
 		return rowObject;
 	});
 
+	console.log(parsedCSV);
+	
 //	var counter = parsedCSV.length;
 
 	var xAchseOption;
@@ -278,7 +281,17 @@
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
-		 	if (colorOption.val()==="energy"){ 
+			if (colorOption.val()==="leer"){ 
+		 		window.cleaner();
+
+				$("#colorDanceability").hide();
+				$("#colorEnergy").toggle();
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+			}
+
+			if (colorOption.val()==="energy"){ 
 		 		window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -352,7 +365,16 @@
 			}//end if option 5
 		});//end color filter
 
-
+		$('#showButton').click(function(){ 
+			for (var i = 0; i < parsedCSV.length; i++) {
+					var circle = container.append('circle')
+					.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
+					.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+					.attr('r',((parsedCSV[i]['hotness']*20)))
+					.attr('fill',colorKey(key));		
+			}
+		});
+		
 		function buildSliders() {
 			var danceability = $('#colorDanceability input');
 			var energy = $('#colorEnergy input');
@@ -397,7 +419,8 @@
 <p id="achsen">Achsen:
 	&nbsp;&nbsp;&nbsp; &nbsp;x:
   	<select id="xAchse" name="x">
-	    <option value="danceability" selected>	Danceability	</option>
+	    <option value="leer" selected></option>
+	    <option value="danceability">	Danceability	</option>
 	    <option value="energy">			Energy		</option>
 	    <option value="tempo">			Tempo		</option>
 	    <option value="playcount">		Playcount	</option>
@@ -407,8 +430,9 @@
 	</select>
 	&nbsp;&nbsp;&nbsp;&nbsp;y:
   	<select id="yAchse" name="y">
-	    <option value="danceability">	Danceability	</option>
-	    <option value="energy" selected>			Energy		</option>
+	    <option value="leer" selected></option>
+	   	<option value="danceability">	Danceability	</option>
+	    <option value="energy" >			Energy		</option>
 	    <option value="tempo">			Tempo		</option>
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
@@ -561,6 +585,8 @@
     </tr>
 </table>
 </div>
+
+<button id="showButton">Zeigen</button>
 
 	</body>
 </html>
