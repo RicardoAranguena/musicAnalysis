@@ -192,7 +192,18 @@
 	}
 
 	$(document).ready(function(){
-		
+	
+	
+	
+	
+	$(".slider").click(function(){
+var a=$(this).find('input[type="slider"]');
+var range = a.val();
+console.log("wert: " + range);
+//a.attr("data")+" - "+
+	});
+	
+	
 // 	 	function cleaner(){
 // 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 // 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
@@ -462,18 +473,20 @@
 				skin: "plastic"
 			});
 		}
-
+   // sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
+		//SaveValue();
 		
-		buildSliders();
+		//buildSliders();
 		
-		RangeSave();
+		//RangeSave();
+		//console.log(range);
 
 	});//end document ready
 
 </script>
 
-
+<p class="souf" style="border:1px solid red;display:inline-block;padding:5px;">00000</p>
 <p id="achsen">Achsen:
 	&nbsp;&nbsp;&nbsp; &nbsp;x:
   	<select id="xAchse" name="x">
@@ -524,7 +537,13 @@
 
 <div id="colorDanceability">
 	<span class="slider">
-		<input type="slider" name="price" value="0.0;1.0" />
+		
+		<input id="colorDanceability" type="slider" name="price" value="0.0;1.0" />
+		
+
+<script type="text/javascript">
+
+</script>
 		
 	
 	</span>
@@ -573,7 +592,7 @@
 <div id="jahr"> 
 	<p><strong>Jahr:</strong></p> 
 		<div class="slider">
-		<input type="slider" name="price" value="1990;2016" />
+		<input type="slider" name="price"  />
 		</span>
 	</div>  
 </div>
@@ -658,7 +677,7 @@
 </table>
 </div>
 
-<button id="showButton">Zeigen</button>
+<button id="showButton"  onclick="SaveValue()" >Zeigen</button>
 
 	</body>
 </html>
