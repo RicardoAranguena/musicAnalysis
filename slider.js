@@ -22,7 +22,7 @@
 				step: 0.001,
 				smooth: false,
 				round: 1,
-				scale: [0, '|', .5, '|', 1],
+				scale: [0, '|', .5, '|', 1], 	
 				skin: "plastic"
 			});
 			
@@ -47,12 +47,6 @@
 		
 		buildSliders();
 		
-		function RangeSave(){
-		var range;
-			range = document.getElementsByName("tempo");
-			nodeItem = nodeList.item(value);
-			console.log(range);
-		};
 		
 		
 
