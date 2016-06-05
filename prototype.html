@@ -192,17 +192,10 @@
 	}
 
 	$(document).ready(function(){
-<<<<<<< HEAD
-	
 	
 	
 	//so bald man betätigt den Buttton von Slider, "val" uebernimmt  die neue ausgewählte Grenze
-=======
 
-
-
-	//so bald man betätigt den Buttton von Slider, "val" die neue ausgewählte Grenze
->>>>>>> origin/master
 	//wert wird gespeichert in range im Form 0.3;0.8
 	$(".slider").click(function(){
 var a=$(this).find('input[type="slider"]');
@@ -242,14 +235,10 @@ console.log("wert: " + range);
 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 
 				}
-<<<<<<< HEAD
-				
-			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen 
-			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val(); 
-=======
+
 			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
 			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
->>>>>>> origin/master
+
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var help = parsedCSV[i]["energy"];
 					xAchseArray.push(((help*1000)/2) +100);
