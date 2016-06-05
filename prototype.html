@@ -215,13 +215,14 @@ console.log("wert: " + range);
 // 		}
 
 
-
-		$('#xAchse').change(function(){
-		$("yAchse.option[value = " + $(this).val() + "]").remove();
+$('#xAchse').change(function(){
+		$("#yAchse option").show();
+		$("#yAchse option[value="+$(this).val()+"]").hide();
 		});
 		
 		$('#yAchse').change(function(){
-		$("#xAchse option[value = " + $(this).val() + "]").remove();
+		$("#xAchse option").show();
+		$("#xAchse option[value="+$(this).val()+"]").hide();
 		});
 
 
@@ -492,12 +493,7 @@ console.log("wert: " + range);
 		}
    // sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
-		//SaveValue();
-
-		//buildSliders();
-
-		//RangeSave();
-		//console.log(range);
+		
 
 	});//end document ready
 
@@ -692,7 +688,7 @@ console.log("wert: " + range);
 </table>
 </div>
 
-<button id="showButton"  onclick="SaveValue()" >Zeigen</button>
+<button id="showButton" >Zeigen</button>
 
 	</body>
 </html>
