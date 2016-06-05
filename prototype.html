@@ -63,7 +63,7 @@
 	// att y todo lo demas.
 	// esa estring la va a ir haciendo los selects que se usen.
 	// etiqueten von values in die achsen schreiben
-	
+
 	//conseguir subir info desde un csv
 	//hacer la informacion de spotify
 
@@ -159,20 +159,20 @@
 	});
 
 	console.log(parsedCSV);
-	
+
 //	var counter = parsedCSV.length;
 
 	var xAchseOption;
 	var xAchse;
 	var xAchseArray=[];
-	
+
 	var yAchseOption;
 	var yAchse;
 	var yAchseArray=[];
-	
+
 	var tempoArray=[];
-	
-	
+
+
 	var kreisGrosseOption;
 	var kreisGrosse;
 
@@ -192,10 +192,17 @@
 	}
 
 	$(document).ready(function(){
+<<<<<<< HEAD
 	
 	
 	
 	//so bald man betätigt den Buttton von Slider, "val" uebernimmt  die neue ausgewählte Grenze
+=======
+
+
+
+	//so bald man betätigt den Buttton von Slider, "val" die neue ausgewählte Grenze
+>>>>>>> origin/master
 	//wert wird gespeichert in range im Form 0.3;0.8
 	$(".slider").click(function(){
 var a=$(this).find('input[type="slider"]');
@@ -203,8 +210,8 @@ var range = a.val();
 console.log("wert: " + range);
 //a.attr("data")+" - "+
 	});
-	
-	
+
+
 // 	 	function cleaner(){
 // 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
 // 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
@@ -235,24 +242,29 @@ console.log("wert: " + range);
 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 
 				}
+<<<<<<< HEAD
 				
 			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen 
 			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val(); 
+=======
+			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
+			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
+>>>>>>> origin/master
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var help = parsedCSV[i]["energy"];
 					xAchseArray.push(((help*1000)/2) +100);
 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 				}
 			console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();  
+			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
 				for (var i = 0; i < parsedCSV.length; i++) {
-					//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen   
+					//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
 					var help = parsedCSV[i]["tempo"];
 					console.log("help in tempo " + help );
 					xAchseArray.push(help +100);
 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 				}
-			
+
 			console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
@@ -264,32 +276,32 @@ console.log("wert: " + range);
 
 			yAchseOption = $("#yAchse option:selected");
 			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
-			
+
 			for (var i = 0; i < parsedCSV.length; i++) {
 				var help = parsedCSV[i]["danceability"];
 				yAchseArray.push((help*1000)/2);
 				console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-			
+
 			}
 			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();  
-			
+			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
+
 			for (var i = 0; i < parsedCSV.length; i++) {
 				var help = parsedCSV[i]["energy"];
 				yAchseArray.push((help*1000)/2);
 				console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-			
+
 			}
 			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();  
-			
+			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
+
 			for (var i = 0; i < parsedCSV.length; i++) {
 				var help = parsedCSV[i]["tempo"];
 				console.log("help in tempo " + help );
 				xAchseArray.push((help*1000)/2);
 				console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}
-			
+
 			console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
@@ -302,13 +314,18 @@ console.log("wert: " + range);
 
 		$("#kreisGrosse").change(function(){
 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
-			if 		(kreisGrosseOption.val() ==="danceability")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-			else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-			else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-			else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-			else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-			else if (kreisGrosseOption.val() ==="jahr")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-			else if	(kreisGrosseOption.val() ==="key")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+			window.cleaner();
+			for (var i = 0; i < parsedCSV.length; i++) {
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('fill',colorKey(key));
+					if 		(kreisGrosseOption.val() ==="danceability")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
+					else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
+					else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 100)));}
+					else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 10)));}
+					else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20*(-1)/10)));}
+			}
 		});
 
 		//color select
@@ -355,7 +372,7 @@ console.log("wert: " + range);
 				$("#colorKey").hide();
 			}
 
-			if (colorOption.val()==="leer"){ 
+			if (colorOption.val()==="leer"){
 		 		window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -365,7 +382,7 @@ console.log("wert: " + range);
 				$("#colorKey").hide();
 			}
 
-			if (colorOption.val()==="energy"){ 
+			if (colorOption.val()==="energy"){
 		 		window.cleaner();
 
 				$("#colorDanceability").hide();
@@ -415,7 +432,6 @@ console.log("wert: " + range);
 				$("#colorGenre").hide();
 				$("#colorKey").toggle();
 
-
 				for (var i = 0; i < parsedCSV.length; i++) {
 
 					// making the function for doing the color selection in key
@@ -440,16 +456,16 @@ console.log("wert: " + range);
 		});//end color filter
 
 
-		$('#showButton').click(function(){ 
+		$('#showButton').click(function(){
 			for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',((parsedCSV[i]['hotness']*20)))
-					.attr('fill',colorKey(key));		
+					.attr('fill',colorKey(key));
 			}
 		});
-		
+
 		function buildSliders() {
 			var danceability = $('#colorDanceability input');
 			var energy = $('#colorEnergy input');
@@ -488,9 +504,9 @@ console.log("wert: " + range);
    // sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
 		//SaveValue();
-		
+
 		//buildSliders();
-		
+
 		//RangeSave();
 		//console.log(range);
 
@@ -532,8 +548,6 @@ console.log("wert: " + range);
 	    <option value="tempo">			Tempo		</option>
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
-	    <option value="jahr">			Jahr		</option>
-	  	<option value="key">			Key			</option>
 	</select>
 </p>
 
@@ -549,15 +563,15 @@ console.log("wert: " + range);
 
 <div id="colorDanceability">
 	<span class="slider">
-		
+
 		<input id="colorDanceability" type="slider" name="price" value="0.0;1.0" />
-		
+
 
 <script type="text/javascript">
 
 </script>
-		
-	
+
+
 	</span>
 	<div class="colors">
 		<span style="background-color: rgba(153, 0, 0, .25)"></span>
@@ -601,12 +615,12 @@ console.log("wert: " + range);
 </div>
 
 
-<div id="jahr"> 
-	<p><strong>Jahr:</strong></p> 
+<div id="jahr">
+	<p><strong>Jahr:</strong></p>
 		<div class="slider">
 		<input type="slider" name="price"  />
 		</span>
-	</div>  
+	</div>
 </div>
 
 <div id="colorKey">
