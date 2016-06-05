@@ -195,13 +195,12 @@
 	
 	
 	//so bald man betätigt den Buttton von Slider, "val" uebernimmt  die neue ausgewählte Grenze
-
 	//wert wird gespeichert in range im Form 0.3;0.8
-	$(".slider").click(function(){
-var a=$(this).find('input[type="slider"]');
-var range = a.val();
-console.log("wert: " + range);
-//a.attr("data")+" - "+
+$(".slider").click(function(){
+	var a=$(this).find('input[type="slider"]');
+	var range = a.val();
+	console.log("wert: " + range);
+
 	});
 
 
@@ -215,12 +214,16 @@ console.log("wert: " + range);
 // 		}
 
 
+//die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
 $('#xAchse').change(function(){
 		$("#yAchse option").show();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
+		$("#kreisGrosse option[value="+$(this).val()+"]").hide();
+		$("#colorFilter option[value="+$(this).val()+"]").hide();
+		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden
 		});
 		
-		$('#yAchse').change(function(){
+$('#yAchse').change(function(){
 		$("#xAchse option").show();
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		});
@@ -528,6 +531,7 @@ $('#xAchse').change(function(){
  <p id="kreisGrosse">Kreis Größe:
 
 	<select id="kreisGrosseSelect" name="x">
+	    <option value="leer" selected>Select</option>
 	    <option value="danceability">	Danceability</option>
 	    <option value="energy">			Energy		</option>
 	    <option value="tempo">			Tempo		</option>
@@ -538,6 +542,8 @@ $('#xAchse').change(function(){
 
 <p>Color Filter</p>
 	<select id="colorFilter">
+	    <option value="leer" selected>Select</option>
+	    <option value="danceability" >	Danceability	</option>
     	<option value="danceability" >	Danceability	</option>
    		<option value="energy" >		Energy		</option>
     	<option value="tempo" >			Tempo		</option>
