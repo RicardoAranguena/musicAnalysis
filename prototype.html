@@ -195,7 +195,7 @@
 	
 	
 	
-	//so bald man betätigt den Buttton von Slider, "val" die neue ausgewählte Grenze
+	//so bald man betätigt den Buttton von Slider, "val" uebernimmt  die neue ausgewählte Grenze
 	//wert wird gespeichert in range im Form 0.3;0.8
 	$(".slider").click(function(){
 var a=$(this).find('input[type="slider"]');
@@ -216,6 +216,15 @@ console.log("wert: " + range);
 
 
 
+		$('#xAchse').change(function(){
+		$("yAchse.option[value = " + $(this).val() + "]").remove();
+		});
+		
+		$('#yAchse').change(function(){
+		$("#xAchse option[value = " + $(this).val() + "]").remove();
+		});
+
+
 		// Achse select
 		$('#achsen').change(function(){
 			xAchseOption = $("#xAchse option:selected");
@@ -224,7 +233,9 @@ console.log("wert: " + range);
 					var help = parsedCSV[i]["danceability"];
 					xAchseArray.push(((help*1000)/2) +100);
 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+
 				}
+				
 			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen 
 			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val(); 
 				for (var i = 0; i < parsedCSV.length; i++) {
