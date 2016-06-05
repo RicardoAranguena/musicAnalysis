@@ -242,6 +242,7 @@ $('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
 	    $("#colorFilter option").show();
+		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();	
@@ -249,6 +250,9 @@ $('#kreisGrosseSelect').change(function(){
 		
 $('#colorFilter').change(function(){
 		$("#xAchse option").show();
+		$("#yAchse option").show();
+		$("#kreisGrosse option").show();
+		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
@@ -288,7 +292,7 @@ $('#colorFilter').change(function(){
 			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+			//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
 			//wort an die achsen schreiben
 			var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
@@ -325,7 +329,9 @@ $('#colorFilter').change(function(){
 			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+			//else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
+			
+			
 			//wort an die achsen schreiben
 			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
@@ -493,7 +499,7 @@ $('#colorFilter').change(function(){
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
 	    <option value="jahr">			Jahr		</option>
-	  	<option value="key">			Key			</option>
+	  	
 	</select>
 	&nbsp;&nbsp;&nbsp;&nbsp;y:
   	<select id="yAchse" name="y">
@@ -504,7 +510,7 @@ $('#colorFilter').change(function(){
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
 	    <option value="jahr">			Jahr		</option>
-	  	<option value="key">			Key			</option>
+	  	
   	</select>
  </p>
 
