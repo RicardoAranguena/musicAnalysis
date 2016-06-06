@@ -21,7 +21,10 @@
 		<script type="text/javascript" src="js/draggable-0.1.js"></script>
 		<script type="text/javascript" src="js/jquery.slider.js"></script>
 		<script type="text/javascript" src="slider.js"></script>
-		<script type="text/javascript" src="colorKey.js"></script>
+		<script type="text/javascript" src="colorKey.js"></script> 
+	    <script type="text/javascript" src="functionCleaner.js"></script>  
+		<script type="text/javascript" src="SliderHideFunction.js"></script>
+		
 
 
 		<title>Prototype Music Analysis </title>
@@ -180,7 +183,7 @@
 	var sliderLinks ;
 	var sliderRechts;
 
-	function cleaner();
+	cleaner();
 
 	$(document).ready(function(){
 	
@@ -211,20 +214,21 @@ $(".slider").click(function(){
 
 //sejchas=====================================================================================================
 //die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
+
 $('#xAchse').change(function(){
 		$("#yAchse option").show();
-		$("#kreisGrosseSelect option").show();
+		$("#kreisGrosse option").show();
 	    $("#colorFilter option").show();
 		
 		$("#yAchse option[value="+$(this).val()+"]").hide();
-		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+		$("#kreisGrosse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
-		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden
+		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden???
 		});
 		
 $('#yAchse').change(function(){
 		$("#xAchse option").show();
-		$("#kreisGrosseSelect option").show();
+		$("#kreisGrosse option").show();
 		$("#colorFilter option").show();
 		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
@@ -236,8 +240,7 @@ $('#yAchse').change(function(){
 $('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
-	    $("#colorFilter option").show();
-		
+	    $("#colorFilter option").show(); 																		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();	
@@ -245,13 +248,13 @@ $('#kreisGrosseSelect').change(function(){
 		
 $('#colorFilter').change(function(){
 		$("#xAchse option").show();
-		$("#yAchse option").show();
-		$("#kreisGrosseSelect option").show();
-		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		});
+		
+
+		
 		
 
 		// Achse select

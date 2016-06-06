@@ -23,7 +23,7 @@ $('#yAchse').change(function(){
 $('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
-	    $("#colorFilter option").show();
+	    $("#colorFilter option").show(); 																		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();	
