@@ -3,6 +3,7 @@
 <head>
 		<meta charset="UTF-8">
 
+		<link rel="stylesheet" href="styles.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
@@ -193,7 +194,12 @@
 $(".slider").click(function(){
 	var a=$(this).find('input[type="slider"]');
 	var range = a.val();
-	console.log("wert: " + range);
+	var array = range.split(';');
+     sliderLinks =array[0];
+	 sliderRechts = array[1];
+	console.log("wert 1: " + sliderLinks); 
+
+	console.log("wert 2: " + sliderRechts); 
 
 	});
 	
@@ -217,33 +223,42 @@ $(".slider").click(function(){
 
 $('#xAchse').change(function(){
 		$("#yAchse option").show();
-		$("#kreisGrosse option").show();
+		$("#kreisGrosseSelect option").show();
 	    $("#colorFilter option").show();
 		
+		
 		$("#yAchse option[value="+$(this).val()+"]").hide();
-		$("#kreisGrosse option[value="+$(this).val()+"]").hide();
+		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
 		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden???
 		});
 		
 $('#yAchse').change(function(){
 		$("#xAchse option").show();
-		$("#kreisGrosse option").show();
+		$("#kreisGrosseSelect option").show();
 		$("#colorFilter option").show();
+		
 		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();
+		$("#colorFilter option[value="+$(this).val()+"]").hide();	
+		
+		$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
 		});
 
 
 $('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
-	    $("#colorFilter option").show(); 																		
+	    $("#colorFilter option").show(); 
+		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();	
+		$("#colorFilter option[value="+$(this).val()+"]").hide();
+		// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();	
+		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();		
 		});
 		
 $('#colorFilter').change(function(){
@@ -486,7 +501,7 @@ $('#colorFilter').change(function(){
 
 </script>
 
-<p class="souf" style="border:1px solid red;display:inline-block;padding:5px;">00000</p>
+
 <p id="achsen">Achsen:
 	&nbsp;&nbsp;&nbsp; &nbsp;x:
   	<select id="xAchse" name="x">
