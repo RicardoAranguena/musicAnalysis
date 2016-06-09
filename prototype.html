@@ -22,10 +22,10 @@
 		<script type="text/javascript" src="js/draggable-0.1.js"></script>
 		<script type="text/javascript" src="js/jquery.slider.js"></script>
 		<script type="text/javascript" src="slider.js"></script>
-		<script type="text/javascript" src="colorKey.js"></script> 
-	    <script type="text/javascript" src="functionCleaner.js"></script>  
+		<script type="text/javascript" src="colorKey.js"></script>
+	    <script type="text/javascript" src="functionCleaner.js"></script>
 		<script type="text/javascript" src="SliderHideFunction.js"></script>
-		
+
 
 
 		<title>Prototype Music Analysis </title>
@@ -180,6 +180,7 @@
 
 	var kreisGrosseOption;
 	var kreisGrosse;
+	var kreisGrosseValue;
 
 	var sliderLinks ;
 	var sliderRechts;
@@ -187,8 +188,8 @@
 	cleaner();
 
 	$(document).ready(function(){
-	
-	
+
+
 	//so bald man betätigt den Buttton von Slider, "range" uebernimmt  die neue ausgewählte Grenze
 	//wert wird gespeichert in range im Form 0.3;0.8
 $(".slider").click(function(){
@@ -197,14 +198,14 @@ $(".slider").click(function(){
 	var array = range.split(';');
      sliderLinks =array[0];
 	 sliderRechts = array[1];
-	console.log("wert 1: " + sliderLinks); 
+	console.log("wert 1: " + sliderLinks);
 
-	console.log("wert 2: " + sliderRechts); 
+	console.log("wert 2: " + sliderRechts);
 
 	});
-	
-	
-	
+
+
+
 
 
 // 	 	function cleaner(){
@@ -225,24 +226,24 @@ $('#xAchse').change(function(){
 		$("#yAchse option").show();
 		$("#kreisGrosseSelect option").show();
 	    $("#colorFilter option").show();
-		
-		
+
+
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
 		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden???
 		});
-		
+
 $('#yAchse').change(function(){
 		$("#xAchse option").show();
 		$("#kreisGrosseSelect option").show();
 		$("#colorFilter option").show();
-		
-		
+
+
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();	
-		
+		$("#colorFilter option[value="+$(this).val()+"]").hide();
+
 		$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
 		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
 		});
@@ -251,26 +252,26 @@ $('#yAchse').change(function(){
 $('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
-	    $("#colorFilter option").show(); 
-		
+	    $("#colorFilter option").show();
+
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
 		// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();	
-		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();		
+		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();
 		});
-		
+
 $('#colorFilter').change(function(){
 		$("#xAchse option").show();
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		});
-		
 
-		
-		
+
+
+
 
 		// Achse select
 		$('#achsen').change(function(){
@@ -343,12 +344,20 @@ $('#colorFilter').change(function(){
 			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			//else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			
-			
+
+
 			//wort an die achsen schreiben
 			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
 		});
+
+		function kreisGrosseForType(type, circle, parsedCSV){
+			if 		(type ==="danceability"){ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="energy")		{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="tempo")		{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20 / 100; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="playcount")	{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20 / 10; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="loudness")	{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20*(-1)/10; circle.attr('r', kreisGrosseValue);}
+		};
 
 		$("#kreisGrosse").change(function(){
 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
@@ -358,11 +367,7 @@ $('#colorFilter').change(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('fill',colorKey(key));
-					if 		(kreisGrosseOption.val() ==="danceability")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
-					else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
-					else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 100)));}
-					else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 10)));}
-					else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20*(-1)/10)));}
+					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
 			}
 		});
 
@@ -385,6 +390,7 @@ $('#colorFilter').change(function(){
 
 
 		$('#colorFilter').change(function(){
+			window.cleaner();
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="danceability"){
 		 		window.cleaner();
@@ -441,8 +447,9 @@ $('#colorFilter').change(function(){
 					var circle = container.append("circle")
 					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
 					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
-					.attr("r",((parsedCSV[i][kreisGrosse]/10)))
 					.attr("fill",colorGenre(genre));
+					kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+
 				}
 
 
@@ -465,15 +472,15 @@ $('#colorFilter').change(function(){
 						var circle = container.append('circle')
 						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
 						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));
+						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
 					}
 					if (xAchse ==="tempo"){
 						var circle = container.append('circle')
 						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
 						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));
+						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
 					}
 				}//end for
 			}//end if option 5
@@ -490,12 +497,12 @@ $('#colorFilter').change(function(){
 			}
 		});
 
-	
-		
+
+
    // sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
 		buildSliders();
-		
+
 
 	});//end document ready
 
@@ -512,7 +519,7 @@ $('#colorFilter').change(function(){
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
 	    <option value="jahr">			Jahr		</option>
-	  	
+
 	</select>
 	&nbsp;&nbsp;&nbsp;&nbsp;y:
   	<select id="yAchse" name="y">
@@ -523,7 +530,7 @@ $('#colorFilter').change(function(){
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
 	    <option value="jahr">			Jahr		</option>
-	  	
+
   	</select>
  </p>
 
@@ -604,12 +611,12 @@ $('#colorFilter').change(function(){
 </div>
 
 
-<div id="jahr"> 
-<p><strong>Jahr:</strong></p> 
+<div id="jahr">
+<p><strong>Jahr:</strong></p>
 <div class="slider">
 	<input type="slider" name="year" value="1990;2016" />
 </span>
-</div> 
+</div>
 
 
 
