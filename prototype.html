@@ -371,6 +371,41 @@ $('#colorFilter').change(function(){
 			}
 		});
 
+		function initGenreTable(){
+		var array = [];
+		var k = 0;
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var genre = parsedCSV[i]["genre"];
+				var saved = false;
+				for(var j = 0; j < array.length; j++){
+					if(genre === array[j]){
+						saved = true;
+						break;
+					}
+				}
+				if(!saved){
+					array[k++] = genre;
+				}
+			}
+			var table = document.getElementById('tableColor');
+			var tr;
+			for(var i = 0; i < array.length; i++){
+				if(i % 3 == 0 && i != 0){
+					table.appendChild(tr);
+				}
+				if(i % 3 == 0){
+					tr = document.createElement('tr');
+				}
+				var td = document.createElement('td');
+				td.setAttribute('bgcolor', colorGenre(array[i]));
+				var font = document.createElement('font');
+				font.setAttribute('color', 'white');
+				font.innerHTML = array[i];
+				td.appendChild(font);
+				tr.appendChild(td);
+			}
+		};
+
 		//color select
 		$("#colorDanceability").hide();
 		$("#colorEnergy").hide();
@@ -438,7 +473,7 @@ $('#colorFilter').change(function(){
 				$("#colorTempo").hide();
 				$("#colorGenre").toggle();
 				$("#colorKey").hide();
-
+				initGenreTable();
 				for (var i = 0; i < parsedCSV.length; i++) {
 
 					// making the function for doing the color selection in key
@@ -682,28 +717,16 @@ $('#colorFilter').change(function(){
 
 <div id="colorGenre">
 <br>
-<table bgcolor="silver" cellpadding="5" align="left" width="20%">
-    <tr align="center">
-    <td>genre1</td>
-    <td bgcolor="blue">genre2</td>
-    <td bgcolor="red">genre3</td>
-    </tr>
-    <tr align="center">
-    <td bgcolor="green">genre4</td>
-    <td bgcolor="pink">genre5</td>
-    <td bgcolor="braun">genre6</td>
-    </tr>
-    <tr align="center" bgcolor="purple">
-    <td>genre7</td>
-    <td bgcolor="yellow">genre8</td>
-    <td bgcolor="orange">genre9</td>
-    </tr>
+<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">
+
 </table>
 </div>
+<br/>
 <div>
+<button id="showButton" >Zeigen</button>
 </div>
 
-<button id="showButton" >Zeigen</button>
+
 
 	</body>
 </html>
