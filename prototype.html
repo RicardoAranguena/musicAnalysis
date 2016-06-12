@@ -275,7 +275,10 @@ $('#colorFilter').change(function(){
 
 		// Achse select
 		$('#achsen').change(function(){
+			window.cleaner();
 			xAchseOption = $("#xAchse option:selected");
+			xAchseArray = [];
+			yAchseArray = [];
 			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var help = parsedCSV[i]["danceability"];
@@ -349,6 +352,8 @@ $('#colorFilter').change(function(){
 			//wort an die achsen schreiben
 			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
+
+			$("#kreisGrosse").trigger("change");
 		});
 
 		function kreisGrosseForType(type, circle, parsedCSV){
@@ -362,11 +367,18 @@ $('#colorFilter').change(function(){
 		$("#kreisGrosse").change(function(){
 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
 			window.cleaner();
+			var colorOption = $('#colorFilter option:selected');
+			console.log(colorOption.val());
 			for (var i = 0; i < parsedCSV.length; i++) {
+					var key = parsedCSV[i][colorOption.val()];
 					var circle = container.append('circle')
 					.attr('cx', xAchseArray[i] )
-					.attr('cy',yAchseArray[i])
-					.attr('fill',colorKey(key));
+					.attr('cy',yAchseArray[i]);
+					if(colorOption.val() === 'genre'){
+						circle.attr('fill', colorGenre(key));
+					}else{
+						circle.attr('fill',colorKey(key));
+					}
 					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
 			}
 		});
@@ -422,15 +434,13 @@ $('#colorFilter').change(function(){
 
 		$("#colorKey").hide();
 
-	colorKey();
+		colorKey();
 
 
 		$('#colorFilter').change(function(){
 			window.cleaner();
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="danceability"){
-		 		window.cleaner();
-
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -439,7 +449,6 @@ $('#colorFilter').change(function(){
 			}
 
 			if (colorOption.val()==="leer"){
-		 		window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").toggle();
@@ -449,7 +458,6 @@ $('#colorFilter').change(function(){
 			}
 
 			if (colorOption.val()==="energy"){
-		 		window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").toggle();
@@ -458,7 +466,6 @@ $('#colorFilter').change(function(){
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="tempo"){
-				window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
@@ -467,12 +474,11 @@ $('#colorFilter').change(function(){
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="genre"){
-				window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
-				$("#colorGenre").toggle();
+				$("#colorGenre").show();
 				$("#colorKey").hide();
 				initGenreTable();
 				for (var i = 0; i < parsedCSV.length; i++) {
@@ -491,8 +497,6 @@ $('#colorFilter').change(function(){
 
 			}
 			if (colorOption.val()==="key"){ //key is the color of the circles
-				window.cleaner();
-
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -521,19 +525,6 @@ $('#colorFilter').change(function(){
 				}//end for
 			}//end if option 5
 		});//end color filter
-
-
-		$('#showButton').click(function(){
-			for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
-					.attr('cx', xAchseArray[i] )
-					.attr('cy',yAchseArray[i])
-					.attr('r',((parsedCSV[i]['hotness']*20)))
-					.attr('fill',colorKey(key));
-			}
-		});
-
-
 
    // sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
@@ -723,9 +714,6 @@ $('#colorFilter').change(function(){
 </table>
 </div>
 <br/>
-<div>
-<button id="showButton" >Zeigen</button>
-</div>
 
 
 
