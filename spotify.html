@@ -10097,66 +10097,20 @@ $(document).ready(function () {
 			artist= artistChar.join("");
 			title = titleChar.join("");
 
-	
+//you got to reopen the html spotify to be able to see the json request again.	
 		$.getJSON(startString + query + title +  query2 + artist + query3, function (data) {
 			var idStringArray=[];				
-// 			console.log("data");
-// 			console.log(data);
-// 			console.log(" ");
-			
-//			var counter=0;
 			$.each(data.tracks.items, function () {
 				var extra= this.id;
 				idStringArray.push(extra);	
-//			counter++;
 			});
-			
-// 			console.log("counter: ");
-// 			console.log(counter);
-// 			console.log(" ");
-			
-			
 			for(var p = 0; p<idStringArray.length ;p++ ){
-// 				console.log("p value");
-// 				console.log(p);
-// 				console.log(" ");
-			
- 				idString.push(idStringArray[p]);
-				
+ 				idString.push(idStringArray[p]);	
 			}
-			
-// 			console.log("id string dentro de getjson");
-// 			console.log(idString);	
-
-			
-// 			for(var l = 0; l<idString.length ;l++ ){
-// 				console.log("l " +l);
-// 				console.log(idString);	
-// 				console.log(" ");
-			
-// 			}
-			
 		});
-		
-			
-// 				console.log("fuera de getjson dentro for ");
-// 				console.log(idString);
-				
-			
 	}
 	console.log("id string fuera de getjson");
 	console.log(idString);
-	for(var p = 0; p<idString.length ;p++ ){
-			console.log("p value");
-			console.log(idString[p]);	
-			console.log(" ");
-		
-	}
-	
-// 	console.log("si funciona soy feliz");
-// 	for(var l = 0; l<idString.length ;l++ ){
-// 		console.log(idString);	
-// 	}
  });		
 </script>
 
