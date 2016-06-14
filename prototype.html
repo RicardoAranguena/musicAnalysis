@@ -22,10 +22,10 @@
 		<script type="text/javascript" src="js/draggable-0.1.js"></script>
 		<script type="text/javascript" src="js/jquery.slider.js"></script>
 		<script type="text/javascript" src="slider.js"></script>
-		<script type="text/javascript" src="colorKey.js"></script> 
-	    <script type="text/javascript" src="functionCleaner.js"></script>  
+		<script type="text/javascript" src="colorKey.js"></script>
+	    <script type="text/javascript" src="functionCleaner.js"></script>
 		<script type="text/javascript" src="SliderHideFunction.js"></script>
-		
+
 
 
 		<title>Prototype Music Analysis </title>
@@ -180,6 +180,7 @@
 
 	var kreisGrosseOption;
 	var kreisGrosse;
+	var kreisGrosseValue;
 
 	var sliderLinks ;
 	var sliderRechts;
@@ -187,8 +188,8 @@
 	cleaner();
 
 	$(document).ready(function(){
-	
-	
+
+
 	//so bald man betätigt den Buttton von Slider, "range" uebernimmt  die neue ausgewählte Grenze
 	//wert wird gespeichert in range im Form 0.3;0.8
 $(".slider").click(function(){
@@ -197,12 +198,20 @@ $(".slider").click(function(){
 	var array = range.split(';');
      sliderLinks =array[0];
 	 sliderRechts = array[1];
-	console.log("wert 1: " + sliderLinks); 
+	console.log("wert 1: " + sliderLinks);
 
-	console.log("wert 2: " + sliderRechts); 
+	console.log("wert 2: " + sliderRechts);
 
 	});
-	
+
+// 	 	function cleaner(){
+// 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+// 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+// 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+// 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+// 			return ;
+// 		}
 
 //sejchas=====================================================================================================
 //die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
@@ -211,24 +220,24 @@ $('#xAchse').change(function(){
 		$("#yAchse option").show();
 		$("#kreisGrosseSelect option").show();
 	    $("#colorFilter option").show();
-		
-		
+
+
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
 		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden???
 		});
-		
+
 $('#yAchse').change(function(){
 		$("#xAchse option").show();
 		$("#kreisGrosseSelect option").show();
 		$("#colorFilter option").show();
-		
-		
+
+
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();	
-		
+		$("#colorFilter option[value="+$(this).val()+"]").hide();
+
 		$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
 		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
 		});
@@ -237,30 +246,33 @@ $('#yAchse').change(function(){
 $('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
-	    $("#colorFilter option").show(); 
-		
+	    $("#colorFilter option").show();
+
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
 		// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();	
-		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();		
+		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();
 		});
-		
+
 $('#colorFilter').change(function(){
 		$("#xAchse option").show();
 		$("#xAchse option[value="+$(this).val()+"]").hide();
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		});
-		
 
-		
-		
+
+
+
 
 		// Achse select
 		$('#achsen').change(function(){
+			window.cleaner();
 			xAchseOption = $("#xAchse option:selected");
+			xAchseArray = [];
+			yAchseArray = [];
 			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var help = parsedCSV[i]["danceability"];
@@ -329,28 +341,77 @@ $('#colorFilter').change(function(){
 			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
 			//else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			
-			
+
+
 			//wort an die achsen schreiben
 			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
+
+			$("#kreisGrosse").trigger("change");
 		});
+
+		function kreisGrosseForType(type, circle, parsedCSV){
+			if 		(type ==="danceability"){ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="energy")		{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="tempo")		{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20 / 100; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="playcount")	{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20 / 10; circle.attr('r', kreisGrosseValue);}
+			else if (type ==="loudness")	{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20*(-1)/10; circle.attr('r', kreisGrosseValue);}
+		};
 
 		$("#kreisGrosse").change(function(){
 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
 			window.cleaner();
+			var colorOption = $('#colorFilter option:selected');
+			console.log(colorOption.val());
 			for (var i = 0; i < parsedCSV.length; i++) {
+					var key = parsedCSV[i][colorOption.val()];
 					var circle = container.append('circle')
 					.attr('cx', xAchseArray[i] )
-					.attr('cy',yAchseArray[i])
-					.attr('fill',colorKey(key));
-					if 		(kreisGrosseOption.val() ==="danceability")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
-					else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
-					else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 100)));}
-					else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 10)));}
-					else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20*(-1)/10)));}
+					.attr('cy',yAchseArray[i]);
+					if(colorOption.val() === 'genre'){
+						circle.attr('fill', colorGenre(key));
+					}else{
+						circle.attr('fill',colorKey(key));
+					}
+					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
 			}
 		});
+
+		function initGenreTable(){
+		var array = [];
+		var k = 0;
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var genre = parsedCSV[i]["genre"];
+				var saved = false;
+				for(var j = 0; j < array.length; j++){
+					if(genre === array[j]){
+						saved = true;
+						break;
+					}
+				}
+				if(!saved){
+					array[k++] = genre;
+				}
+			}
+			var table = document.getElementById('tableColor');
+			table.innerHTML = "";
+			var tr;
+			for(var i = 0; i < array.length; i++){
+				if(i % 3 == 0 && i != 0){
+					table.appendChild(tr);
+				}
+				if(i % 3 == 0){
+					tr = document.createElement('tr');
+				}
+				var td = document.createElement('td');
+				td.setAttribute('bgcolor', colorGenre(array[i]));
+				var font = document.createElement('font');
+				font.setAttribute('color', 'white');
+				font.innerHTML = array[i];
+				td.appendChild(font);
+				tr.appendChild(td);
+			}
+		};
 
 		//color select
 		$("#colorDanceability").hide();
@@ -362,19 +423,23 @@ $('#colorFilter').change(function(){
             else if (genre ==="deepHouse") {return "green"}
             else if (genre ==="house") {return "blue"}
             else if (genre ==="latinParty") {return "pink"}
+            else if (genre ==="Deep House") {return "orange"}
+            else if (genre ==="House") {return "yellow"}
+            else if (genre ==="Lounge / Nu Jazz / House") {return "silver"}
+            else if (genre ==="Dance") {return "purple"}
+            else if (genre ==="TropicalHouse") {return "brown"}
             else{ return "black" };
 		};
 
 		$("#colorKey").hide();
 
-	colorKey();
+		colorKey();
 
 
 		$('#colorFilter').change(function(){
+			window.cleaner();
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="danceability"){
-		 		window.cleaner();
-
 				$("#colorDanceability").toggle();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -383,7 +448,6 @@ $('#colorFilter').change(function(){
 			}
 
 			if (colorOption.val()==="leer"){
-		 		window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").toggle();
@@ -393,7 +457,6 @@ $('#colorFilter').change(function(){
 			}
 
 			if (colorOption.val()==="energy"){
-		 		window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").toggle();
@@ -402,7 +465,6 @@ $('#colorFilter').change(function(){
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="tempo"){
-				window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
@@ -411,14 +473,13 @@ $('#colorFilter').change(function(){
 				$("#colorKey").hide();
 			}
 			if (colorOption.val()==="genre"){
-				window.cleaner();
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
-				$("#colorGenre").toggle();
+				$("#colorGenre").show();
 				$("#colorKey").hide();
-
+				initGenreTable();
 				for (var i = 0; i < parsedCSV.length; i++) {
 
 					// making the function for doing the color selection in key
@@ -427,15 +488,14 @@ $('#colorFilter').change(function(){
 					var circle = container.append("circle")
 					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
 					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
-					.attr("r",((parsedCSV[i][kreisGrosse]/10)))
 					.attr("fill",colorGenre(genre));
+					kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+
 				}
 
 
 			}
 			if (colorOption.val()==="key"){ //key is the color of the circles
-				window.cleaner();
-
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
@@ -451,37 +511,24 @@ $('#colorFilter').change(function(){
 						var circle = container.append('circle')
 						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
 						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));
+						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
 					}
 					if (xAchse ==="tempo"){
 						var circle = container.append('circle')
 						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
 						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('r',((parsedCSV[i]['hotness']*20)))
 						.attr('fill',colorKey(key));
+						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
 					}
 				}//end for
 			}//end if option 5
 		});//end color filter
 
-
-		$('#showButton').click(function(){
-			for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
-					.attr('cx', xAchseArray[i] )
-					.attr('cy',yAchseArray[i])
-					.attr('r',((parsedCSV[i]['hotness']*20)))
-					.attr('fill',colorKey(key));
-			}
-		});
-
-	
-		
    // sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
 		buildSliders();
-		
+
 
 	});//end document ready
 
@@ -498,7 +545,7 @@ $('#colorFilter').change(function(){
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
 	    <option value="jahr">			Jahr		</option>
-	  	
+
 	</select>
 	&nbsp;&nbsp;&nbsp;&nbsp;y:
   	<select id="yAchse" name="y">
@@ -509,7 +556,7 @@ $('#colorFilter').change(function(){
 	    <option value="playcount">		Playcount	</option>
 	    <option value="loudness">		Loudness	</option>
 	    <option value="jahr">			Jahr		</option>
-	  	
+
   	</select>
  </p>
 
@@ -590,12 +637,12 @@ $('#colorFilter').change(function(){
 </div>
 
 
-<div id="jahr"> 
-<p><strong>Jahr:</strong></p> 
+<div id="jahr">
+<p><strong>Jahr:</strong></p>
 <div class="slider">
 	<input type="slider" name="year" value="1990;2016" />
 </span>
-</div> 
+</div>
 
 
 
@@ -661,28 +708,13 @@ $('#colorFilter').change(function(){
 
 <div id="colorGenre">
 <br>
-<table bgcolor="silver" cellpadding="5" align="left" width="20%">
-    <tr align="center">
-    <td>genre1</td>
-    <td bgcolor="blue">genre2</td>
-    <td bgcolor="red">genre3</td>
-    </tr>
-    <tr align="center">
-    <td bgcolor="green">genre4</td>
-    <td bgcolor="pink">genre5</td>
-    <td bgcolor="braun">genre6</td>
-    </tr>
-    <tr align="center" bgcolor="purple">
-    <td>genre7</td>
-    <td bgcolor="yellow">genre8</td>
-    <td bgcolor="orange">genre9</td>
-    </tr>
+<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">
+
 </table>
 </div>
-<div>
-</div>
+<br/>
 
-<button id="showButton" >Zeigen</button>
+
 
 	</body>
 </html>
