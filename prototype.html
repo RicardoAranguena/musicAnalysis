@@ -225,7 +225,7 @@ $('#xAchse').change(function(){
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		//$("#colorFilter option[value="+$(this).val()+"]").hide();
-	
+
 		});
 
 $('#yAchse').change(function(){
@@ -370,9 +370,11 @@ $('#colorFilter').change(function(){
 					.attr('cy',yAchseArray[i]);
 					if(colorOption.val() === 'genre'){
 						circle.attr('fill', colorGenre(key));
-					}else{
+					}else if(colorOption.val() === 'key'){
 						circle.attr('fill',colorKey(key));
-					}
+					}else if(colorOption.val() === 'tempo'){
+						circle.attr('fill',colorTempo(tempo));
+						}
 					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
 			}
 		});
@@ -412,6 +414,21 @@ $('#colorFilter').change(function(){
 				tr.appendChild(td);
 			}
 		};
+
+
+
+
+		//color select
+		$("#colorDanceability").hide();
+		$("#colorEnergy").hide();
+		$("#colorTempo").hide();
+		$("#colorGenre").hide();
+		function colorTempo(tempo) {
+            return "red";
+		};
+
+
+
 
 		//color select
 		$("#colorDanceability").hide();
@@ -471,6 +488,31 @@ $('#colorFilter').change(function(){
 				$("#colorTempo").toggle();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
+
+
+
+for (var i = 0; i < parsedCSV.length; i++) {
+
+					// making the function for doing the color selection in key
+					var tempo = parsedCSV[i]["tempo"];
+
+					if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
+						var circle = container.append('circle')
+						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
+						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+						.attr('fill',colorTempo(tempo));
+						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+					}
+					if (xAchse ==="tempo"){
+						var circle = container.append('circle')
+						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
+						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+						.attr('fill',colorTempo(tempo));
+						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+					}
+				}//end for
+
+
 			}
 			if (colorOption.val()==="genre"){
 
