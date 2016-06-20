@@ -26,4 +26,11 @@
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>prototype_with_zeige_knopf.html</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/back%20up/prototype_with_zeige_knopf.html</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

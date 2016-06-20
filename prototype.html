@@ -28,7 +28,7 @@
 
 
 
-		<title>Prototype Music Analysis </title>
+		<title>Music Analysis </title>
 
 		<style>
 		.slider {
@@ -197,14 +197,12 @@
 
 	var tempoArray=[];
 
-
 	var kreisGrosseOption;
 	var kreisGrosse;
 	var kreisGrosseValue;
 
 	var sliderLinks ;
 	var sliderRechts;
-
 	cleaner();
 
 $(document).ready(function(){
@@ -235,7 +233,7 @@ $(".slider").click(function(){
 //sejchas=====================================================================================================
 //die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
 
-$('#xAchse1').change(function(){
+$('#xAchse').change(function(){
 		$("#yAchse option").show();
 		$("#kreisGrosseSelect option").show();
 	    $("#colorFilter option").show();
@@ -247,7 +245,7 @@ $('#xAchse1').change(function(){
 
 		});
 
-$('#yAchse1').change(function(){
+$('#yAchse').change(function(){
 		$("#xAchse option").show();
 		//$("#kreisGrosseSelect option").show();
 		//$("#colorFilter option").show();
@@ -262,7 +260,7 @@ $('#yAchse1').change(function(){
 		});
 
 
-$('#kreisGrosseSelect1').change(function(){
+$('#kreisGrosseSelect').change(function(){
 		$("#xAchse option").show();
 		$("#yAchse option").show();
 	    $("#colorFilter option").show();
