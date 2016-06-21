@@ -337,13 +337,13 @@ $(document).ready(function(){
 					yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="playcount") {
-					yAchseArray.push((parsedCSV[i]["playcount"]*1000)/2);
+					yAchseArray.push(((parsedCSV[i]["playcount"]*50)/2) +100);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="loudness")	{
-					yAchseArray.push((parsedCSV[i]["loudness"]*1000)/2);
+					yAchseArray.push(parsedCSV[i]["loudness"] *(-1)/100+300);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="jahr")	{
-					yAchseArray.push((parsedCSV[i]["jahr"]*1000)/2);
+					yAchseArray.push(((parsedCSV[i]["Jahr"]) /4)-300);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}
 
