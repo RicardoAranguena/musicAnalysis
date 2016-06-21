@@ -68,9 +68,14 @@
 	/*to dos hoy
 		-hacer que el boton zeigen funcione a la izquierda
 		-hacer un click en el keyboard para ver que keys son las beliebtes
+		-hacer que el cleaner borre todo desde 0
 		-hacer que las funciones funcionen en el grafico de la derecha
 		
 		-si quedan fuerzas armar spotify
+		
+		
+		-falta ver de donde guarda slider los valores. Si es que vienen de todos los sliders que hay es problematico
+		-
 	*/
 	
 	
@@ -213,7 +218,7 @@
 
 	var tempoArray=[];
 
-	var kreisGrosseOption, kreisGrosse, kreisGrosseValue;
+	var kreisGrosseOption, kreisGrosse, kreisGrosseArray=[];
 
 	var sliderLinks, sliderRechts;
 	cleaner();
@@ -290,156 +295,303 @@ $(document).ready(function(){
 			// Achse select
 			$('#achsen').change(function(){
 //				window.cleaner();
-				xAchseOption = $("#xAchse option:selected");
 				xAchseArray = [];
 				yAchseArray = [];
-				if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["danceability"];
-						xAchseArray.push(((help*1000)/2) +100);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
-				else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["energy"];
-						xAchseArray.push(((help*1000)/2) +100);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("xAchse variable " + xAchse);}
-				else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
-					for (var i = 0; i < parsedCSV.length; i++) {
+				
+				xAchseOption = $("#xAchse option:selected");
+				for (var i = 0; i < parsedCSV.length; i++) {
+					if 	(xAchseOption.val() ==="danceability")	{ 
+						xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
+						//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
+					}else if (xAchseOption.val() ==="energy") 	{ 
+						xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
+						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}else if (xAchseOption.val() ==="tempo")  	{ 
 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-						var help = parsedCSV[i]["tempo"];
-						console.log("help in tempo " + help );
-						xAchseArray.push(help +100);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+						xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
+						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}else if (xAchseOption.val() ==="playcount"){
+						xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
+						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}else if (xAchseOption.val() ==="loudness")		{ 
+						xAchseArray.push(parsedCSV[i]["loudness"] +100);//loudness has to be bigger than -200 db
+						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();  
+						xAchseArray.push(parsedCSV[i]["jahr"] +100);
+						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 					}
-				console.log("xAchse variable " + xAchse);}
-				
-				else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  
-					for (var i = 0; i < parsedCSV.length; i++) {
-						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-						var help = parsedCSV[i]["playcount"];
-						console.log("help in playcount " + help );
-						xAchseArray.push(help +100);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("xAchse variable " + xAchse);}
-				
-				
-				else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  
-					for (var i = 0; i < parsedCSV.length; i++) {
-						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-						var help = parsedCSV[i]["loudness"];
-						console.log("help in playcount " + help );
-						xAchseArray.push(help +100);//loudness has to be bigger than -200 db
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("xAchse variable " + xAchse);}
-				
-				else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  
-					for (var i = 0; i < parsedCSV.length; i++) {
-						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-						var help = parsedCSV[i]["jahr"];
-						console.log("help in playcount " + help );
-						xAchseArray.push(help +100);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("xAchse variable " + xAchse);}
-				
-				//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+				}//end for	
+					
 				//wort an die achsen schreiben
 				var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
 	
 				yAchseOption = $("#yAchse option:selected");
-				if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
 					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["danceability"];
-						yAchseArray.push((help*1000)/2);
-						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-					}
-				console.log("yAchse variable " + yAchse);}
-				else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["energy"];
-						yAchseArray.push((help*1000)/2);
-						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-		
-					}
-				console.log("yAchse variable " + yAchse);}
-				else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["tempo"];
-						console.log("help in tempo " + help );
-						xAchseArray.push((help*1000)/2);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("yAchse variable " + yAchse);}
-				else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["playcount"];
-						console.log("help in playcount " + help );
-						xAchseArray.push((help*1000)/2);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("yAchse variable " + yAchse);}
-				else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["loudness"];
-						console.log("help in loudness " + help );
-						xAchseArray.push((help*1000)/2);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}			
-				console.log("yAchse variable " + yAchse);}
-				else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	
-					for (var i = 0; i < parsedCSV.length; i++) {
-						var help = parsedCSV[i]["jahr"];
-						console.log("help in jahr " + help );
-						xAchseArray.push((help*1000)/2);
-						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				console.log("yAchse variable " + yAchse);}
+						if 	(yAchseOption.val() ==="danceability")	{ 
+							yAchseArray.push((parsedCSV[i]["danceability"]*1000)/2);
+							//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+						}else if (yAchseOption.val() ==="energy") { 
+							yAchseArray.push((parsedCSV[i]["energy"]*1000)/2);
+							//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+						}else if (yAchseOption.val() ==="tempo") { 
+							yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
+							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+						}else if (yAchseOption.val() ==="playcount") { 
+							yAchseArray.push((parsedCSV[i]["playcount"]*1000)/2);
+							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+						}else if (yAchseOption.val() ==="loudness")	{
+							yAchseArray.push((parsedCSV[i]["loudness"]*1000)/2);
+							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+						}else if (yAchseOption.val() ==="jahr")	{ 
+							yAchseArray.push((parsedCSV[i]["jahr"]*1000)/2);
+							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+						}
+							
+					}//end for
+					
 				//wort an die achsen schreiben
 				var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
+			
+			});
 				
 				
-	$("#kreisGrosse").trigger("change");
-		});
+// 				if 		(xAchseOption.val() ==="danceability" )	{ 
+// 					xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["danceability"];
+// 						xAchseArray.push(((help*1000)/2) +100);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
+// 				else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["energy"];
+// 						xAchseArray.push(((help*1000)/2) +100);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("xAchse variable " + xAchse);}
+// 				else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+// 						var help = parsedCSV[i]["tempo"];
+// 						console.log("help in tempo " + help );
+// 						xAchseArray.push(help +100);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("xAchse variable " + xAchse);}
+				
+// 				else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+// 						var help = parsedCSV[i]["playcount"];
+// 						console.log("help in playcount " + help );
+// 						xAchseArray.push(help +100);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("xAchse variable " + xAchse);}
+				
+				
+// 				else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+// 						var help = parsedCSV[i]["loudness"];
+// 						console.log("help in playcount " + help );
+// 						xAchseArray.push(help +100);//loudness has to be bigger than -200 db
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("xAchse variable " + xAchse);}
+				
+// 				else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+// 						var help = parsedCSV[i]["jahr"];
+// 						console.log("help in playcount " + help );
+// 						xAchseArray.push(help +100);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("xAchse variable " + xAchse);}
+				
+				//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+				//wort an die achsen schreiben
+// 				var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
+// 				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
+	
+// 				yAchseOption = $("#yAchse option:selected");
+// 				if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["danceability"];
+// 						yAchseArray.push((help*1000)/2);
+// 						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+// // 					}
+// // 				console.log("yAchse variable " + yAchse);}
+// 				else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["energy"];
+// 						yAchseArray.push((help*1000)/2);
+// 						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+		
+// // 					}
+// // 				console.log("yAchse variable " + yAchse);}
+// 				else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["tempo"];
+// 						console.log("help in tempo " + help );
+// 						xAchseArray.push((help*1000)/2);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("yAchse variable " + yAchse);}
+// 				else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["playcount"];
+// 						console.log("help in playcount " + help );
+// 						xAchseArray.push((help*1000)/2);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("yAchse variable " + yAchse);}
+// // 				else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["loudness"];
+// 						console.log("help in loudness " + help );
+// 						xAchseArray.push((help*1000)/2);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// // 					}			
+// // 				console.log("yAchse variable " + yAchse);}
+// 				else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+// 						var help = parsedCSV[i]["jahr"];
+// 						console.log("help in jahr " + help );
+// 						xAchseArray.push((help*1000)/2);
+// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 					}
+// 				console.log("yAchse variable " + yAchse);}
+// 				//wort an die achsen schreiben
+// 				var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
+// 				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
+				
+				
+				
+				
+// 			});		
+				
+				
+				
+// 	$("#kreisGrosse").trigger("change");
+// 		});
 
-		function kreisGrosseForType(type, circle, parsedCSV){
-			if	(type ==="danceability"){ 
-				kreisGrosse = type;	
-				console.log("kreisGrosseOption variable " + kreisGrosse); 
-				kreisGrosseValue = parsedCSV*20; 
-				circle.attr('r', kreisGrosseValue);}
-			else if (type ==="energy")		{ 
-				kreisGrosse = type;	
-				console.log("kreisGrosseOption variable " + kreisGrosse); 
-				kreisGrosseValue = parsedCSV*20; 
-				circle.attr('r', kreisGrosseValue);}
-			else if (type ==="playcount")	{ 
-				kreisGrosse = type;	
-				console.log("kreisGrosseOption variable " + kreisGrosse); 
-				kreisGrosseValue = parsedCSV*20 / 10; 
-				circle.attr('r', kreisGrosseValue);}
-			else if (type ==="tempo")		{ 
-				kreisGrosse = type;	
-				console.log("kreisGrosseOption variable " + kreisGrosse); 
-				kreisGrosseValue = parsedCSV*20 / 100; 
-				circle.attr('r', kreisGrosseValue);}
-			else if (type ==="loudness")	{ 
-				kreisGrosse = type;	
-				console.log("kreisGrosseOption variable " + kreisGrosse); 
-				kreisGrosseValue = parsedCSV*20*(-1)/10; 
-				circle.attr('r', kreisGrosseValue);}
-		};
+// 		function kreisGrosseForType(type, circle, parsedCSV){
+// 			if	(type ==="danceability"){ 
+// 				kreisGrosse = type;	
+// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
+// 				kreisGrosseValue = parsedCSV*20; 
+// 				circle.attr('r', kreisGrosseValue);}
+// 			else if (type ==="energy")		{ 
+// 				kreisGrosse = type;	
+// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
+// 				kreisGrosseValue = parsedCSV*20; 
+// 				circle.attr('r', kreisGrosseValue);}
+// 			else if (type ==="playcount")	{ 
+// 				kreisGrosse = type;	
+// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
+// 				kreisGrosseValue = parsedCSV*20 / 10; 
+// 				circle.attr('r', kreisGrosseValue);}
+// 			else if (type ==="tempo")		{ 
+// 				kreisGrosse = type;	
+// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
+// 				kreisGrosseValue = parsedCSV*20 / 100; 
+// 				circle.attr('r', kreisGrosseValue);}
+// 			else if (type ==="loudness")	{ 
+// 				kreisGrosse = type;	
+// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
+// 				kreisGrosseValue = parsedCSV*20*(-1)/10; 
+// 				circle.attr('r', kreisGrosseValue);}
+// 		};
 
+		
+// 		$('#achsen').change(function(){
+// 			window.cleaner();
+// 			xAchseOption = $("#xAchse option:selected");
+// 			xAchseArray = [];
+// 			yAchseArray = [];
+// 			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
+// 				for (var i = 0; i < parsedCSV.length; i++) {
+// 					var help = parsedCSV[i]["danceability"];
+// 					xAchseArray.push(((help*1000)/2) +100);
+// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 				}
+// 			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
+		
+		
+			$("#kreisGrosse").change(function(){
+				kreisGrosseOption = $("#kreisGrosseSelect option:selected");
+				var type = kreisGrosseOption.val();
+				kreisGrosseArray=[];
+				
+				for (var i = 0; i < parsedCSV.length; i++) {
+					if	(type ==="danceability"){ 
+						kreisGrosseArray.push(parsedCSV[i][type]*20); 
+						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+					}
+					else if (type ==="energy")		{ 
+						kreisGrosseArray.push(parsedCSV[i][type]*20); 
+						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+					}
+					else if (type ==="playcount")	{ 
+						kreisGrosseArray.push((parsedCSV[i][type]*20)/10); 
+						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+					}
+					else if (type ==="tempo")		{ 
+						kreisGrosseArray.push((parsedCSV[i][type]*20)/100); 
+						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+					}
+					else if (type ==="loudness")	{ 
+						kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10); 
+						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+					}
+					
+// 					var help = parsedCSV[i][kreisGrosseOption.val()];
+// 					kreisGrosseArray.push(((help*1000)/2) +100);
+// 					console.log("kreisGrosseArray von value " + kreisGrosseOption.val() +" is " +kreisGrosseArray);
+				
+				}
+			});
+			
+			
+			
+			
+			
+// 			if 	(kreisGrosseOption.val() ==="danceability")	{ 
+// 				kreisGrosse = kreisGrosseOption.val();	
+// 				for (var i = 0; i < parsedCSV.length; i++) {
+// 					var help = parsedCSV[i]["danceability"];
+// 					xAchseArray.push(((help*1000)/2) +100);
+// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 				}
+// 			console.log("kreisGrosseOption variable " + kreisGrosse);}
+// 			}
+// 			else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+// 			else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+// 			else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+// 			else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+// 			else if (kreisGrosseOption.val() ==="jahr")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+// 			else if	(kreisGrosseOption.val() ==="key")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
+		
+		
+		
+/*  //function of sumeria		
+		
 		$("#kreisGrosse").change(function(){
 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
 // 			window.cleaner();
+			
+					
+// 			for (var i = 0; i < parsedCSV.length; i++) {
+// 					xAchseArray.push(((help*1000)/2) +100);
+// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 				}
+			
+			
 			var colorOption = $('#colorFilter option:selected');
 			console.log(colorOption.val());
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -457,6 +609,7 @@ $(document).ready(function(){
 					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
 			}
 		});
+*/
 
 		function initGenreTable(){
 		var array = [];
@@ -653,13 +806,14 @@ $(document).ready(function(){
 
 	$('#showButton').click(function(){ 
 		window.cleaner();
+		
+		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 		for (var i = 0; i < parsedCSV.length; i++) {
 				var circle = container.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i])
+				.attr('r',kreisGrosseArray[i]);
 				
-				.attr('r',((parsedCSV[i]['hotness']*20)))
-				.attr('fill',colorKey(key));		
 		}
 	});
 
@@ -688,16 +842,37 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
+	
 	$(".CS").click(function(){	       
 		window.cleaner();
 		//make all the circles transparent but the c
 		// if clicked again turned normal
+		
+		/* ayuda del codigo de sumerya
+		
+			for (var i = 0; i < parsedCSV.length; i++) {
+					var key = parsedCSV[i][colorOption.val()];
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i]);
+					if(colorOption.val() === 'genre'){
+						circle.attr('fill', colorGenre(key));
+					}else if(colorOption.val() === 'key'){
+						circle.attr('fill',colorKey(key));
+					}else if(colorOption.val() === 'tempo'){
+						circle.attr('fill',colorTempo(tempo));
+						}
+					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
+			}
+		
+		*/
 		for (var i = 0; i < parsedCSV.length; i++) {
 			if(parsedCSV[i]["key"]==="2"){
 				var circle = container.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i])
-				.attr('r',((parsedCSV[i]['hotness']*20)))
+				.attr('r',kreisGrosseArray[i])
 				.attr('fill',colorKey(key));		
 			}else{
 				var circle = container.append('circle')
@@ -709,6 +884,8 @@ $(document).ready(function(){
 			}
 		}
 	 });
+	
+	
 	$(".D").click(function(){	       
 		window.cleaner();
 		//make all the circles transparent but the c
