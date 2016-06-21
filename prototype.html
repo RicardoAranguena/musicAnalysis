@@ -189,7 +189,7 @@
 	$(document).ready(function(){
 	
 	
-	//so bald man betätigt den Buttton von Slider, "range" uebernimmt  die neue ausgewählte Grenze
+	//so bald man betätigt den Buttton von Slider, sliderLinks und sliderRechts uebernehmen  die neue ausgewählte Grenze
 	//wert wird gespeichert in range im Form 0.3;0.8
 $(".slider").click(function(){
 	var a=$(this).find('input[type="slider"]');
@@ -230,7 +230,7 @@ $('#xAchse').change(function(){
 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
-		//$("#yAchse option[value="+$(this).val()+"]").hide();  TO DO: jahr ausblenden???
+		
 		});
 		
 $('#yAchse').change(function(){
