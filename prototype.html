@@ -3,7 +3,7 @@
 <head>
 		<meta charset="UTF-8">
 
-		<link rel="stylesheet" href="styles.css" type="text/css">
+		<!-- link rel="stylesheet" href="styles.css" type="text/css"> -->
 		<link rel="stylesheet" href="css/jslider.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
@@ -65,6 +65,16 @@
 
 	<script>
 
+	/*to dos hoy
+		-hacer que el boton zeigen funcione a la izquierda
+		-hacer un click en el keyboard para ver que keys son las beliebtes
+		-hacer que las funciones funcionen en el grafico de la derecha
+		
+		-si quedan fuerzas armar spotify
+	*/
+	
+	
+	
 	//ideas de otras visualizacion
 	//hacer una busqueda por teclado de un genero especifico y mostrarlo
 	//beliebheit einem genre durch ein jahr
@@ -78,12 +88,13 @@
 	//	y esa variable va a correr en el for de afuera, esa variable va a tener el comando de hacer el
 	// att y todo lo demas.
 	// esa estring la va a ir haciendo los selects que se usen.
-	// etiqueten von values in die achsen schreiben
 
 	//conseguir subir info desde un csv
 	//hacer la informacion de spotify
-	//cambiar los colores de key
 
+	//cambiar los colores de key
+	//segunda visualizacion bar char
+	
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
 
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
@@ -137,6 +148,11 @@
 		var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
 		var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
 
+		var origin =  container.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
+		var yPlus =  container.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
+		var xPlus =  container.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
+			
+		
 //	canvas right		
 		var axeX = container.append("line").attr("x1",650).attr("y1",500).attr("x2",1250).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
  		var xSpike = container.append("polygon").attr("points","1250,500 1230,495 1230,505").style("fill","red").style("stroke","red").style("stroke-width",2);
@@ -146,6 +162,10 @@
 
 		var separationLineX = container.append("line").attr("x1",950).attr("y1",20).attr("x2",950).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
 		var separationLineY = container.append("line").attr("x1",720).attr("y1",250).attr("x2",1180).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+
+		var origin =  container.append("text").attr("x",630).attr("y",520).attr("id","xAchseText").text("0");
+		var yPlus =  container.append("text").attr("x",630).attr("y",20).attr("id","xAchseText").text("+");
+		var xPlus =  container.append("text").attr("x", 1230).attr("y",520).attr("id","xAchseText").text("+");
 //	end of canvas
 		
 		
@@ -183,197 +203,243 @@
 		return rowObject;
 	});
 
-	console.log(parsedCSV);
+//	console.log(parsedCSV); //show the array of objects
 
 //	var counter = parsedCSV.length;
 
-	var xAchseOption;
-	var xAchse;
-	var xAchseArray=[];
+	var xAchseOption, xAchse, xAchseArray=[];
 
-	var yAchseOption;
-	var yAchse;
-	var yAchseArray=[];
+	var yAchseOption, yAchse, yAchseArray=[];
 
 	var tempoArray=[];
 
-	var kreisGrosseOption;
-	var kreisGrosse;
-	var kreisGrosseValue;
+	var kreisGrosseOption, kreisGrosse, kreisGrosseValue;
 
-	var sliderLinks ;
-	var sliderRechts;
+	var sliderLinks, sliderRechts;
 	cleaner();
+	
+	var loudnessTop, loudnessBottom;
+
+	
 
 $(document).ready(function(){
 
 	//so bald man betätigt den Buttton von Slider, "range" uebernimmt  die neue ausgewählte Grenze
 	//wert wird gespeichert in range im Form 0.3;0.8
-$(".slider").click(function(){
-	var a=$(this).find('input[type="slider"]');
-	var range = a.val();
-	var array = range.split(';');
-     sliderLinks =array[0];
-	 sliderRechts = array[1];
-	console.log("wert 1: " + sliderLinks);
-
-	console.log("wert 2: " + sliderRechts);
-
+	$(".slider").click(function(){
+		var a=$(this).find('input[type="slider"]');
+		var range = a.val();
+		var array = range.split(';');
+	     sliderLinks =array[0];
+		 sliderRechts = array[1];
+		console.log("wert 1: " + sliderLinks);
+	
+		console.log("wert 2: " + sliderRechts);
+	
 	});
-
-// 	 	function cleaner(){
-// 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-// 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-// 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
-// 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-// 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
-// 			return ;
-// 		}
-
+	
 //sejchas=====================================================================================================
 //die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
 
-$('#xAchse').change(function(){
-		$("#yAchse option").show();
-		$("#kreisGrosseSelect option").show();
-	    $("#colorFilter option").show();
+	$('#xAchse').change(function(){
+			$("#yAchse option").show();
+			$("#kreisGrosseSelect option").show();
+		    $("#colorFilter option").show();
+	
+			$("#yAchse option[value="+$(this).val()+"]").hide();
+			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+			//$("#colorFilter option[value="+$(this).val()+"]").hide();
+	
+	});
+
+	$('#yAchse').change(function(){
+			$("#xAchse option").show();
+			//$("#kreisGrosseSelect option").show();
+			//$("#colorFilter option").show();
+	
+	
+			$("#xAchse option[value="+$(this).val()+"]").hide();
+			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+			//$("#colorFilter option[value="+$(this).val()+"]").hide();
+	
+			//$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+	});
 
 
-		$("#yAchse option[value="+$(this).val()+"]").hide();
-		//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		//$("#colorFilter option[value="+$(this).val()+"]").hide();
+	$('#kreisGrosseSelect').change(function(){
+			$("#xAchse option").show();
+			$("#yAchse option").show();
+		    $("#colorFilter option").show();
+	
+			//$("#xAchse option[value="+$(this).val()+"]").hide();
+			//$("#yAchse option[value="+$(this).val()+"]").hide();
+			$("#colorFilter option[value="+$(this).val()+"]").hide();
+			// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+	        //$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();
+	});
 
-		});
-
-$('#yAchse').change(function(){
-		$("#xAchse option").show();
-		//$("#kreisGrosseSelect option").show();
-		//$("#colorFilter option").show();
-
-
-		$("#xAchse option[value="+$(this).val()+"]").hide();
-		//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		//$("#colorFilter option[value="+$(this).val()+"]").hide();
-
-		//$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-		//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
-		});
-
-
-$('#kreisGrosseSelect').change(function(){
-		$("#xAchse option").show();
-		$("#yAchse option").show();
-	    $("#colorFilter option").show();
-
-		//$("#xAchse option[value="+$(this).val()+"]").hide();
-		//$("#yAchse option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();
-		// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-		//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
-        //$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();
-		});
-
-$('#colorFilter').change(function(){
-		//$("#xAchse option").show();
-		//$("#xAchse option[value="+$(this).val()+"]").hide();
-		//$("#yAchse option[value="+$(this).val()+"]").hide();
-//		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		});
-
-		// Achse select
-		$('#achsen').change(function(){
-			window.cleaner();
-			xAchseOption = $("#xAchse option:selected");
-			xAchseArray = [];
-			yAchseArray = [];
-			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
-				for (var i = 0; i < parsedCSV.length; i++) {
-					var help = parsedCSV[i]["danceability"];
-					xAchseArray.push(((help*1000)/2) +100);
-					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-
-				}
-
-			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
-			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
-
-				for (var i = 0; i < parsedCSV.length; i++) {
-					var help = parsedCSV[i]["energy"];
-					xAchseArray.push(((help*1000)/2) +100);
-					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-				}
-			console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
-				for (var i = 0; i < parsedCSV.length; i++) {
-					//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-					var help = parsedCSV[i]["tempo"];
-					console.log("help in tempo " + help );
-					xAchseArray.push(help +100);
-					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-				}
-
-			console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			//wort an die achsen schreiben
-			var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
-			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
-
-			yAchseOption = $("#yAchse option:selected");
-			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
-
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var help = parsedCSV[i]["danceability"];
-				yAchseArray.push((help*1000)/2);
-				console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-
-			}
-			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
-
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var help = parsedCSV[i]["energy"];
-				yAchseArray.push((help*1000)/2);
-				console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-
-			}
-			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
-
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var help = parsedCSV[i]["tempo"];
-				console.log("help in tempo " + help );
-				xAchseArray.push((help*1000)/2);
-				console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-			}
-
-			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			//else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-
-
-			//wort an die achsen schreiben
-			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
-			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
-
-			$("#kreisGrosse").trigger("change");
+	$('#colorFilter').change(function(){
+			//$("#xAchse option").show();
+			//$("#xAchse option[value="+$(this).val()+"]").hide();
+			//$("#yAchse option[value="+$(this).val()+"]").hide();
+	//		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+			});
+	
+			// Achse select
+			$('#achsen').change(function(){
+//				window.cleaner();
+				xAchseOption = $("#xAchse option:selected");
+				xAchseArray = [];
+				yAchseArray = [];
+				if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["danceability"];
+						xAchseArray.push(((help*1000)/2) +100);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
+				else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["energy"];
+						xAchseArray.push(((help*1000)/2) +100);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("xAchse variable " + xAchse);}
+				else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
+					for (var i = 0; i < parsedCSV.length; i++) {
+						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+						var help = parsedCSV[i]["tempo"];
+						console.log("help in tempo " + help );
+						xAchseArray.push(help +100);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("xAchse variable " + xAchse);}
+				
+				else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  
+					for (var i = 0; i < parsedCSV.length; i++) {
+						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+						var help = parsedCSV[i]["playcount"];
+						console.log("help in playcount " + help );
+						xAchseArray.push(help +100);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("xAchse variable " + xAchse);}
+				
+				
+				else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  
+					for (var i = 0; i < parsedCSV.length; i++) {
+						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+						var help = parsedCSV[i]["loudness"];
+						console.log("help in playcount " + help );
+						xAchseArray.push(help +100);//loudness has to be bigger than -200 db
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("xAchse variable " + xAchse);}
+				
+				else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  
+					for (var i = 0; i < parsedCSV.length; i++) {
+						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+						var help = parsedCSV[i]["jahr"];
+						console.log("help in playcount " + help );
+						xAchseArray.push(help +100);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("xAchse variable " + xAchse);}
+				
+				//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
+				//wort an die achsen schreiben
+				var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
+				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
+	
+				yAchseOption = $("#yAchse option:selected");
+				if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["danceability"];
+						yAchseArray.push((help*1000)/2);
+						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+					}
+				console.log("yAchse variable " + yAchse);}
+				else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["energy"];
+						yAchseArray.push((help*1000)/2);
+						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+		
+					}
+				console.log("yAchse variable " + yAchse);}
+				else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["tempo"];
+						console.log("help in tempo " + help );
+						xAchseArray.push((help*1000)/2);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("yAchse variable " + yAchse);}
+				else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["playcount"];
+						console.log("help in playcount " + help );
+						xAchseArray.push((help*1000)/2);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("yAchse variable " + yAchse);}
+				else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["loudness"];
+						console.log("help in loudness " + help );
+						xAchseArray.push((help*1000)/2);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}			
+				console.log("yAchse variable " + yAchse);}
+				else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	
+					for (var i = 0; i < parsedCSV.length; i++) {
+						var help = parsedCSV[i]["jahr"];
+						console.log("help in jahr " + help );
+						xAchseArray.push((help*1000)/2);
+						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+					}
+				console.log("yAchse variable " + yAchse);}
+				//wort an die achsen schreiben
+				var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
+				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
+				
+				
+	$("#kreisGrosse").trigger("change");
 		});
 
 		function kreisGrosseForType(type, circle, parsedCSV){
-			if 		(type ==="danceability"){ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20; circle.attr('r', kreisGrosseValue);}
-			else if (type ==="energy")		{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20; circle.attr('r', kreisGrosseValue);}
-			else if (type ==="tempo")		{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20 / 100; circle.attr('r', kreisGrosseValue);}
-			else if (type ==="playcount")	{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20 / 10; circle.attr('r', kreisGrosseValue);}
-			else if (type ==="loudness")	{ kreisGrosse = type;	console.log("kreisGrosseOption variable " + kreisGrosse); kreisGrosseValue = parsedCSV*20*(-1)/10; circle.attr('r', kreisGrosseValue);}
+			if	(type ==="danceability"){ 
+				kreisGrosse = type;	
+				console.log("kreisGrosseOption variable " + kreisGrosse); 
+				kreisGrosseValue = parsedCSV*20; 
+				circle.attr('r', kreisGrosseValue);}
+			else if (type ==="energy")		{ 
+				kreisGrosse = type;	
+				console.log("kreisGrosseOption variable " + kreisGrosse); 
+				kreisGrosseValue = parsedCSV*20; 
+				circle.attr('r', kreisGrosseValue);}
+			else if (type ==="playcount")	{ 
+				kreisGrosse = type;	
+				console.log("kreisGrosseOption variable " + kreisGrosse); 
+				kreisGrosseValue = parsedCSV*20 / 10; 
+				circle.attr('r', kreisGrosseValue);}
+			else if (type ==="tempo")		{ 
+				kreisGrosse = type;	
+				console.log("kreisGrosseOption variable " + kreisGrosse); 
+				kreisGrosseValue = parsedCSV*20 / 100; 
+				circle.attr('r', kreisGrosseValue);}
+			else if (type ==="loudness")	{ 
+				kreisGrosse = type;	
+				console.log("kreisGrosseOption variable " + kreisGrosse); 
+				kreisGrosseValue = parsedCSV*20*(-1)/10; 
+				circle.attr('r', kreisGrosseValue);}
 		};
 
 		$("#kreisGrosse").change(function(){
 			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
-			window.cleaner();
+// 			window.cleaner();
 			var colorOption = $('#colorFilter option:selected');
 			console.log(colorOption.val());
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -467,7 +533,7 @@ $('#colorFilter').change(function(){
 
 
 		$('#colorFilter').change(function(){
-			window.cleaner();
+// 			window.cleaner();
 			var colorOption = $('#colorFilter option:selected');
 			if (colorOption.val()==="danceability"){
 				$("#colorDanceability").toggle();
@@ -504,7 +570,7 @@ $('#colorFilter').change(function(){
 
 
 
-for (var i = 0; i < parsedCSV.length; i++) {
+				for (var i = 0; i < parsedCSV.length; i++) {
 
 					// making the function for doing the color selection in key
 					var tempo = parsedCSV[i]["tempo"];
@@ -580,12 +646,121 @@ for (var i = 0; i < parsedCSV.length; i++) {
 			}//end if option 5
 		});//end color filter
 
-   // sliders werden gebildet, fuer jede Attribut - eigene Slider
+
+		// sliders werden gebildet, fuer jede Attribut - eigene Slider
 		buildSliders();
 		buildSliders();
 
+	$('#showButton').click(function(){ 
+		window.cleaner();
+		for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i])
+				
+				.attr('r',((parsedCSV[i]['hotness']*20)))
+				.attr('fill',colorKey(key));		
+		}
+	});
 
-	});//end document ready
+	
+	
+	//this functions are for the showing of only the circles of a note. The rest will be fuzzy
+	
+	$(".C").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+		for (var i = 0; i < parsedCSV.length; i++) {
+			if(parsedCSV[i]["key"]==="1"){
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i])
+				.attr('r',((parsedCSV[i]['hotness']*20)))
+				.attr('fill',colorKey(key));		
+			}else{
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i])
+				.attr('r',((parsedCSV[i]['hotness']*20)))
+				.attr('fill',colorKey(key))
+				.attr('fill-opacity',"0.4");		
+			}
+		}
+	});
+	$(".CS").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+		for (var i = 0; i < parsedCSV.length; i++) {
+			if(parsedCSV[i]["key"]==="2"){
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i])
+				.attr('r',((parsedCSV[i]['hotness']*20)))
+				.attr('fill',colorKey(key));		
+			}else{
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i])
+				.attr('r',((parsedCSV[i]['hotness']*20)))
+				.attr('fill',colorKey(key))
+				.attr('fill-opacity',"0.4");		
+			}
+		}
+	 });
+	$(".D").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".DS").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".E").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".F").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".FS").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".G").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".GS").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".A").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".AS").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+	$(".B").click(function(){	       
+		window.cleaner();
+		//make all the circles transparent but the c
+		// if clicked again turned normal
+	 });
+		
+});//end document ready
 
 </script>
 
@@ -594,11 +769,6 @@ for (var i = 0; i < parsedCSV.length; i++) {
 <!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
 <!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
 <!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
-<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
-<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
-<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
-<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
-
 
 <div name="tags" style="width:1150;margin-left: 100px;overflow: hidden;">
 	<div name="tag-left" style="width:550px;float:left;">
@@ -705,51 +875,50 @@ for (var i = 0; i < parsedCSV.length; i++) {
 		
 			<svg width="350" height="150" style=" margin-left: 20%;">
 		
-		  	<!-- notes (C,D,E,F,G,A,B)-->
-				<rect x="0" 	y="0" 	width="50" height="150" 	style="fill:rgb(31,120,180);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="50" 	y="0" 	width="50" height="150"		style="fill:rgb(106,61,154);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="100" 	y="0" 	width="50" height="150" 	style="fill:rgb(177,89,40);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="150" 	y="0" 	width="50" height="150" 	style="fill:rgb(227,26,28);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="200" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,127,0);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="250" 	y="0" 	width="50" height="150" 	style="fill:rgb(51,160,44);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="300" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,255,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<!-- notes fields -->
+			<rect x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
 		
-			<!-- sharp notes (C# ,D# ,F#, G#, A#) -->
-				<rect x="35" 	y="50" 	width="30" height="50" 		style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="85" 	y="50" 	width="30" height="50" 		style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="185" 	y="50" 	width="30" height="50" 		style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="235" 	y="50" 	width="30" height="50" 		style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="285" 	y="50" 	width="30" height="50" 		style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		
-				<rect x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	class="C" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		class="CS" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
+			<polygon 	class="D" points="50,100 65,100 65,50  85,50 85,100  100,100 100,150 50,150" 		style="fill:rgb(106,61,154);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		class="DS" x="85" 	y="50" 	width="30" height="50" 									style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	class="E" points="100,100 115,100 115,50  150,50 150,100  150,150 100,150 "	 	style="fill:rgb(177,89,40);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<polygon 	class="F" points="150,50 185,50 185,100  200,100 200,150  150,150 " 				style="fill:rgb(227,26,28);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		class="FS" x="185" 	y="50" 	width="30" height="50" 								style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	class="G" points="200,100 215,100 215,50  235,50 235,100  250,100 250,150 200,150" style="fill:rgb(255,127,0);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		class="GS" x="235" 	y="50" 	width="30" height="50" 								style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	class="A" points="250,100 265,100 265,50  285,50 285,100  300,100 300,150 250,150" style="fill:rgb(51,160,44);   	stroke-width:1; stroke:rgb(255,255,255);" />
+			<rect 		class="AS" x="285" 	y="50" 	width="30" height="50" 								style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	class="B" points="300,100 315,100 315,50  350,50 350,150  300,150  "	 			style="fill:rgb(255,255,153);   stroke-width:1; stroke:rgb(255,255,255);" />
+		  					
 			<!-- circles for notes of keys -->
-				<circle cx="24" cy="125" r="14"  fill="white" />
-				<circle cx="74" cy="125" r="14"  fill="white" />
-				<circle cx="124" cy="125" r="14"  fill="white" />
-				<circle cx="174" cy="125" r="14"  fill="white" />
-				<circle cx="224" cy="125" r="14"  fill="white" />
-				<circle cx="274" cy="125" r="14"  fill="white" />
-				<circle cx="324" cy="125" r="14"  fill="white" />
+				<circle class="C" cx="24" cy="125" r="14"  fill="white" />
+				<circle class="D" cx="74" cy="125" r="14"  fill="white" />
+				<circle class="E" cx="124" cy="125" r="14"  fill="white" />
+				<circle class="F" cx="174" cy="125" r="14"  fill="white" />
+				<circle class="G" cx="224" cy="125" r="14"  fill="white" />
+				<circle class="A" cx="274" cy="125" r="14"  fill="white" />
+				<circle class="B" cx="324" cy="125" r="14"  fill="white" />
 			<!-- circles for notes of keys -->
-				<text x="19" y="130" fill="black"> C </text>
-				<text x="69" y="130" fill="black"> D </text>
-				<text x="119" y="130" fill="black"> E </text>
-				<text x="169" y="130" fill="black"> F </text>
-				<text x="219" y="130" fill="black"> G </text>
-				<text x="269" y="130" fill="black"> A </text>
-				<text x="319" y="130" fill="black"> B </text>
+				<text class="C" x="19" y="130" fill="black"> C </text>
+				<text class="D" x="69" y="130" fill="black"> D </text>
+				<text class="E" x="119" y="130" fill="black"> E </text>
+				<text class="F" x="169" y="130" fill="black"> F </text>
+				<text class="G" x="219" y="130" fill="black"> G </text>
+				<text class="A" x="269" y="130" fill="black"> A </text>
+				<text class="B" x="319" y="130" fill="black"> B </text>
 		
-				<circle cx="50" cy="75" r="12"  fill="white" />
-				<circle cx="100" cy="75" r="12"  fill="white" />
-				<circle cx="200" cy="75" r="12"  fill="white" />
-				<circle cx="250" cy="75" r="12"  fill="white" />
-				<circle cx="300" cy="75" r="12"  fill="white" />
+				<circle class="CS" cx="50" cy="75" r="12"  fill="white" />
+				<circle class="DS" cx="100" cy="75" r="12"  fill="white" />
+				<circle class="FS" cx="200" cy="75" r="12"  fill="white" />
+				<circle class="GA" cx="250" cy="75" r="12"  fill="white" />
+				<circle class="AS" cx="300" cy="75" r="12"  fill="white" />
 		
-				<text x="42" y="80" fill="black"> C# </text>
-				<text x="92" y="80" fill="black"> D# </text>
-				<text x="192" y="80" fill="black"> F# </text>
-				<text x="242" y="80" fill="black"> G# </text>
-				<text x="292" y="80" fill="black"> A# </text>
+				<text class="CS" x="42" y="80" fill="black"> C# </text>
+				<text class="DS" x="92" y="80" fill="black"> D# </text>
+				<text class="FS" x="192" y="80" fill="black"> F# </text>
+				<text class="GS" x="242" y="80" fill="black"> G# </text>
+				<text class="AS" x="292" y="80" fill="black"> A# </text>
 		
 			</svg>
 			<p style="text-align: center;">*Wenn die Metada "KEY" vom Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
@@ -762,7 +931,9 @@ for (var i = 0; i < parsedCSV.length; i++) {
 			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">	
 			</table>
 		</div>	
-
+		
+		<button id="showButton" style="margin-left:46%;">Zeigen</button>		
+		
 	</div><!-- end tag left -->
 	
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
@@ -877,65 +1048,66 @@ for (var i = 0; i < parsedCSV.length; i++) {
 			<br>
 		
 			<svg width="350" height="150" style=" margin-left: 20%;">
-		
-		  	<!-- notes (C,D,E,F,G,A,B)-->
-				<rect x="0" 	y="0" 	width="50" height="150" 	style="fill:rgb(31,120,180);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="50" 	y="0" 	width="50" height="150"		style="fill:rgb(106,61,154);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="100" 	y="0" 	width="50" height="150" 	style="fill:rgb(177,89,40);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="150" 	y="0" 	width="50" height="150" 	style="fill:rgb(227,26,28);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="200" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,127,0);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="250" 	y="0" 	width="50" height="150" 	style="fill:rgb(51,160,44);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="300" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,255,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		
-			<!-- sharp notes (C# ,D# ,F#, G#, A#) -->
-				<rect x="35" 	y="50" 	width="30" height="50" 		style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="85" 	y="50" 	width="30" height="50" 		style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="185" 	y="50" 	width="30" height="50" 		style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="235" 	y="50" 	width="30" height="50" 		style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-				<rect x="285" 	y="50" 	width="30" height="50" 		style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		
-				<rect x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
-			<!-- circles for notes of keys -->
-				<circle cx="24" cy="125" r="14"  fill="white" />
-				<circle cx="74" cy="125" r="14"  fill="white" />
-				<circle cx="124" cy="125" r="14"  fill="white" />
-				<circle cx="174" cy="125" r="14"  fill="white" />
-				<circle cx="224" cy="125" r="14"  fill="white" />
-				<circle cx="274" cy="125" r="14"  fill="white" />
-				<circle cx="324" cy="125" r="14"  fill="white" />
-			<!-- circles for notes of keys -->
-				<text x="19" y="130" fill="black"> C </text>
-				<text x="69" y="130" fill="black"> D </text>
-				<text x="119" y="130" fill="black"> E </text>
-				<text x="169" y="130" fill="black"> F </text>
-				<text x="219" y="130" fill="black"> G </text>
-				<text x="269" y="130" fill="black"> A </text>
-				<text x="319" y="130" fill="black"> B </text>
-		
-				<circle cx="50" cy="75" r="12"  fill="white" />
-				<circle cx="100" cy="75" r="12"  fill="white" />
-				<circle cx="200" cy="75" r="12"  fill="white" />
-				<circle cx="250" cy="75" r="12"  fill="white" />
-				<circle cx="300" cy="75" r="12"  fill="white" />
-		
-				<text x="42" y="80" fill="black"> C# </text>
-				<text x="92" y="80" fill="black"> D# </text>
-				<text x="192" y="80" fill="black"> F# </text>
-				<text x="242" y="80" fill="black"> G# </text>
-				<text x="292" y="80" fill="black"> A# </text>
-		
+				
+					<!-- notes fields -->
+					<rect x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+				
+					<polygon 	class="C1" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
+				  	<rect 		class="CS1" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
+					<polygon 	class="D1" points="50,100 65,100 65,50  85,50 85,100  100,100 100,150 50,150" 		style="fill:rgb(106,61,154);   	stroke-width:1; stroke:rgb(255,255,255);" />
+				  	<rect 		class="DS1" x="85" 	y="50" 	width="30" height="50" 									style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+					<polygon 	class="E1" points="100,100 115,100 115,50  150,50 150,100  150,150 100,150 "	 	style="fill:rgb(177,89,40);   	stroke-width:1; stroke:rgb(255,255,255);" />
+				  	<polygon 	class="F1" points="150,50 185,50 185,100  200,100 200,150  150,150 " 				style="fill:rgb(227,26,28);   	stroke-width:1; stroke:rgb(255,255,255);" />
+				  	<rect 		class="FS1" x="185" 	y="50" 	width="30" height="50" 								style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+					<polygon 	class="G1" points="200,100 215,100 215,50  235,50 235,100  250,100 250,150 200,150" style="fill:rgb(255,127,0);   	stroke-width:1; stroke:rgb(255,255,255);" />
+				  	<rect 		class="GS1" x="235" 	y="50" 	width="30" height="50" 								style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+					<polygon 	class="A1" points="250,100 265,100 265,50  285,50 285,100  300,100 300,150 250,150" style="fill:rgb(51,160,44);   	stroke-width:1; stroke:rgb(255,255,255);" />
+					<rect 		class="AS1" x="285" 	y="50" 	width="30" height="50" 								style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+					<polygon 	class="B1" points="300,100 315,100 315,50  350,50 350,150  300,150  "	 			style="fill:rgb(255,255,153);   stroke-width:1; stroke:rgb(255,255,255);" />
+				  					
+					<!-- circles for notes of keys -->
+						<circle class="C1" cx="24" cy="125" r="14"  fill="white" />
+						<circle class="D1" cx="74" cy="125" r="14"  fill="white" />
+						<circle class="E1" cx="124" cy="125" r="14"  fill="white" />
+						<circle class="F1" cx="174" cy="125" r="14"  fill="white" />
+						<circle class="G1" cx="224" cy="125" r="14"  fill="white" />
+						<circle class="A1" cx="274" cy="125" r="14"  fill="white" />
+						<circle class="B1" cx="324" cy="125" r="14"  fill="white" />
+					<!-- circles for notes of keys -->
+						<text class="C1" x="19" y="130" fill="black"> C </text>
+						<text class="D1" x="69" y="130" fill="black"> D </text>
+						<text class="E1" x="119" y="130" fill="black"> E </text>
+						<text class="F1" x="169" y="130" fill="black"> F </text>
+						<text class="G1" x="219" y="130" fill="black"> G </text>
+						<text class="A1" x="269" y="130" fill="black"> A </text>
+						<text class="B1" x="319" y="130" fill="black"> B </text>
+				
+						<circle class="CS1" cx="50" cy="75" r="12"  fill="white" />
+						<circle class="DS1" cx="100" cy="75" r="12"  fill="white" />
+						<circle class="FS1" cx="200" cy="75" r="12"  fill="white" />
+						<circle class="GA1" cx="250" cy="75" r="12"  fill="white" />
+						<circle class="AS1" cx="300" cy="75" r="12"  fill="white" />
+				
+						<text class="CS1" x="42" y="80" fill="black"> C# </text>
+						<text class="DS1" x="92" y="80" fill="black"> D# </text>
+						<text class="FS1" x="192" y="80" fill="black"> F# </text>
+						<text class="GS1" x="242" y="80" fill="black"> G# </text>
+						<text class="AS1" x="292" y="80" fill="black"> A# </text>
+				
 			</svg>
 			<p style="text-align: center;">*Wenn die Metada "KEY" vom Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
 		
 		</div>
 		
 		<!-- Table for the color selection of genre -->
-		<div id="colorGenre" style="margin-left:30% ;">
+		<div id="colorGenre1" style="margin-left:30% ;">
 			<br>
 			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">	
 			</table>
 		</div>
-				
+		
+		<button id="showButton2" style="margin-left:46%;">Zeigen</button>		
+
 	</div>
 </div><!-- end of div tags -->
 
