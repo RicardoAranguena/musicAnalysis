@@ -292,507 +292,227 @@ $(document).ready(function(){
 			});
 	
 			// Achse select
-			$('#achsen').change(function(){
-//				window.cleaner();
-				xAchseArray = [];
-				yAchseArray = [];
-				
-				xAchseOption = $("#xAchse option:selected");
-				for (var i = 0; i < parsedCSV.length; i++) {
-					if 	(xAchseOption.val() ==="danceability")	{ 
-						xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
-						//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
-					}else if (xAchseOption.val() ==="energy") 	{ 
-						xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
-						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}else if (xAchseOption.val() ==="tempo")  	{ 
-						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-						xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
-						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}else if (xAchseOption.val() ==="playcount"){
-						xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
-						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}else if (xAchseOption.val() ==="loudness")		{ 
-						xAchseArray.push(parsedCSV[i]["loudness"] +100);//loudness has to be bigger than -200 db
-						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();  
-						xAchseArray.push(parsedCSV[i]["jahr"] +100);
-						//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-					}
-				}//end for	
-					
-				//wort an die achsen schreiben
-				var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
-				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
-	
-				yAchseOption = $("#yAchse option:selected");
-					for (var i = 0; i < parsedCSV.length; i++) {
-						if 	(yAchseOption.val() ==="danceability")	{ 
-							yAchseArray.push((parsedCSV[i]["danceability"]*1000)/2);
-							//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-						}else if (yAchseOption.val() ==="energy") { 
-							yAchseArray.push((parsedCSV[i]["energy"]*1000)/2);
-							//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-						}else if (yAchseOption.val() ==="tempo") { 
-							yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
-							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
-						}else if (yAchseOption.val() ==="playcount") { 
-							yAchseArray.push((parsedCSV[i]["playcount"]*1000)/2);
-							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
-						}else if (yAchseOption.val() ==="loudness")	{
-							yAchseArray.push((parsedCSV[i]["loudness"]*1000)/2);
-							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
-						}else if (yAchseOption.val() ==="jahr")	{ 
-							yAchseArray.push((parsedCSV[i]["jahr"]*1000)/2);
-							//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
-						}
-							
-					}//end for
-					
-				//wort an die achsen schreiben
-				var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
-				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
+	$('#achsen').change(function(){
+		xAchseArray = [];
+		yAchseArray = [];
+		
+		xAchseOption = $("#xAchse option:selected");
+		for (var i = 0; i < parsedCSV.length; i++) {
+			if 	(xAchseOption.val() ==="danceability")	{ 
+				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
+				//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="energy") 	{ 
+				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="tempo")  	{ 
+				//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+				xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="playcount"){
+				xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="loudness")		{ 
+				xAchseArray.push(parsedCSV[i]["loudness"] +100);//loudness has to be bigger than -200 db
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();  
+				xAchseArray.push(parsedCSV[i]["jahr"] +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}
+		}//end for	
 			
-			});
-				
-				
-// 				if 		(xAchseOption.val() ==="danceability" )	{ 
-// 					xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["danceability"];
-// 						xAchseArray.push(((help*1000)/2) +100);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
-// 				else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["energy"];
-// 						xAchseArray.push(((help*1000)/2) +100);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("xAchse variable " + xAchse);}
-// 				else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-// 						var help = parsedCSV[i]["tempo"];
-// 						console.log("help in tempo " + help );
-// 						xAchseArray.push(help +100);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("xAchse variable " + xAchse);}
-				
-// 				else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-// 						var help = parsedCSV[i]["playcount"];
-// 						console.log("help in playcount " + help );
-// 						xAchseArray.push(help +100);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("xAchse variable " + xAchse);}
-				
-				
-// 				else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-// 						var help = parsedCSV[i]["loudness"];
-// 						console.log("help in playcount " + help );
-// 						xAchseArray.push(help +100);//loudness has to be bigger than -200 db
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("xAchse variable " + xAchse);}
-				
-// 				else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-// 						var help = parsedCSV[i]["jahr"];
-// 						console.log("help in playcount " + help );
-// 						xAchseArray.push(help +100);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("xAchse variable " + xAchse);}
-				
-				//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-				//wort an die achsen schreiben
-// 				var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
-// 				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
-	
-// 				yAchseOption = $("#yAchse option:selected");
-// 				if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["danceability"];
-// 						yAchseArray.push((help*1000)/2);
-// 						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-// // 					}
-// // 				console.log("yAchse variable " + yAchse);}
-// 				else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["energy"];
-// 						yAchseArray.push((help*1000)/2);
-// 						console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-		
-// // 					}
-// // 				console.log("yAchse variable " + yAchse);}
-// 				else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["tempo"];
-// 						console.log("help in tempo " + help );
-// 						xAchseArray.push((help*1000)/2);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("yAchse variable " + yAchse);}
-// 				else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["playcount"];
-// 						console.log("help in playcount " + help );
-// 						xAchseArray.push((help*1000)/2);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("yAchse variable " + yAchse);}
-// // 				else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["loudness"];
-// 						console.log("help in loudness " + help );
-// 						xAchseArray.push((help*1000)/2);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// // 					}			
-// // 				console.log("yAchse variable " + yAchse);}
-// 				else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-// 						var help = parsedCSV[i]["jahr"];
-// 						console.log("help in jahr " + help );
-// 						xAchseArray.push((help*1000)/2);
-// 						console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 					}
-// 				console.log("yAchse variable " + yAchse);}
-// 				//wort an die achsen schreiben
-// 				var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
-// 				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
-				
-				
-				
-				
-// 			});		
-				
-				
-				
-// 	$("#kreisGrosse").trigger("change");
-// 		});
-
-// 		function kreisGrosseForType(type, circle, parsedCSV){
-// 			if	(type ==="danceability"){ 
-// 				kreisGrosse = type;	
-// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
-// 				kreisGrosseValue = parsedCSV*20; 
-// 				circle.attr('r', kreisGrosseValue);}
-// 			else if (type ==="energy")		{ 
-// 				kreisGrosse = type;	
-// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
-// 				kreisGrosseValue = parsedCSV*20; 
-// 				circle.attr('r', kreisGrosseValue);}
-// 			else if (type ==="playcount")	{ 
-// 				kreisGrosse = type;	
-// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
-// 				kreisGrosseValue = parsedCSV*20 / 10; 
-// 				circle.attr('r', kreisGrosseValue);}
-// 			else if (type ==="tempo")		{ 
-// 				kreisGrosse = type;	
-// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
-// 				kreisGrosseValue = parsedCSV*20 / 100; 
-// 				circle.attr('r', kreisGrosseValue);}
-// 			else if (type ==="loudness")	{ 
-// 				kreisGrosse = type;	
-// 				console.log("kreisGrosseOption variable " + kreisGrosse); 
-// 				kreisGrosseValue = parsedCSV*20*(-1)/10; 
-// 				circle.attr('r', kreisGrosseValue);}
-// 		};
-
-		
-// 		$('#achsen').change(function(){
-// 			window.cleaner();
-// 			xAchseOption = $("#xAchse option:selected");
-// 			xAchseArray = [];
-// 			yAchseArray = [];
-// 			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
-// 				for (var i = 0; i < parsedCSV.length; i++) {
-// 					var help = parsedCSV[i]["danceability"];
-// 					xAchseArray.push(((help*1000)/2) +100);
-// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 				}
-// 			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
-		
-		
-			$("#kreisGrosse").change(function(){
-				kreisGrosseOption = $("#kreisGrosseSelect option:selected");
-				var type = kreisGrosseOption.val();
-				kreisGrosseArray=[];
-				
-				for (var i = 0; i < parsedCSV.length; i++) {
-					if	(type ==="danceability"){ 
-						kreisGrosseArray.push(parsedCSV[i][type]*20); 
-						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
-					}
-					else if (type ==="energy")		{ 
-						kreisGrosseArray.push(parsedCSV[i][type]*20); 
-						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
-					}
-					else if (type ==="playcount")	{ 
-						kreisGrosseArray.push((parsedCSV[i][type]*20)/10); 
-						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
-					}
-					else if (type ==="tempo")		{ 
-						kreisGrosseArray.push((parsedCSV[i][type]*20)/100); 
-						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
-					}
-					else if (type ==="loudness")	{ 
-						kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10); 
-						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
-					}
-					
-				}
-			});
-			
-		
-/*  //function of sumeria		
-		
-		$("#kreisGrosse").change(function(){
-			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
-// 			window.cleaner();
-			
-					
-// 			for (var i = 0; i < parsedCSV.length; i++) {
-// 					xAchseArray.push(((help*1000)/2) +100);
-// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 				}
-			
-			
-			var colorFilterOption = $('#colorFilter option:selected');
-			console.log(colorFilterOption.val());
+		//wort an die achsen schreiben
+		var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
+		if(xAchseOption.val()!="leer"){
+			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
+		}
+		yAchseOption = $("#yAchse option:selected");
 			for (var i = 0; i < parsedCSV.length; i++) {
-					var key = parsedCSV[i][colorFilterOption.val()];
-					var circle = container.append('circle')
-					.attr('cx', xAchseArray[i] )
-					.attr('cy',yAchseArray[i]);
-					if(colorFilterOption.val() === 'genre'){
-						circle.attr('fill', colorGenre(key));
-					}else if(colorFilterOption.val() === 'key'){
-						circle.attr('fill',colorKey(key));
-					}else if(colorFilterOption.val() === 'tempo'){
-						circle.attr('fill',colorTempo(tempo));
-						}
-					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
-			}
-		});
-*/
-
-		function initGenreTable(){
-		var array = [];
-		var k = 0;
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var genre = parsedCSV[i]["genre"];
-				var saved = false;
-				for(var j = 0; j < array.length; j++){
-					if(genre === array[j]){
-						saved = true;
-						break;
-					}
+				if 	(yAchseOption.val() ==="danceability")	{ 
+					yAchseArray.push((parsedCSV[i]["danceability"]*1000)/2);
+					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="energy") { 
+					yAchseArray.push((parsedCSV[i]["energy"]*1000)/2);
+					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="tempo") { 
+					yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="playcount") { 
+					yAchseArray.push((parsedCSV[i]["playcount"]*1000)/2);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="loudness")	{
+					yAchseArray.push((parsedCSV[i]["loudness"]*1000)/2);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="jahr")	{ 
+					yAchseArray.push((parsedCSV[i]["jahr"]*1000)/2);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}
-				if(!saved){
-					array[k++] = genre;
-				}
-			}
-			var table = document.getElementById('tableColor');
-			table.innerHTML = "";
-			var tr;
-			for(var i = 0; i < array.length; i++){
-				if(i % 3 == 0 && i != 0){
-					table.appendChild(tr);
-				}
-				if(i % 3 == 0){
-					tr = document.createElement('tr');
-				}
-				var td = document.createElement('td');
-				td.setAttribute('bgcolor', colorGenre(array[i]));
-				var font = document.createElement('font');
-				font.setAttribute('color', 'white');
-				font.innerHTML = array[i];
-				td.appendChild(font);
-				tr.appendChild(td);
-			}
-		};
-
-
-
-
-// 		//color select
-// 		$("#colorDanceability").hide();
-// 		$("#colorEnergy").hide();
-// 		$("#colorTempo").hide();
-// 		$("#colorGenre").hide();
-// 		function colorTempo(tempo) {
-//             return "red";
-// 		};
-
-
-// 		//color select
-// 		$("#colorDanceability").hide();
-// 		$("#colorEnergy").hide();
-// 		$("#colorTempo").hide();
-// 		$("#colorGenre").hide();
-		function colorGenre(genre) {
-            if (genre ==="dance") {return "red"}
-            else if (genre ==="deepHouse") {return "green"}
-            else if (genre ==="house") {return "blue"}
-            else if (genre ==="latinParty") {return "pink"}
-            else if (genre ==="Deep House") {return "orange"}
-            else if (genre ==="House") {return "yellow"}
-            else if (genre ==="Lounge / Nu Jazz / House") {return "silver"}
-            else if (genre ==="Dance") {return "purple"}
-            else if (genre ==="TropicalHouse") {return "brown"}
-            else{ return "black" };
-		};
-
-//		$("#colorKey").hide();
-
-// 		colorKey();
-
-
-
-  		$("#colorDanceability").hide();
-		$("#colorEnergy").hide();
-		$("#colorTempo").hide();
-		$("#colorGenre").hide();
-		$("#colorKey").hide();
-
-		$('#colorFilter').change(function(){
-// 			window.cleaner();
-			colorFilterOption = $('#colorFilter option:selected');
-		
-			colorFilterArray=[];
-			for (var i = 0; i < parsedCSV.length; i++) {
-	
-				if (colorFilterOption.val()==="leer"){
-					$("#colorDanceability").hide();
-	 				$("#colorEnergy").hide();//toggle before 
-					$("#colorTempo").hide();
-					$("#colorGenre").hide();
-					$("#colorKey").hide();
-				}
-				
-				if (colorFilterOption.val()==="danceability"){
-					$("#colorDanceability").show();
-					$("#colorEnergy").hide();
-					$("#colorTempo").hide();
-					$("#colorGenre").hide();
-					$("#colorKey").hide();
 					
-					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-					//console.log("the option selected for color is" + colorFilterOption.val()+ " and the colorFilterArray is "+ colorFilterArray[i]); 
-					}
-				
-				if (colorFilterOption.val()==="energy"){
-					$("#colorDanceability").hide();
-	 				$("#colorEnergy").show();
-					$("#colorTempo").hide();
-					$("#colorGenre").hide();
-					$("#colorKey").hide();
-					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-				}
-				if (colorFilterOption.val()==="tempo"){
-					$("#colorDanceability").hide();
-					$("#colorEnergy").hide();
-	 				$("#colorTempo").show();
-					$("#colorGenre").hide();
-					$("#colorKey").hide();
-					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-					
-// 					//for (var i = 0; i < parsedCSV.length; i++) {
-	
-// 						// making the function for doing the color selection in key
-// 						var tempo = parsedCSV[i]["tempo"];
-	
-// 						if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
-// 							var circle = container.append('circle')
-// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
-// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-// 							.attr('fill',colorTempo(tempo));
-// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-// 						}
-// 						if (xAchse ==="tempo"){
-// 							var circle = container.append('circle')
-// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
-// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-// 							.attr('fill',colorTempo(tempo));
-// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-// 						}
-// 				//	}//end for
-	
-	
-				}
-				if (colorFilterOption.val()==="genre"){
-	
-					$("#colorDanceability").hide();
-					$("#colorEnergy").hide();
-					$("#colorTempo").hide();
-					$("#colorGenre").show();
-					$("#colorKey").hide();
-					initGenreTable();
-					
-					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-					
-					
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-	
-// 						// making the function for doing the color selection in key
-// 						var genre = parsedCSV[i]["genre"];
-	
-// 						var circle = container.append("circle")
-// 						.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
-// 						.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
-// 						.attr("fill",colorGenre(genre));
-// 						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-	
-// 					}
-	
-	
-				}
-				if (colorFilterOption.val()==="key"){ //key is the color of the circles
-					$("#colorDanceability").hide();
-					$("#colorEnergy").hide();
-					$("#colorTempo").hide();
-					$("#colorGenre").hide();
-					$("#colorKey").show();
-					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-					
-// 					for (var i = 0; i < parsedCSV.length; i++) {
-	
-// 						// making the function for doing the color selection in key
-// 						var key = parsedCSV[i]["key"];
-	
-// 						if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
-// 							var circle = container.append('circle')
-// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
-// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-// 							.attr('fill',colorKey(key));
-// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-// 						}
-// 						if (xAchse ==="tempo"){
-// 							var circle = container.append('circle')
-// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
-// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-// 							.attr('fill',colorKey(key));
-// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-// 						}
-// 					}//end for
-				}//end if option 5
+			}//end for
 			
+		//wort an die achsen schreiben
+		var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
+		if(yAchseOption.val()!="leer"){
+			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
+		}
+	});
+					
+	$("#kreisGrosse").change(function(){
+		kreisGrosseOption = $("#kreisGrosseSelect option:selected");
+		var type = kreisGrosseOption.val();
+		kreisGrosseArray=[];
+		
+		for (var i = 0; i < parsedCSV.length; i++) {
+			if	(type ==="danceability"){ 
+				kreisGrosseArray.push(parsedCSV[i][type]*20); 
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
 			}
-		});//end color filter
+			else if (type ==="energy")		{ 
+				kreisGrosseArray.push(parsedCSV[i][type]*20); 
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			}
+			else if (type ==="playcount")	{ 
+				kreisGrosseArray.push((parsedCSV[i][type]*20)/10); 
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			}
+			else if (type ==="tempo")		{ 
+				kreisGrosseArray.push((parsedCSV[i][type]*20)/100); 
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			}
+			else if (type ==="loudness")	{ 
+				kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10); 
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			}
+			
+		}
+	});
+	
+	function initGenreTable(){
+	var array = [];
+	var k = 0;
+		for (var i = 0; i < parsedCSV.length; i++) {
+			var genre = parsedCSV[i]["genre"];
+			var saved = false;
+			for(var j = 0; j < array.length; j++){
+				if(genre === array[j]){
+					saved = true;
+					break;
+				}
+			}
+			if(!saved){
+				array[k++] = genre;
+			}
+		}
+		var table = document.getElementById('tableColor');
+		table.innerHTML = "";
+		var tr;
+		for(var i = 0; i < array.length; i++){
+			if(i % 3 == 0 && i != 0){
+				table.appendChild(tr);
+			}
+			if(i % 3 == 0){
+				tr = document.createElement('tr');
+			}
+			var td = document.createElement('td');
+			td.setAttribute('bgcolor', colorGenre(array[i]));
+			var font = document.createElement('font');
+			font.setAttribute('color', 'white');
+			font.innerHTML = array[i];
+			td.appendChild(font);
+			tr.appendChild(td);
+		}
+	};
+
+
+	function colorGenre(genre) {
+           if (genre ==="dance") {return "red"}
+           else if (genre ==="deepHouse") {return "green"}
+           else if (genre ==="house") {return "blue"}
+           else if (genre ==="latinParty") {return "pink"}
+           else if (genre ==="Deep House") {return "orange"}
+           else if (genre ==="House") {return "yellow"}
+           else if (genre ==="Lounge / Nu Jazz / House") {return "silver"}
+           else if (genre ==="Dance") {return "purple"}
+           else if (genre ==="TropicalHouse") {return "brown"}
+           else{ return "black" };
+	};
+
+	$("#colorDanceability").hide();
+	$("#colorEnergy").hide();
+	$("#colorTempo").hide();
+	$("#colorGenre").hide();
+	$("#colorKey").hide();
+
+	$('#colorFilter').change(function(){
+		colorFilterOption = $('#colorFilter option:selected');
+	
+		colorFilterArray=[];
+		for (var i = 0; i < parsedCSV.length; i++) {
+
+			if (colorFilterOption.val()==="leer"){
+				$("#colorDanceability").hide();
+ 				$("#colorEnergy").hide();//toggle before 
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+			}
+			
+			if (colorFilterOption.val()==="danceability"){
+				$("#colorDanceability").show();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+				
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+				//console.log("the option selected for color is" + colorFilterOption.val()+ " and the colorFilterArray is "+ colorFilterArray[i]); 
+				}
+			
+			if (colorFilterOption.val()==="energy"){
+				$("#colorDanceability").hide();
+ 				$("#colorEnergy").show();
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+			}
+			if (colorFilterOption.val()==="tempo"){
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+ 				$("#colorTempo").show();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+				
+			}
+			if (colorFilterOption.val()==="genre"){
+
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();
+				$("#colorGenre").show();
+				$("#colorKey").hide();
+				initGenreTable();
+				
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+
+			}
+			if (colorFilterOption.val()==="key"){ //key is the color of the circles
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").show();
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+
+			}//end if option 5
+		
+		}
+	});//end color filter
 
 
 		// sliders werden gebildet, fuer jede Attribut - eigene Slider
-		buildSliders();
-		buildSliders();
+	buildSliders();
+	buildSliders();
 
 	$('#showButton').click(function(){ 
 		window.cleaner();
@@ -809,15 +529,7 @@ $(document).ready(function(){
 		}
 	});
 
-	
-	
 	//this functions are for the showing of only the circles of a note. The rest will be fuzzy
-	
-// 	$("p").toggle(
-//     function(){$("p").css({"color": "red"});},
-//     function(){$("p").css({"color": "blue"});},
-//     function(){$("p").css({"color": "green"});
-// });
 	
 	$(".C").click(function(){	       
 		window.cleaner();
