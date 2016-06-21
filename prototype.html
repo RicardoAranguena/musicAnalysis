@@ -53,7 +53,9 @@
 	<br>
 	
 <div id="jahr" style="align: center">
-	<p style="text-align: center" >Please select the range of years that should be analized</p>
+	<p style="text-align: center" >Please select the range of years that should be analized.</br>
+	(Take in count that if you select too many data you won't be able to see much.)
+	</p>
 	<p style="text-align: center" ><strong>Jahr:</strong></p>
 	<div class="slider" style="margin-left: 20%;" >
 		<input type="slider" name="year" value="1990;2016" />
@@ -104,7 +106,7 @@
 
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
 	var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
-	s-man,dangerous thoughts,dance,-12.733,0.626,3,121.000,2014,0.0808,535223,14,0.5183\n\
+	s-man,dangerous thoughts,dance,-12.733,0.626,1,121.000,2014,0.0808,535223,14,0.5183\n\
 	pitbull,el taxi,latinParty,-10.249,0.823,2,101.000,2015,0.1232,539182,21,0.2129\n\
 	bontan,firefly,dance,-7.134,0.923,8,95.000,1999,0.9213,497493,9,0.4382\n\
 	Kieser.Velten,Bossa Jam,Lounge / Nu Jazz / House,-10.231,0.2129,12,120.000,2004,0.7543,728371,2,0.8847\n\
@@ -192,8 +194,6 @@
 			  return data;
 	}
 
-
-
 	//var parsedCSV = parseCSV(music);
 	var parsedCSV = d3.csv.parse(music,function(rowObject){
 		rowObject["loudness"] = parseFloat(rowObject["loudness"]);
@@ -212,14 +212,13 @@
 
 //	var counter = parsedCSV.length;
 
-	var xAchseOption, xAchse, xAchseArray=[];
-
-	var yAchseOption, yAchse, yAchseArray=[];
-
+	var xAchseOption, xAchseArray=[];
+	var yAchseOption, yAchseArray=[];
+	var kreisGrosseOption, kreisGrosseArray=[];
+	var colorFilterOption, colorFilterArray=[];
+	
 	var tempoArray=[];
-
-	var kreisGrosseOption, kreisGrosse, kreisGrosseArray=[];
-
+	
 	var sliderLinks, sliderRechts;
 	cleaner();
 	
@@ -324,7 +323,7 @@ $(document).ready(function(){
 					
 				//wort an die achsen schreiben
 				var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
-				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
+				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
 	
 				yAchseOption = $("#yAchse option:selected");
 					for (var i = 0; i < parsedCSV.length; i++) {
@@ -352,7 +351,7 @@ $(document).ready(function(){
 					
 				//wort an die achsen schreiben
 				var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
-				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
+				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
 			
 			});
 				
@@ -550,34 +549,9 @@ $(document).ready(function(){
 						console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
 					}
 					
-// 					var help = parsedCSV[i][kreisGrosseOption.val()];
-// 					kreisGrosseArray.push(((help*1000)/2) +100);
-// 					console.log("kreisGrosseArray von value " + kreisGrosseOption.val() +" is " +kreisGrosseArray);
-				
 				}
 			});
 			
-			
-			
-			
-			
-// 			if 	(kreisGrosseOption.val() ==="danceability")	{ 
-// 				kreisGrosse = kreisGrosseOption.val();	
-// 				for (var i = 0; i < parsedCSV.length; i++) {
-// 					var help = parsedCSV[i]["danceability"];
-// 					xAchseArray.push(((help*1000)/2) +100);
-// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-// 				}
-// 			console.log("kreisGrosseOption variable " + kreisGrosse);}
-// 			}
-// 			else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-// 			else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-// 			else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-// 			else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-// 			else if (kreisGrosseOption.val() ==="jahr")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-// 			else if	(kreisGrosseOption.val() ==="key")			{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse);}
-		
-		
 		
 /*  //function of sumeria		
 		
@@ -592,18 +566,18 @@ $(document).ready(function(){
 // 				}
 			
 			
-			var colorOption = $('#colorFilter option:selected');
-			console.log(colorOption.val());
+			var colorFilterOption = $('#colorFilter option:selected');
+			console.log(colorFilterOption.val());
 			for (var i = 0; i < parsedCSV.length; i++) {
-					var key = parsedCSV[i][colorOption.val()];
+					var key = parsedCSV[i][colorFilterOption.val()];
 					var circle = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i]);
-					if(colorOption.val() === 'genre'){
+					if(colorFilterOption.val() === 'genre'){
 						circle.attr('fill', colorGenre(key));
-					}else if(colorOption.val() === 'key'){
+					}else if(colorFilterOption.val() === 'key'){
 						circle.attr('fill',colorKey(key));
-					}else if(colorOption.val() === 'tempo'){
+					}else if(colorFilterOption.val() === 'tempo'){
 						circle.attr('fill',colorTempo(tempo));
 						}
 					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
@@ -650,23 +624,21 @@ $(document).ready(function(){
 
 
 
-		//color select
-		$("#colorDanceability").hide();
-		$("#colorEnergy").hide();
-		$("#colorTempo").hide();
-		$("#colorGenre").hide();
-		function colorTempo(tempo) {
-            return "red";
-		};
+// 		//color select
+// 		$("#colorDanceability").hide();
+// 		$("#colorEnergy").hide();
+// 		$("#colorTempo").hide();
+// 		$("#colorGenre").hide();
+// 		function colorTempo(tempo) {
+//             return "red";
+// 		};
 
 
-
-
-		//color select
-		$("#colorDanceability").hide();
-		$("#colorEnergy").hide();
-		$("#colorTempo").hide();
-		$("#colorGenre").hide();
+// 		//color select
+// 		$("#colorDanceability").hide();
+// 		$("#colorEnergy").hide();
+// 		$("#colorTempo").hide();
+// 		$("#colorGenre").hide();
 		function colorGenre(genre) {
             if (genre ==="dance") {return "red"}
             else if (genre ==="deepHouse") {return "green"}
@@ -680,123 +652,141 @@ $(document).ready(function(){
             else{ return "black" };
 		};
 
+//		$("#colorKey").hide();
+
+// 		colorKey();
+
+
+
+  		$("#colorDanceability").hide();
+		$("#colorEnergy").hide();
+		$("#colorTempo").hide();
+		$("#colorGenre").hide();
 		$("#colorKey").hide();
-
-		colorKey();
-
 
 		$('#colorFilter').change(function(){
 // 			window.cleaner();
-			var colorOption = $('#colorFilter option:selected');
-			if (colorOption.val()==="danceability"){
-				$("#colorDanceability").toggle();
-				$("#colorEnergy").hide();
-				$("#colorTempo").hide();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-			}
-
-			if (colorOption.val()==="leer"){
-
-				$("#colorDanceability").hide();
- 				$("#colorEnergy").toggle();
-				$("#colorTempo").hide();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-			}
-
-			if (colorOption.val()==="energy"){
-
-				$("#colorDanceability").hide();
- 				$("#colorEnergy").toggle();
-				$("#colorTempo").hide();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-			}
-			if (colorOption.val()==="tempo"){
-
-				$("#colorDanceability").hide();
-				$("#colorEnergy").hide();
- 				$("#colorTempo").toggle();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-
-
-
-				for (var i = 0; i < parsedCSV.length; i++) {
-
-					// making the function for doing the color selection in key
-					var tempo = parsedCSV[i]["tempo"];
-
-					if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
-						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
-						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('fill',colorTempo(tempo));
-						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-					}
-					if (xAchse ==="tempo"){
-						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
-						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('fill',colorTempo(tempo));
-						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-					}
-				}//end for
-
-
-			}
-			if (colorOption.val()==="genre"){
-
-				$("#colorDanceability").hide();
-				$("#colorEnergy").hide();
-				$("#colorTempo").hide();
-				$("#colorGenre").show();
-				$("#colorKey").hide();
-				initGenreTable();
-				for (var i = 0; i < parsedCSV.length; i++) {
-
-					// making the function for doing the color selection in key
-					var genre = parsedCSV[i]["genre"];
-
-					var circle = container.append("circle")
-					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
-					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
-					.attr("fill",colorGenre(genre));
-					kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-
+			colorFilterOption = $('#colorFilter option:selected');
+		
+			colorFilterArray=[];
+			for (var i = 0; i < parsedCSV.length; i++) {
+	
+				if (colorFilterOption.val()==="leer"){
+					$("#colorDanceability").hide();
+	 				$("#colorEnergy").hide();//toggle before 
+					$("#colorTempo").hide();
+					$("#colorGenre").hide();
+					$("#colorKey").hide();
 				}
-
-
+				
+				if (colorFilterOption.val()==="danceability"){
+					$("#colorDanceability").show();
+					$("#colorEnergy").hide();
+					$("#colorTempo").hide();
+					$("#colorGenre").hide();
+					$("#colorKey").hide();
+					
+					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+					//console.log("the option selected for color is" + colorFilterOption.val()+ " and the colorFilterArray is "+ colorFilterArray[i]); 
+					}
+				
+				if (colorFilterOption.val()==="energy"){
+					$("#colorDanceability").hide();
+	 				$("#colorEnergy").show();
+					$("#colorTempo").hide();
+					$("#colorGenre").hide();
+					$("#colorKey").hide();
+					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+				}
+				if (colorFilterOption.val()==="tempo"){
+					$("#colorDanceability").hide();
+					$("#colorEnergy").hide();
+	 				$("#colorTempo").show();
+					$("#colorGenre").hide();
+					$("#colorKey").hide();
+					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+					
+// 					//for (var i = 0; i < parsedCSV.length; i++) {
+	
+// 						// making the function for doing the color selection in key
+// 						var tempo = parsedCSV[i]["tempo"];
+	
+// 						if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
+// 							var circle = container.append('circle')
+// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
+// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+// 							.attr('fill',colorTempo(tempo));
+// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+// 						}
+// 						if (xAchse ==="tempo"){
+// 							var circle = container.append('circle')
+// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
+// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+// 							.attr('fill',colorTempo(tempo));
+// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+// 						}
+// 				//	}//end for
+	
+	
+				}
+				if (colorFilterOption.val()==="genre"){
+	
+					$("#colorDanceability").hide();
+					$("#colorEnergy").hide();
+					$("#colorTempo").hide();
+					$("#colorGenre").show();
+					$("#colorKey").hide();
+					initGenreTable();
+					
+					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+					
+					
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+	
+// 						// making the function for doing the color selection in key
+// 						var genre = parsedCSV[i]["genre"];
+	
+// 						var circle = container.append("circle")
+// 						.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
+// 						.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
+// 						.attr("fill",colorGenre(genre));
+// 						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+	
+// 					}
+	
+	
+				}
+				if (colorFilterOption.val()==="key"){ //key is the color of the circles
+					$("#colorDanceability").hide();
+					$("#colorEnergy").hide();
+					$("#colorTempo").hide();
+					$("#colorGenre").hide();
+					$("#colorKey").show();
+					colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+					
+// 					for (var i = 0; i < parsedCSV.length; i++) {
+	
+// 						// making the function for doing the color selection in key
+// 						var key = parsedCSV[i]["key"];
+	
+// 						if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
+// 							var circle = container.append('circle')
+// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
+// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+// 							.attr('fill',colorKey(key));
+// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+// 						}
+// 						if (xAchse ==="tempo"){
+// 							var circle = container.append('circle')
+// 							.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
+// 							.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
+// 							.attr('fill',colorKey(key));
+// 							kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
+// 						}
+// 					}//end for
+				}//end if option 5
+			
 			}
-			if (colorOption.val()==="key"){ //key is the color of the circles
-				$("#colorDanceability").hide();
-				$("#colorEnergy").hide();
-				$("#colorTempo").hide();
-				$("#colorGenre").hide();
-				$("#colorKey").toggle();
-
-				for (var i = 0; i < parsedCSV.length; i++) {
-
-					// making the function for doing the color selection in key
-					var key = parsedCSV[i]["key"];
-
-					if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
-						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
-						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('fill',colorKey(key));
-						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-					}
-					if (xAchse ==="tempo"){
-						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
-						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('fill',colorKey(key));
-						kreisGrosseForType(kreisGrosse, circle, parsedCSV[i][kreisGrosse]);
-					}
-				}//end for
-			}//end if option 5
 		});//end color filter
 
 
@@ -811,9 +801,11 @@ $(document).ready(function(){
 		for (var i = 0; i < parsedCSV.length; i++) {
 				var circle = container.append('circle')
 				.attr('cx', xAchseArray[i] )
-				.attr('cy',yAchseArray[i])
-				.attr('r',kreisGrosseArray[i]);
-				
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
 		}
 	});
 
@@ -821,26 +813,44 @@ $(document).ready(function(){
 	
 	//this functions are for the showing of only the circles of a note. The rest will be fuzzy
 	
+// 	$("p").toggle(
+//     function(){$("p").css({"color": "red"});},
+//     function(){$("p").css({"color": "blue"});},
+//     function(){$("p").css({"color": "green"});
+// });
+	
 	$(".C").click(function(){	       
 		window.cleaner();
 		//make all the circles transparent but the c
 		// if clicked again turned normal
 		for (var i = 0; i < parsedCSV.length; i++) {
-			if(parsedCSV[i]["key"]==="1"){
+			if(colorFilterArray[i]==="1"){
 				var circle = container.append('circle')
 				.attr('cx', xAchseArray[i] )
-				.attr('cy',yAchseArray[i])
-				.attr('r',((parsedCSV[i]['hotness']*20)))
-				.attr('fill',colorKey(key));		
+				.attr('cy', yAchseArray[i])
+				.attr('r',kreisGrosseArray[i])
+				.attr('fill',"green");		
 			}else{
-				var circle = container.append('circle')
+				var circle2 = container.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i])
-				.attr('r',((parsedCSV[i]['hotness']*20)))
-				.attr('fill',colorKey(key))
-				.attr('fill-opacity',"0.4");		
+				.attr('r',kreisGrosseArray[i])
+				.attr('fill',"black")
+				.attr('fill-opacity',"0.2");		
 			}
 		}
+
+		//regreso a lo normal
+		for (var i = 0; i < parsedCSV.length; i++) {
+			var circle = container.append('circle')
+			.attr('cx', xAchseArray[i] )
+			.attr('cy',yAchseArray[i]);
+			circle.attr('r',kreisGrosseArray[i]);
+			if(colorFilterOption.val()==="key"){
+					circle.attr('fill',colorKey(colorFilterArray[i]));
+			}
+		}
+		
 	});
 	
 	
@@ -852,15 +862,15 @@ $(document).ready(function(){
 		/* ayuda del codigo de sumerya
 		
 			for (var i = 0; i < parsedCSV.length; i++) {
-					var key = parsedCSV[i][colorOption.val()];
+					var key = parsedCSV[i][colorFilterOption.val()];
 					var circle = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i]);
-					if(colorOption.val() === 'genre'){
+					if(colorFilterOption.val() === 'genre'){
 						circle.attr('fill', colorGenre(key));
-					}else if(colorOption.val() === 'key'){
+					}else if(colorFilterOption.val() === 'key'){
 						circle.attr('fill',colorKey(key));
-					}else if(colorOption.val() === 'tempo'){
+					}else if(colorFilterOption.val() === 'tempo'){
 						circle.attr('fill',colorTempo(tempo));
 						}
 					kreisGrosseForType(kreisGrosseOption.val(), circle, parsedCSV[i][kreisGrosseOption.val()]);
@@ -1045,7 +1055,7 @@ $(document).ready(function(){
 			</div>
 		</div>	
 		
-				<div id="colorKey">
+		<div id="colorKey">
 		
 		  	<!-- Keyboard with the colors that we are going to use -->
 			<br>
