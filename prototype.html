@@ -256,28 +256,19 @@ $(document).ready(function(){
 			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 			//$("#colorFilter option[value="+$(this).val()+"]").hide();
 	});
-
-	$('#xAchse').change(function(){
-		$("#yAchse option").show();
-		$("#kreisGrosseSelect option").show();
-	    $("#colorFilter option").show();
-		
-		$("#yAchse option[value="+$(this).val()+"]").hide();
-		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();
 		
 	$('#yAchse').change(function(){
 		$("#xAchse option").show();
-		$("#kreisGrosseSelect option").show();
-		$("#colorFilter option").show();
-		
+// 		$("#kreisGrosseSelect option").show();
+// 		$("#colorFilter option").show();
 		
 		$("#xAchse option[value="+$(this).val()+"]").hide();
-		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-		$("#colorFilter option[value="+$(this).val()+"]").hide();	
+// 		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+// 		$("#colorFilter option[value="+$(this).val()+"]").hide();	
 		
-		$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+// 		$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+// 		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+	});
 
 
 	$('#kreisGrosseSelect').change(function(){
@@ -285,38 +276,44 @@ $(document).ready(function(){
 		$("#yAchse option").show();
 	    $("#colorFilter option").show(); 
 		
-		$("#xAchse option[value="+$(this).val()+"]").hide();
-		$("#yAchse option[value="+$(this).val()+"]").hide();
+// 		$("#xAchse option[value="+$(this).val()+"]").hide();
+// 		$("#yAchse option[value="+$(this).val()+"]").hide();
 		$("#colorFilter option[value="+$(this).val()+"]").hide();
-		// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();	
-		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();		
-		
-	$('#colorFilter').change(function(){
-		$("#xAchse option").show();
-		$("#xAchse option[value="+$(this).val()+"]").hide();
-		$("#yAchse option[value="+$(this).val()+"]").hide();
-		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+// 		$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+// 		$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();	
+// 		$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();		
+	});
 
-		
+	
+	$('#colorFilter').change(function(){
+		//$("#xAchse option").show();
+		//$("#xAchse option[value="+$(this).val()+"]").hide();
+		//$("#yAchse option[value="+$(this).val()+"]").hide();
+//		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+});
 		
 		// Achse select
-	$('#achsen').change(function(){
-			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie ist für die key zeigen
-				for (var i = 0; i < parsedCSV.length; i++) {
-					var help = parsedCSV[i]["danceability"];
-					xAchseArray.push(((help*1000)/2) +100);
-					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 	$('#achsen').change(function(){
+// 		xAchseOption = $("#xAchse option:selected");
+// 			if 		(xAchseOption.val() ==="danceability" )	{ xAchse = xAchseOption.val();	//diese linie 	 für die key zeigen
+// 				for (var i = 0; i < parsedCSV.length; i++) {
+// 					var help = parsedCSV[i]["danceability"];
+// 					xAchseArray.push(((help*1000)/2) +100);
+// 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+// 		$('#yAchse').change(function(){
+// 				$("#xAchse option").show();
+// 				//$("#kreisGrosseSelect option").show();
+// 				//$("#colorFilter option").show();
 
 
 
-			$("#xAchse option[value="+$(this).val()+"]").hide();
-			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
-			//$("#colorFilter option[value="+$(this).val()+"]").hide();
+// 			$("#xAchse option[value="+$(this).val()+"]").hide();
+// 			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+// 			//$("#colorFilter option[value="+$(this).val()+"]").hide();
 
-			//$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
-			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
-	});
+// 			//$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+// 			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+// 	});
 
 
 	$('#kreisGrosseSelect').change(function(){
@@ -332,11 +329,7 @@ $(document).ready(function(){
 	        //$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();
 	});
 
-	$('#colorFilter').change(function(){
-			//$("#xAchse option").show();
-			//$("#xAchse option[value="+$(this).val()+"]").hide();
-			//$("#yAchse option[value="+$(this).val()+"]").hide();
-	//		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+
 
 			// Achse select
 	$('#achsen').change(function(){
@@ -567,6 +560,7 @@ $(document).ready(function(){
 	function cleanerLeft(){
 		
 				var cleaner = container.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",600).attr("fill","white");
+		//	var test=  container.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner left");
 							
 				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
@@ -1307,6 +1301,7 @@ $(document).ready(function(){
 		function cleanerRight(){ //noch anzupassen
 			
 					var cleaner = container.append("rect").attr("x",600).attr("y",0).attr("width",700).attr("height",700).attr("fill","white");
+			//	var test=  container.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner right");
 								
 					var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 					var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
@@ -1380,6 +1375,7 @@ $(document).ready(function(){
 			}
 		});
 		$(".CS1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="1"){
@@ -1413,6 +1409,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".D1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="2"){
@@ -1446,6 +1443,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".DS1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="3"){
@@ -1479,6 +1477,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".E1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="4"){
@@ -1512,6 +1511,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".F1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="5"){
@@ -1545,6 +1545,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".FS1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="6"){
@@ -1578,6 +1579,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".G1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="7"){
@@ -1610,6 +1612,7 @@ $(document).ready(function(){
 				$(this).attr("clickState",0);
 			}	 });
 		$(".GS1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="8"){
@@ -1642,6 +1645,7 @@ $(document).ready(function(){
 				$(this).attr("clickState",0);
 			}	 });
 		$(".A1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="9"){
@@ -1675,6 +1679,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".AS1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="10"){
@@ -1708,6 +1713,7 @@ $(document).ready(function(){
 			}
 		 });
 		$(".B1").click(function(){	       
+			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="11"){
@@ -1741,6 +1747,7 @@ $(document).ready(function(){
 			}
 		 });
 			
+						
 });//end document ready
 </script>
 
