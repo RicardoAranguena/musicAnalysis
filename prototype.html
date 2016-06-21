@@ -51,7 +51,7 @@
 <div name="header" style="width: 50%;  margin: 0 auto;">
 	<p style="text-align: center" >MUSIC ANALYSIS</p>
 	<br>
-	
+
 <div id="jahr" style="align: center">
 	<p style="text-align: center" >Please select the range of years that should be analized.</br>
 	(Take in count that if you select too many data you won't be able to see much.)
@@ -61,7 +61,7 @@
 		<input type="slider" name="year" value="1990;2016" />
 	</span>
 </div>
-</div>	
+</div>
 </div>
 	<div class=canvas> </div>
 
@@ -72,16 +72,16 @@
 		-hacer un click en el keyboard para ver que keys son las beliebtes
 		-hacer que el cleaner borre todo desde 0
 		-hacer que las funciones funcionen en el grafico de la derecha
-		
+
 		-si quedan fuerzas armar spotify
-		
-		
+
+
 		-falta ver de donde guarda slider los valores. Si es que vienen de todos los sliders que hay es problematico
 		-
 	*/
-	
-	
-	
+
+
+
 	//ideas de otras visualizacion
 	//hacer una busqueda por teclado de un genero especifico y mostrarlo
 	//beliebheit einem genre durch ein jahr
@@ -101,7 +101,7 @@
 
 	//cambiar los colores de key
 	//segunda visualizacion bar char
-	
+
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
 
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
@@ -158,9 +158,9 @@
 		var origin =  container.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
 		var yPlus =  container.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
 		var xPlus =  container.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
-			
-		
-//	canvas right		
+
+
+//	canvas right
 		var axeX = container.append("line").attr("x1",650).attr("y1",500).attr("x2",1250).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
  		var xSpike = container.append("polygon").attr("points","1250,500 1230,495 1230,505").style("fill","red").style("stroke","red").style("stroke-width",2);
 
@@ -174,8 +174,8 @@
 		var yPlus =  container.append("text").attr("x",630).attr("y",20).attr("id","xAchseText").text("+");
 		var xPlus =  container.append("text").attr("x", 1230).attr("y",520).attr("id","xAchseText").text("+");
 //	end of canvas
-		
-		
+
+
 		function parseCSV(music){
 			  var lines = music.split("\n"); //split the csv in rows
 			  var metadata = lines[0].split(","); //first row of the csv file that contains the name of the metadata that we are using
@@ -216,15 +216,15 @@
 	var yAchseOption, yAchseArray=[];
 	var kreisGrosseOption, kreisGrosseArray=[];
 	var colorFilterOption, colorFilterArray=[];
-	
+
 	var tempoArray=[];
-	
+
 	var sliderLinks, sliderRechts;
 	cleaner();
-	
+
 	var loudnessTop, loudnessBottom;
 
-	
+
 
 $(document).ready(function(){
 
@@ -237,11 +237,11 @@ $(document).ready(function(){
 	     sliderLinks =array[0];
 		 sliderRechts = array[1];
 		console.log("wert 1: " + sliderLinks);
-	
+
 		console.log("wert 2: " + sliderRechts);
-	
+
 	});
-	
+
 //sejchas=====================================================================================================
 //die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
 
@@ -249,23 +249,23 @@ $(document).ready(function(){
 			$("#yAchse option").show();
 			$("#kreisGrosseSelect option").show();
 		    $("#colorFilter option").show();
-	
+
 			$("#yAchse option[value="+$(this).val()+"]").hide();
 			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 			//$("#colorFilter option[value="+$(this).val()+"]").hide();
-	
+
 	});
 
 	$('#yAchse').change(function(){
 			$("#xAchse option").show();
 			//$("#kreisGrosseSelect option").show();
 			//$("#colorFilter option").show();
-	
-	
+
+
 			$("#xAchse option[value="+$(this).val()+"]").hide();
 			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 			//$("#colorFilter option[value="+$(this).val()+"]").hide();
-	
+
 			//$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
 			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
 	});
@@ -275,7 +275,7 @@ $(document).ready(function(){
 			$("#xAchse option").show();
 			$("#yAchse option").show();
 		    $("#colorFilter option").show();
-	
+
 			//$("#xAchse option[value="+$(this).val()+"]").hide();
 			//$("#yAchse option[value="+$(this).val()+"]").hide();
 			$("#colorFilter option[value="+$(this).val()+"]").hide();
@@ -290,36 +290,36 @@ $(document).ready(function(){
 			//$("#yAchse option[value="+$(this).val()+"]").hide();
 	//		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
 			});
-	
+
 			// Achse select
 	$('#achsen').change(function(){
 		xAchseArray = [];
 		yAchseArray = [];
-		
+
 		xAchseOption = $("#xAchse option:selected");
 		for (var i = 0; i < parsedCSV.length; i++) {
-			if 	(xAchseOption.val() ==="danceability")	{ 
+			if 	(xAchseOption.val() ==="danceability")	{
 				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
 				//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
-			}else if (xAchseOption.val() ==="energy") 	{ 
+			}else if (xAchseOption.val() ==="energy") 	{
 				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-			}else if (xAchseOption.val() ==="tempo")  	{ 
+			}else if (xAchseOption.val() ==="tempo")  	{
 				//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
 				xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}else if (xAchseOption.val() ==="playcount"){
-				xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
+				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*50)/2) +100);
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-			}else if (xAchseOption.val() ==="loudness")		{ 
-				xAchseArray.push(parsedCSV[i]["loudness"] +100);//loudness has to be bigger than -200 db
+			}else if (xAchseOption.val() ==="loudness")		{
+				xAchseArray.push(parsedCSV[i]["loudness"] *(-1)/100+300);//loudness has to be bigger than -200 db   //-10.249
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-			}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();  
-				xAchseArray.push(parsedCSV[i]["jahr"] +100);
+			}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();     //2014
+				xAchseArray.push(((parsedCSV[i]["Jahr"]) /4));
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}
-		}//end for	
-			
+		}//end for
+
 		//wort an die achsen schreiben
 		var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 		if(xAchseOption.val()!="leer"){
@@ -327,65 +327,65 @@ $(document).ready(function(){
 		}
 		yAchseOption = $("#yAchse option:selected");
 			for (var i = 0; i < parsedCSV.length; i++) {
-				if 	(yAchseOption.val() ==="danceability")	{ 
+				if 	(yAchseOption.val() ==="danceability")	{
 					yAchseArray.push((parsedCSV[i]["danceability"]*1000)/2);
 					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-				}else if (yAchseOption.val() ==="energy") { 
+				}else if (yAchseOption.val() ==="energy") {
 					yAchseArray.push((parsedCSV[i]["energy"]*1000)/2);
 					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-				}else if (yAchseOption.val() ==="tempo") { 
+				}else if (yAchseOption.val() ==="tempo") {
 					yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
-				}else if (yAchseOption.val() ==="playcount") { 
+				}else if (yAchseOption.val() ==="playcount") {
 					yAchseArray.push((parsedCSV[i]["playcount"]*1000)/2);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="loudness")	{
 					yAchseArray.push((parsedCSV[i]["loudness"]*1000)/2);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
-				}else if (yAchseOption.val() ==="jahr")	{ 
+				}else if (yAchseOption.val() ==="jahr")	{
 					yAchseArray.push((parsedCSV[i]["jahr"]*1000)/2);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}
-					
+
 			}//end for
-			
+
 		//wort an die achsen schreiben
 		var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 		if(yAchseOption.val()!="leer"){
 			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
 		}
 	});
-					
+
 	$("#kreisGrosse").change(function(){
 		kreisGrosseOption = $("#kreisGrosseSelect option:selected");
 		var type = kreisGrosseOption.val();
 		kreisGrosseArray=[];
-		
+
 		for (var i = 0; i < parsedCSV.length; i++) {
-			if	(type ==="danceability"){ 
-				kreisGrosseArray.push(parsedCSV[i][type]*20); 
-				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			if	(type ==="danceability"){
+				kreisGrosseArray.push(parsedCSV[i][type]*20);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
 			}
-			else if (type ==="energy")		{ 
-				kreisGrosseArray.push(parsedCSV[i][type]*20); 
-				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			else if (type ==="energy")		{
+				kreisGrosseArray.push(parsedCSV[i][type]*20);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
 			}
-			else if (type ==="playcount")	{ 
-				kreisGrosseArray.push((parsedCSV[i][type]*20)/10); 
-				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			else if (type ==="playcount")	{
+				kreisGrosseArray.push((parsedCSV[i][type]*20)/10);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
 			}
-			else if (type ==="tempo")		{ 
-				kreisGrosseArray.push((parsedCSV[i][type]*20)/100); 
-				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			else if (type ==="tempo")		{
+				kreisGrosseArray.push((parsedCSV[i][type]*20)/100);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
 			}
-			else if (type ==="loudness")	{ 
-				kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10); 
-				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			else if (type ==="loudness")	{
+				kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
 			}
-			
+
 		}
 	});
-	
+
 	function initGenreTable(){
 	var array = [];
 	var k = 0;
@@ -444,36 +444,36 @@ $(document).ready(function(){
 
 	$('#colorFilter').change(function(){
 		colorFilterOption = $('#colorFilter option:selected');
-	
+
 		colorFilterArray=[];
 		for (var i = 0; i < parsedCSV.length; i++) {
 
 			if (colorFilterOption.val()==="leer"){
 				$("#colorDanceability").hide();
- 				$("#colorEnergy").hide();//toggle before 
+ 				$("#colorEnergy").hide();//toggle before
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
 			}
-			
+
 			if (colorFilterOption.val()==="danceability"){
 				$("#colorDanceability").show();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
-				
-				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-				//console.log("the option selected for color is" + colorFilterOption.val()+ " and the colorFilterArray is "+ colorFilterArray[i]); 
+
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
+				//console.log("the option selected for color is" + colorFilterOption.val()+ " and the colorFilterArray is "+ colorFilterArray[i]);
 				}
-			
+
 			if (colorFilterOption.val()==="energy"){
 				$("#colorDanceability").hide();
  				$("#colorEnergy").show();
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
-				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
 			}
 			if (colorFilterOption.val()==="tempo"){
 				$("#colorDanceability").hide();
@@ -481,8 +481,8 @@ $(document).ready(function(){
  				$("#colorTempo").show();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
-				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
-				
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
+
 			}
 			if (colorFilterOption.val()==="genre"){
 
@@ -492,8 +492,8 @@ $(document).ready(function(){
 				$("#colorGenre").show();
 				$("#colorKey").hide();
 				initGenreTable();
-				
-				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
 
 			}
 			if (colorFilterOption.val()==="key"){ //key is the color of the circles
@@ -502,10 +502,10 @@ $(document).ready(function(){
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").show();
-				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]); 
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
 
 			}//end if option 5
-		
+
 		}
 	});//end color filter
 
@@ -514,9 +514,9 @@ $(document).ready(function(){
 	buildSliders();
 	buildSliders();
 
-	$('#showButton').click(function(){ 
+	$('#showButton').click(function(){
 		window.cleaner();
-		
+
 		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 		for (var i = 0; i < parsedCSV.length; i++) {
 				var circle = container.append('circle')
@@ -533,7 +533,7 @@ $(document).ready(function(){
 
 //make all the circles transparent but the c
 // if clicked again turned normal
-	$(".C").click(function(){	       
+	$(".C").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -542,14 +542,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -567,8 +567,8 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	});
-	
-	$(".CS").click(function(){	       
+
+	$(".CS").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -577,14 +577,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -602,9 +602,9 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	
-	
-	$(".D").click(function(){	       
+
+
+	$(".D").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -613,14 +613,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -638,7 +638,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".DS").click(function(){	       
+	$(".DS").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -647,14 +647,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -672,7 +672,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".E").click(function(){	       
+	$(".E").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -681,14 +681,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -706,7 +706,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".F").click(function(){	       
+	$(".F").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -715,14 +715,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -740,7 +740,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".FS").click(function(){	       
+	$(".FS").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -749,14 +749,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -774,7 +774,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".G").click(function(){	       
+	$(".G").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -783,14 +783,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -807,7 +807,7 @@ $(document).ready(function(){
 			}
 			$(this).attr("clickState",0);
 		}	 });
-	$(".GS").click(function(){	       
+	$(".GS").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -816,14 +816,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -840,7 +840,7 @@ $(document).ready(function(){
 			}
 			$(this).attr("clickState",0);
 		}	 });
-	$(".A").click(function(){	       
+	$(".A").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -849,14 +849,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -874,7 +874,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".AS").click(function(){	       
+	$(".AS").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -883,14 +883,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -908,7 +908,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-	$(".B").click(function(){	       
+	$(".B").click(function(){
 		window.cleaner();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -917,14 +917,14 @@ $(document).ready(function(){
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
-					.attr('fill',"green");		
+					.attr('fill',"green");
 				}else{
 					var circle2 = container.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"black")
-					.attr('fill-opacity',"0.2");		
+					.attr('fill-opacity',"0.2");
 				}
 			}
 			$(this).attr("clickState",1);
@@ -942,7 +942,7 @@ $(document).ready(function(){
 			$(this).attr("clickState",0);
 		}
 	 });
-		
+
 });//end document ready
 
 </script>
@@ -955,11 +955,11 @@ $(document).ready(function(){
 
 <div name="tags" style="width:1150;margin-left: 100px;overflow: hidden;">
 	<div name="tag-left" style="width:550px;float:left;">
- 
+
 		<p id="achsen" style="margin-left:20%;overflow: hidden;">
 		Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<text >x:</text>
-			
+
 			<select id="xAchse" name="x" >
 			    <option value="leer" selected></option>
 			    <option value="danceability">	Danceability	</option>
@@ -971,7 +971,7 @@ $(document).ready(function(){
 			</select>
 			&nbsp;&nbsp;
 			<text>y:</text>
-		  	
+
 		  	<select id="yAchse" name="y">
 			    <option value="leer" selected></option>
 			   	<option value="danceability">	Danceability	</option>
@@ -980,13 +980,13 @@ $(document).ready(function(){
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
 			    <option value="jahr">			Jahr		</option>
-		
+
 		  	</select>
 		 </p>
-		
+
 		<p id="kreisGrosse" style="margin-left:20% ;">
 		 Kreis Größe:
-		 
+
 			<select id="kreisGrosseSelect" name="x" style="margin-left: 40px;">
 			    <option value="leer" selected></option>
 			    <option value="danceability">	Danceability</option>
@@ -1007,7 +1007,7 @@ $(document).ready(function(){
 		    	<option value="key" >			Key			</option>
 		  	</select>
 		</p>
-		
+
 
 		<div id="colorDanceability" style="margin-left:14% ;">
 			<span class="slider">
@@ -1023,7 +1023,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 
-		<div id="colorEnergy" style="margin-left:14% ;">		
+		<div id="colorEnergy" style="margin-left:14% ;">
 			<span class="slider">
 				<input type="slider" name="price" value="0.0;1.0" />
 			</span>
@@ -1034,9 +1034,9 @@ $(document).ready(function(){
 					<span style="background-color: rgba(153, 0, 0, .7)"></span>
 					<span style="background-color: rgba(153, 0, 0, .85)"></span>
 					<span style="background-color: rgba(153, 0, 0, 1)"></span>
-			</div>	
+			</div>
 		</div>
-			
+
 		<div id="colorTempo" style="margin-left:14% ;">
 			<span class="slider">
 				<input type="slider" name="price" value="50;200" />
@@ -1049,18 +1049,18 @@ $(document).ready(function(){
 				<span style="background-color: rgba(153, 0, 0, .85)"></span>
 				<span style="background-color: rgba(153, 0, 0, 1)"></span>
 			</div>
-		</div>	
-		
+		</div>
+
 		<div id="colorKey">
-		
+
 		  	<!-- Keyboard with the colors that we are going to use -->
 			<br>
-		
+
 			<svg width="350" height="150" style=" margin-left: 20%;">
-		
+
 			<!-- notes fields -->
 			<rect clickState="-1" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
-		
+
 			<polygon 	clickState="0" class="C" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
 		  	<rect 		clickState="1" class="CS" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
 			<polygon 	clickState="2" class="D" points="50,100 65,100 65,50  85,50 85,100  100,100 100,150 50,150" 		style="fill:rgb(106,61,154);   	stroke-width:1; stroke:rgb(255,255,255);" />
@@ -1073,7 +1073,7 @@ $(document).ready(function(){
 			<polygon 	clickState="9" class="A" points="250,100 265,100 265,50  285,50 285,100  300,100 300,150 250,150" style="fill:rgb(51,160,44);   	stroke-width:1; stroke:rgb(255,255,255);" />
 			<rect 		clickState="10" class="AS" x="285" 	y="50" 	width="30" height="50" 								style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
 			<polygon 	clickState="11" class="B" points="300,100 315,100 315,50  350,50 350,150  300,150  "	 			style="fill:rgb(255,255,153);   stroke-width:1; stroke:rgb(255,255,255);" />
-		  					
+
 			<!-- circles for notes of keys -->
 				<circle clickState="0" class="C" cx="24" cy="125" r="14"  fill="white" />
 				<circle clickState="2" class="D" cx="74" cy="125" r="14"  fill="white" />
@@ -1102,37 +1102,37 @@ $(document).ready(function(){
 				<text clickState="6" class="FS" x="192" y="80" fill="black"> F# </text>
 				<text clickState="8" class="GS" x="242" y="80" fill="black"> G# </text>
 				<text clickState="10" class="AS" x="292" y="80" fill="black"> A# </text>
-		
+
 			</svg>
 			<p style="text-align: center;">*Wenn die Metada "KEY" vom Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
-		
+
 		</div>
-		
+
 		<!-- Table for the color selection of genre -->
 		<div id="colorGenre" style="margin-left:30% ;">
 			<br>
-			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">	
+			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">
 			</table>
-		</div>	
-		
-		<button id="showButton" style="margin-left:46%;">Zeigen</button>		
-		
+		</div>
+
+		<button id="showButton" style="margin-left:46%;">Zeigen</button>
+
 	</div><!-- end tag left -->
-	
+
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
-	
-	<div name="tag-right" style ="width:600px;float:left;" >		
-		<p id="achsen" style="margin-left:20%;">	
+
+	<div name="tag-right" style ="width:600px;float:left;" >
+		<p id="achsen" style="margin-left:20%;">
 			<text >Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</text>
-		
+
 			<text >x:</text>
-			
-					
+
+
 		  	<select id="xAchse2" name="x">
 			    <option value="leer" selected></option>
 			    <option value="danceability">	Danceability	</option>
@@ -1141,7 +1141,7 @@ $(document).ready(function(){
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
 			    <option value="jahr">			Jahr		</option>
-		
+
 			</select>
 			&nbsp;&nbsp;
 			<text>y:</text>
@@ -1153,14 +1153,14 @@ $(document).ready(function(){
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
 			    <option value="jahr">			Jahr		</option>
-		
-		  	</select> 
-			 
+
+		  	</select>
+
 		 </p>
-		 
+
 		 <p id="kreisGrosse2" style="margin-left:20% ;">
 		 Kreis Größe:
-		 
+
 			<select id="kreisGrosseSelect2" name="x" style=" margin-left: 40px;">
 			    <option value="leer" selected></option>
 			    <option value="danceability">	Danceability</option>
@@ -1170,7 +1170,7 @@ $(document).ready(function(){
 			    <option value="loudness">		Loudness	</option>
 			</select>
 		</p>
-		
+
 		<p style="margin-left:20% ;">
 		Color Filter:
 			<select id="colorFilter2" style="margin-left: 43px;">
@@ -1182,7 +1182,7 @@ $(document).ready(function(){
 		    	<option value="key" >			Key			</option>
 		  	</select>
 		</p>
-		
+
 		<div id="colorDanceability2" style="margin-left:14% ;">
 			<span class="slider">
 				<input id="colorDanceability2" type="slider" name="price" value="0.0;1.0" />
@@ -1197,7 +1197,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 
-		<div id="colorEnergy2" style="margin-left:14% ;">		
+		<div id="colorEnergy2" style="margin-left:14% ;">
 			<span class="slider">
 				<input type="slider" name="price" value="0.0;1.0" />
 			</span>
@@ -1208,9 +1208,9 @@ $(document).ready(function(){
 					<span style="background-color: rgba(153, 0, 0, .7)"></span>
 					<span style="background-color: rgba(153, 0, 0, .85)"></span>
 					<span style="background-color: rgba(153, 0, 0, 1)"></span>
-			</div>	
+			</div>
 		</div>
-			
+
 		<div id="colorTempo2" style="margin-left:14% ;">
 			<span class="slider">
 				<input type="slider" name="price" value="50;200" />
@@ -1223,18 +1223,18 @@ $(document).ready(function(){
 				<span style="background-color: rgba(153, 0, 0, .85)"></span>
 				<span style="background-color: rgba(153, 0, 0, 1)"></span>
 			</div>
-		</div>		
+		</div>
 
 		<div id="colorKey2">
-		
+
 		  	<!-- Keyboard with the colors that we are going to use -->
 			<br>
-		
+
 				<svg width="350" height="150" style=" margin-left: 20%;">
-		
+
 			<!-- notes fields -->
 			<rect clickState="0" class="none" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
-		
+
 			<polygon 	clickState="0" class="C1" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
 		  	<rect 		clickState="1" class="CS1" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
 			<polygon 	clickState="2" class="D1" points="50,100 65,100 65,50  85,50 85,100  100,100 100,150 50,150" 		style="fill:rgb(106,61,154);   	stroke-width:1; stroke:rgb(255,255,255);" />
@@ -1247,7 +1247,7 @@ $(document).ready(function(){
 			<polygon 	clickState="9" class="A1" points="250,100 265,100 265,50  285,50 285,100  300,100 300,150 250,150" style="fill:rgb(51,160,44);   	stroke-width:1; stroke:rgb(255,255,255);" />
 			<rect 		clickState="10" class="AS1" x="285" 	y="50" 	width="30" height="50" 								style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
 			<polygon 	clickState="11" class="B1" points="300,100 315,100 315,50  350,50 350,150  300,150  "	 			style="fill:rgb(255,255,153);   stroke-width:1; stroke:rgb(255,255,255);" />
-		  					
+
 			<!-- circles for notes of keys -->
 				<circle clickState="0" class="C1" cx="24" cy="125" r="14"  fill="white" />
 				<circle clickState="2" class="D1" cx="74" cy="125" r="14"  fill="white" />
@@ -1276,20 +1276,20 @@ $(document).ready(function(){
 				<text clickState="6" class="FS1" x="192" y="80" fill="black"> F# </text>
 				<text clickState="8" class="GS1" x="242" y="80" fill="black"> G# </text>
 				<text clickState="10" class="AS1" x="292" y="80" fill="black"> A# </text>
-		
+
 			</svg>
 			<p style="text-align: center;">*Wenn die Metada "KEY" vom Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
-		
+
 		</div>
-		
+
 		<!-- Table for the color selection of genre -->
 		<div id="colorGenre1" style="margin-left:30% ;">
 			<br>
-			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">	
+			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">
 			</table>
 		</div>
-		
-		<button id="showButton2" style="margin-left:46%;">Zeigen</button>		
+
+		<button id="showButton2" style="margin-left:46%;">Zeigen</button>
 
 	</div>
 </div><!-- end of div tags -->
