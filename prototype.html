@@ -3,7 +3,7 @@
 <head>
 		<meta charset="UTF-8">
 
-		<link rel="stylesheet" href="styles.css" type="text/css">
+		<!-- link rel="stylesheet" href="styles.css" type="text/css"> -->
 		<link rel="stylesheet" href="css/jslider.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
@@ -22,13 +22,13 @@
 		<script type="text/javascript" src="js/draggable-0.1.js"></script>
 		<script type="text/javascript" src="js/jquery.slider.js"></script>
 		<script type="text/javascript" src="slider.js"></script>
-		<script type="text/javascript" src="colorKey.js"></script> 
-	    <script type="text/javascript" src="functionCleaner.js"></script>  
+		<script type="text/javascript" src="colorKey.js"></script>
+	    <script type="text/javascript" src="functionCleaner.js"></script>
 		<script type="text/javascript" src="SliderHideFunction.js"></script>
-		
 
 
-		<title>Prototype Music Analysis </title>
+
+		<title>Music Analysis </title>
 
 		<style>
 		.slider {
@@ -47,12 +47,40 @@
 
 </head>
 <body>
-
-	<p >PROTOTYPE MUSIC ANALYSIS</p>
+<div name="header-wraper" style="width:100%;">
+<div name="header" style="width: 50%;  margin: 0 auto;">
+	<p style="text-align: center" >MUSIC ANALYSIS</p>
 	<br>
+
+<div id="jahr" style="align: center">
+	<p style="text-align: center" >Please select the range of years that should be analized.</br>
+	(Take in count that if you select too many data you won't be able to see much.)
+	</p>
+	<p style="text-align: center" ><strong>Jahr:</strong></p>
+	<div class="slider" style="margin-left: 20%;" >
+		<input type="slider" name="year" value="1990;2016" />
+	</span>
+</div>
+</div>
+</div>
 	<div class=canvas> </div>
 
 	<script>
+
+	/*to dos hoy
+		-hacer que el boton zeigen funcione a la izquierda
+		-hacer un click en el keyboard para ver que keys son las beliebtes
+		-hacer que el cleaner borre todo desde 0
+		-hacer que las funciones funcionen en el grafico de la derecha
+
+		-si quedan fuerzas armar spotify
+
+
+		-falta ver de donde guarda slider los valores. Si es que vienen de todos los sliders que hay es problematico
+		-
+	*/
+
+
 
 	//ideas de otras visualizacion
 	//hacer una busqueda por teclado de un genero especifico y mostrarlo
@@ -67,17 +95,18 @@
 	//	y esa variable va a correr en el for de afuera, esa variable va a tener el comando de hacer el
 	// att y todo lo demas.
 	// esa estring la va a ir haciendo los selects que se usen.
-	// etiqueten von values in die achsen schreiben
 
 	//conseguir subir info desde un csv
 	//hacer la informacion de spotify
 
+	//cambiar los colores de key
+	//segunda visualizacion bar char
 
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
 
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
 	var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
-	s-man,dangerous thoughts,dance,-12.733,0.626,3,121.000,2014,0.0808,535223,14,0.5183\n\
+	s-man,dangerous thoughts,dance,-12.733,0.626,1,121.000,2014,0.0808,535223,14,0.5183\n\
 	pitbull,el taxi,latinParty,-10.249,0.823,2,101.000,2015,0.1232,539182,21,0.2129\n\
 	bontan,firefly,dance,-7.134,0.923,8,95.000,1999,0.9213,497493,9,0.4382\n\
 	Kieser.Velten,Bossa Jam,Lounge / Nu Jazz / House,-10.231,0.2129,12,120.000,2004,0.7543,728371,2,0.8847\n\
@@ -114,20 +143,38 @@
 
 
 		//here we will make the canvas where we will put the circles
-		var container = d3.select(".canvas").append("svg").attr("width",650).attr("height",550).attr("class","svgCanvas");
-//		var cleaner = d3.select("svg").append("svg").attr("width",500).attr("height",500);
-	//	var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
+		var container = d3.select(".canvas").append("svg").attr("width",1300).attr("height",550).attr("class","svgCanvas");
 
- //		var axeX = container.append("line").attr("x1",500).attr("y1",0).attr("x2",500).attr("y2",500).attr("stroke","black").attr("stroke-width",1);
- 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+//	canvas left
+		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
  		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
 
 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
-//		var axeY = container.append("line").attr("x1",0).attr("y1",0).attr("x2",500).attr("y2",0).attr("stroke","black").attr("stroke-width",2);
+		var ySpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
 
 		var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
 		var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+
+		var origin =  container.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
+		var yPlus =  container.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
+		var xPlus =  container.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
+
+
+//	canvas right
+		var axeX = container.append("line").attr("x1",650).attr("y1",500).attr("x2",1250).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+ 		var xSpike = container.append("polygon").attr("points","1250,500 1230,495 1230,505").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+		var axeY = container.append("line").attr("x1",650).attr("y1",0).attr("x2",650).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var ySpike = container.append("polygon").attr("points","650,0 645,20 655,20	").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+		var separationLineX = container.append("line").attr("x1",950).attr("y1",20).attr("x2",950).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+		var separationLineY = container.append("line").attr("x1",720).attr("y1",250).attr("x2",1180).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+
+		var origin =  container.append("text").attr("x",630).attr("y",520).attr("id","xAchseText").text("0");
+		var yPlus =  container.append("text").attr("x",630).attr("y",20).attr("id","xAchseText").text("+");
+		var xPlus =  container.append("text").attr("x", 1230).attr("y",520).attr("id","xAchseText").text("+");
+//	end of canvas
+
 
 		function parseCSV(music){
 			  var lines = music.split("\n"); //split the csv in rows
@@ -147,8 +194,6 @@
 			  return data;
 	}
 
-
-
 	//var parsedCSV = parseCSV(music);
 	var parsedCSV = d3.csv.parse(music,function(rowObject){
 		rowObject["loudness"] = parseFloat(rowObject["loudness"]);
@@ -163,64 +208,62 @@
 		return rowObject;
 	});
 
-	console.log(parsedCSV);
+//	console.log(parsedCSV); //show the array of objects
 
 //	var counter = parsedCSV.length;
 
-	var xAchseOption;
-	var xAchse;
-	var xAchseArray=[];
-
-	var yAchseOption;
-	var yAchse;
-	var yAchseArray=[];
+	var xAchseOption, xAchseArray=[];
+	var yAchseOption, yAchseArray=[];
+	var kreisGrosseOption, kreisGrosseArray=[];
+	var colorFilterOption, colorFilterArray=[];
 
 	var tempoArray=[];
 
-
-	var kreisGrosseOption;
-	var kreisGrosse;
-
-	var sliderLinks ;
-	var sliderRechts;
-
+	var sliderLinks, sliderRechts;
 	cleaner();
 
+	var loudnessTop, loudnessBottom;
+
+
+
+<<<<<<< HEAD
 	$(document).ready(function(){
 	
 	
 	//so bald man betätigt den Buttton von Slider, sliderLinks und sliderRechts uebernehmen  die neue ausgewählte Grenze
-	//wert wird gespeichert in range im Form 0.3;0.8
-$(".slider").click(function(){
-	var a=$(this).find('input[type="slider"]');
-	var range = a.val();
-	var array = range.split(';');
-     sliderLinks =array[0];
-	 sliderRechts = array[1];
-	console.log("wert 1: " + sliderLinks); 
+=======
+$(document).ready(function(){
 
-	console.log("wert 2: " + sliderRechts); 
+	//so bald man betätigt den Buttton von Slider, "range" uebernimmt  die neue ausgewählte Grenze
+>>>>>>> origin/master
+	//wert wird gespeichert in range im Form 0.3;0.8
+	$(".slider").click(function(){
+		var a=$(this).find('input[type="slider"]');
+		var range = a.val();
+		var array = range.split(';');
+	     sliderLinks =array[0];
+		 sliderRechts = array[1];
+		console.log("wert 1: " + sliderLinks);
+
+		console.log("wert 2: " + sliderRechts);
 
 	});
-	
-	
-	
-
-
-// 	 	function cleaner(){
-// 		var cleaner = container.append("rect").attr("x",100).attr("y",0).attr("width",500).attr("height",500).attr("fill","white");
-// 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-// 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
-// 		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-// 		var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
-// 			return ;
-// 		}
-
-
 
 //sejchas=====================================================================================================
 //die ausgewahlte Tags werden bei anderen Selectboxes ausgeblendet
 
+	$('#xAchse').change(function(){
+			$("#yAchse option").show();
+			$("#kreisGrosseSelect option").show();
+		    $("#colorFilter option").show();
+
+			$("#yAchse option[value="+$(this).val()+"]").hide();
+			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+			//$("#colorFilter option[value="+$(this).val()+"]").hide();
+
+	});
+
+<<<<<<< HEAD
 $('#xAchse').change(function(){
 		$("#yAchse option").show();
 		$("#kreisGrosseSelect option").show();
@@ -280,423 +323,1045 @@ $('#colorFilter').change(function(){
 					var help = parsedCSV[i]["danceability"];
 					xAchseArray.push(((help*1000)/2) +100);
 					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+=======
+	$('#yAchse').change(function(){
+			$("#xAchse option").show();
+			//$("#kreisGrosseSelect option").show();
+			//$("#colorFilter option").show();
+>>>>>>> origin/master
 
+
+			$("#xAchse option[value="+$(this).val()+"]").hide();
+			//$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+			//$("#colorFilter option[value="+$(this).val()+"]").hide();
+
+			//$("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+	});
+
+
+	$('#kreisGrosseSelect').change(function(){
+			$("#xAchse option").show();
+			$("#yAchse option").show();
+		    $("#colorFilter option").show();
+
+			//$("#xAchse option[value="+$(this).val()+"]").hide();
+			//$("#yAchse option[value="+$(this).val()+"]").hide();
+			$("#colorFilter option[value="+$(this).val()+"]").hide();
+			// $("#kreisGrosseSelect option[value="+$("#xAchse").val()+"]").hide();
+			//$("#colorFilter option[value="+$("#xAchse").val()+"]").hide();
+	        //$("#colorFilter option[value="+$("#yAchse").val()+"]").hide();
+	});
+
+	$('#colorFilter').change(function(){
+			//$("#xAchse option").show();
+			//$("#xAchse option[value="+$(this).val()+"]").hide();
+			//$("#yAchse option[value="+$(this).val()+"]").hide();
+	//		$("#kreisGrosseSelect option[value="+$(this).val()+"]").hide();
+			});
+
+			// Achse select
+	$('#achsen').change(function(){
+		xAchseArray = [];
+		yAchseArray = [];
+
+		xAchseOption = $("#xAchse option:selected");
+		for (var i = 0; i < parsedCSV.length; i++) {
+			if 	(xAchseOption.val() ==="danceability")	{
+				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
+				//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="energy") 	{
+				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="tempo")  	{
+				//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
+				xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="playcount"){
+				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*50)/2) +100);
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}else if (xAchseOption.val() ==="loudness")		{
+				xAchseArray.push(parsedCSV[i]["loudness"] *(-1)/100+300);//loudness has to be bigger than -200 db   //-10.249
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();     //2014
+				xAchseArray.push(((parsedCSV[i]["Jahr"]) /4));
+				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+			}
+		}//end for
+
+		//wort an die achsen schreiben
+		var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
+		if(xAchseOption.val()!="leer"){
+			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
+		}
+		yAchseOption = $("#yAchse option:selected");
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if 	(yAchseOption.val() ==="danceability")	{
+					yAchseArray.push((parsedCSV[i]["danceability"]*1000)/2);
+					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="energy") {
+					yAchseArray.push((parsedCSV[i]["energy"]*1000)/2);
+					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="tempo") {
+					yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="playcount") {
+					yAchseArray.push(((parsedCSV[i]["playcount"]*50)/2) +100);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="loudness")	{
+					yAchseArray.push(parsedCSV[i]["loudness"] *(-1)/100+300);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+				}else if (yAchseOption.val() ==="jahr")	{
+					yAchseArray.push(((parsedCSV[i]["Jahr"]) /4)-300);
+					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}
 
-			console.log("xAchse variable " + xAchse);}		//diese linie ist für die key zeigen
-			else if (xAchseOption.val() ==="energy")		{ xAchse = xAchseOption.val();
+			}//end for
 
-				for (var i = 0; i < parsedCSV.length; i++) {
-					var help = parsedCSV[i]["energy"];
-					xAchseArray.push(((help*1000)/2) +100);
-					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+		//wort an die achsen schreiben
+		var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
+		if(yAchseOption.val()!="leer"){
+			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
+		}
+	});
+
+	$("#kreisGrosse").change(function(){
+		kreisGrosseOption = $("#kreisGrosseSelect option:selected");
+		var type = kreisGrosseOption.val();
+		kreisGrosseArray=[];
+
+		for (var i = 0; i < parsedCSV.length; i++) {
+			if	(type ==="danceability"){
+				kreisGrosseArray.push(parsedCSV[i][type]*20);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
+			}
+			else if (type ==="energy")		{
+				kreisGrosseArray.push(parsedCSV[i][type]*20);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
+			}
+			else if (type ==="playcount")	{
+				kreisGrosseArray.push((parsedCSV[i][type]*20)/10);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
+			}
+			else if (type ==="tempo")		{
+				kreisGrosseArray.push((parsedCSV[i][type]*20)/100);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
+			}
+			else if (type ==="loudness")	{
+				kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10);
+				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray);
+			}
+
+		}
+	});
+
+	function initGenreTable(){
+	var array = [];
+	var k = 0;
+		for (var i = 0; i < parsedCSV.length; i++) {
+			var genre = parsedCSV[i]["genre"];
+			var saved = false;
+			for(var j = 0; j < array.length; j++){
+				if(genre === array[j]){
+					saved = true;
+					break;
 				}
-			console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="tempo")			{ xAchse = xAchseOption.val();
-				for (var i = 0; i < parsedCSV.length; i++) {
-					//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-					var help = parsedCSV[i]["tempo"];
-					console.log("help in tempo " + help );
-					xAchseArray.push(help +100);
-					console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
-				}
-
-			console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="playcount")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="loudness")		{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			else if (xAchseOption.val() ==="jahr")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			//else if	(xAchseOption.val() ==="key")			{ xAchse = xAchseOption.val();  console.log("xAchse variable " + xAchse);}
-			//wort an die achsen schreiben
-			var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
-			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchse);
-
-			yAchseOption = $("#yAchse option:selected");
-			if 		(yAchseOption.val() ==="danceability")	{ yAchse = yAchseOption.val();
-
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var help = parsedCSV[i]["danceability"];
-				yAchseArray.push((help*1000)/2);
-				console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-
 			}
-			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="energy")		{ yAchse = yAchseOption.val();
-
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var help = parsedCSV[i]["energy"];
-				yAchseArray.push((help*1000)/2);
-				console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
-
+			if(!saved){
+				array[k++] = genre;
 			}
-			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="tempo")			{ yAchse = yAchseOption.val();
+		}
+		var table = document.getElementById('tableColor');
+		table.innerHTML = "";
+		var tr;
+		for(var i = 0; i < array.length; i++){
+			if(i % 3 == 0 && i != 0){
+				table.appendChild(tr);
+			}
+			if(i % 3 == 0){
+				tr = document.createElement('tr');
+			}
+			var td = document.createElement('td');
+			td.setAttribute('bgcolor', colorGenre(array[i]));
+			var font = document.createElement('font');
+			font.setAttribute('color', 'white');
+			font.innerHTML = array[i];
+			td.appendChild(font);
+			tr.appendChild(td);
+		}
+	};
 
-			for (var i = 0; i < parsedCSV.length; i++) {
-				var help = parsedCSV[i]["tempo"];
-				console.log("help in tempo " + help );
-				xAchseArray.push((help*1000)/2);
-				console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+
+	function colorGenre(genre) {
+           if (genre ==="dance") {return "red"}
+           else if (genre ==="deepHouse") {return "green"}
+           else if (genre ==="house") {return "blue"}
+           else if (genre ==="latinParty") {return "pink"}
+           else if (genre ==="Deep House") {return "orange"}
+           else if (genre ==="House") {return "yellow"}
+           else if (genre ==="Lounge / Nu Jazz / House") {return "silver"}
+           else if (genre ==="Dance") {return "purple"}
+           else if (genre ==="TropicalHouse") {return "brown"}
+           else{ return "black" };
+	};
+
+	$("#colorDanceability").hide();
+	$("#colorEnergy").hide();
+	$("#colorTempo").hide();
+	$("#colorGenre").hide();
+	$("#colorKey").hide();
+
+	$('#colorFilter').change(function(){
+		colorFilterOption = $('#colorFilter option:selected');
+
+		colorFilterArray=[];
+		for (var i = 0; i < parsedCSV.length; i++) {
+
+			if (colorFilterOption.val()==="leer"){
+				$("#colorDanceability").hide();
+ 				$("#colorEnergy").hide();//toggle before
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
 			}
 
-			console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="playcount")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="loudness")		{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			else if (yAchseOption.val() ==="jahr")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			//else if	(yAchseOption.val() ==="key")			{ yAchse = yAchseOption.val();	console.log("yAchse variable " + yAchse);}
-			
-			
-			//wort an die achsen schreiben
-			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
-			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchse);
-		});
-
-		$("#kreisGrosse").change(function(){
-			kreisGrosseOption = $("#kreisGrosseSelect option:selected");
-			window.cleaner();
-			for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
-					.attr('cx', xAchseArray[i] )
-					.attr('cy',yAchseArray[i])
-					.attr('fill',colorKey(key));
-					if 		(kreisGrosseOption.val() ==="danceability")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
-					else if (kreisGrosseOption.val() ==="energy")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20)));}
-					else if (kreisGrosseOption.val() ==="tempo")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 100)));}
-					else if (kreisGrosseOption.val() ==="playcount")	{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20 / 10)));}
-					else if (kreisGrosseOption.val() ==="loudness")		{ kreisGrosse = kreisGrosseOption.val();	console.log("kreisGrosseOption variable " + kreisGrosse); circle.attr('r',((parsedCSV[i][kreisGrosse]*20*(-1)/10)));}
-			}
-		});
-
-		//color select
-		$("#colorDanceability").hide();
-		$("#colorEnergy").hide();
-		$("#colorTempo").hide();
-		$("#colorGenre").hide();
-		function colorGenre(genre) {
-            if (genre ==="dance") {return "red"}
-            else if (genre ==="deepHouse") {return "green"}
-            else if (genre ==="house") {return "blue"}
-            else if (genre ==="latinParty") {return "pink"}
-            else{ return "black" };
-		};
-
-		$("#colorKey").hide();
-
-	colorKey();
-
-
-		$('#colorFilter').change(function(){
-			var colorOption = $('#colorFilter option:selected');
-			if (colorOption.val()==="danceability"){
-		 		window.cleaner();
-
-				$("#colorDanceability").toggle();
+			if (colorFilterOption.val()==="danceability"){
+				$("#colorDanceability").show();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
 				$("#colorGenre").hide();
 				$("#colorKey").hide();
-			}
 
-			if (colorOption.val()==="leer"){
-		 		window.cleaner();
-
-				$("#colorDanceability").hide();
-				$("#colorEnergy").toggle();
-				$("#colorTempo").hide();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-			}
-
-			if (colorOption.val()==="energy"){
-		 		window.cleaner();
-
-				$("#colorDanceability").hide();
-				$("#colorEnergy").toggle();
-				$("#colorTempo").hide();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-			}
-			if (colorOption.val()==="tempo"){
-				window.cleaner();
-
-				$("#colorDanceability").hide();
-				$("#colorEnergy").hide();
-				$("#colorTempo").toggle();
-				$("#colorGenre").hide();
-				$("#colorKey").hide();
-			}
-			if (colorOption.val()==="genre"){
-				window.cleaner();
-
-				$("#colorDanceability").hide();
-				$("#colorEnergy").hide();
-				$("#colorTempo").hide();
-				$("#colorGenre").toggle();
-				$("#colorKey").hide();
-
-				for (var i = 0; i < parsedCSV.length; i++) {
-
-					// making the function for doing the color selection in key
-					var genre = parsedCSV[i]["genre"];
-
-					var circle = container.append("circle")
-					.attr("cx", ((parsedCSV[i][xAchse]*1000)/2) +100)
-					.attr("cy",((parsedCSV[i][yAchse]*1000)/2))
-					.attr("r",((parsedCSV[i][kreisGrosse]/10)))
-					.attr("fill",colorGenre(genre));
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
+				//console.log("the option selected for color is" + colorFilterOption.val()+ " and the colorFilterArray is "+ colorFilterArray[i]);
 				}
 
+			if (colorFilterOption.val()==="energy"){
+				$("#colorDanceability").hide();
+ 				$("#colorEnergy").show();
+				$("#colorTempo").hide();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
+			}
+			if (colorFilterOption.val()==="tempo"){
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+ 				$("#colorTempo").show();
+				$("#colorGenre").hide();
+				$("#colorKey").hide();
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
 
 			}
-			if (colorOption.val()==="key"){ //key is the color of the circles
-				window.cleaner();
+			if (colorFilterOption.val()==="genre"){
 
 				$("#colorDanceability").hide();
 				$("#colorEnergy").hide();
 				$("#colorTempo").hide();
+				$("#colorGenre").show();
+				$("#colorKey").hide();
+				initGenreTable();
+
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
+
+			}
+			if (colorFilterOption.val()==="key"){ //key is the color of the circles
+				$("#colorDanceability").hide();
+				$("#colorEnergy").hide();
+				$("#colorTempo").hide();
 				$("#colorGenre").hide();
-				$("#colorKey").toggle();
+				$("#colorKey").show();
+				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
 
-				for (var i = 0; i < parsedCSV.length; i++) {
-
-					// making the function for doing the color selection in key
-					var key = parsedCSV[i]["key"];
-
-					if((xAchse ==="energy" || xAchse ==="danceability") && (xAchse ==="energy" || xAchse ==="danceability")){
-						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/2)+100 )
-						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('r',((parsedCSV[i]['hotness']*20)))
-						.attr('fill',colorKey(key));
-					}
-					if (xAchse ==="tempo"){
-						var circle = container.append('circle')
-						.attr('cx', ((parsedCSV[i][xAchse]*1000)/400)+100 )
-						.attr('cy',((parsedCSV[i][yAchse]*1000)/2))
-						.attr('r',((parsedCSV[i]['hotness']*20)))
-						.attr('fill',colorKey(key));
-					}
-				}//end for
 			}//end if option 5
-		});//end color filter
+
+		}
+	});//end color filter
 
 
-		$('#showButton').click(function(){
+		// sliders werden gebildet, fuer jede Attribut - eigene Slider
+	buildSliders();
+	buildSliders();
+
+	$('#showButton').click(function(){
+		window.cleaner();
+
+		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
+		for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+		}
+	});
+
+//this functions are for the showing of only the circles of a note. The rest will be fuzzy
+
+//make all the circles transparent but the c
+// if clicked again turned normal
+	$(".C").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="0"){
 					var circle = container.append('circle')
 					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
-					.attr('r',((parsedCSV[i]['hotness']*20)))
-					.attr('fill',colorKey(key));
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
 			}
-		});
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	});
 
-	
-		
-   // sliders werden gebildet, fuer jede Attribut - eigene Slider
-		buildSliders();
-		buildSliders();
-		
+	$(".CS").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="1"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
 
-	});//end document ready
+
+	$(".D").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="2"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".DS").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="3"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".E").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="4"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".F").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="5"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".FS").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="6"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".G").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="7"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}	 });
+	$(".GS").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="8"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}	 });
+	$(".A").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="9"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".AS").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="10"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+	$(".B").click(function(){
+		window.cleaner();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="11"){
+					var circle = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = container.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = container.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	 });
+
+});//end document ready
 
 </script>
 
 
-<p id="achsen">Achsen:
-	&nbsp;&nbsp;&nbsp; &nbsp;x:
-  	<select id="xAchse" name="x">
-	    <option value="leer" selected></option>
-	    <option value="danceability">	Danceability	</option>
-	    <option value="energy">			Energy		</option>
-	    <option value="tempo">			Tempo		</option>
-	    <option value="playcount">		Playcount	</option>
-	    <option value="loudness">		Loudness	</option>
-	    <option value="jahr">			Jahr		</option>
-	  	
-	</select>
-	&nbsp;&nbsp;&nbsp;&nbsp;y:
-  	<select id="yAchse" name="y">
-	    <option value="leer" selected></option>
-	   	<option value="danceability">	Danceability	</option>
-	    <option value="energy" >		Energy		</option>
-	    <option value="tempo">			Tempo		</option>
-	    <option value="playcount">		Playcount	</option>
-	    <option value="loudness">		Loudness	</option>
-	    <option value="jahr">			Jahr		</option>
-	  	
-  	</select>
- </p>
+<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
+<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
+<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
+<!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
 
- <p id="kreisGrosse">Kreis Größe:
+<div name="tags" style="width:1150;margin-left: 100px;overflow: hidden;">
+	<div name="tag-left" style="width:550px;float:left;">
 
-	<select id="kreisGrosseSelect" name="x">
-	    <option value="leer" selected></option>
-	    <option value="danceability">	Danceability</option>
-	    <option value="energy">			Energy		</option>
-	    <option value="tempo">			Tempo		</option>
-	    <option value="playcount">		Playcount	</option>
-	    <option value="loudness">		Loudness	</option>
-	</select>
-</p>
+		<p id="achsen" style="margin-left:20%;overflow: hidden;">
+		Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<text >x:</text>
 
-<p>Color Filter</p>
-	<select id="colorFilter">
-	    <option value="leer" selected></option>
-	    <option value="danceability" >	Danceability</option>
-   		<option value="energy" >		Energy		</option>
-    	<option value="tempo" >			Tempo		</option>
-    	<option value="genre" >			Genre		</option>
-    	<option value="key" >			Key			</option>
-  	</select>
+			<select id="xAchse" name="x" >
+			    <option value="leer" selected></option>
+			    <option value="danceability">	Danceability	</option>
+			    <option value="energy">			Energy		</option>
+			    <option value="tempo">			Tempo		</option>
+			    <option value="playcount">		Playcount	</option>
+			    <option value="loudness">		Loudness	</option>
+			    <option value="jahr">			Jahr		</option>
+			</select>
+			&nbsp;&nbsp;
+			<text>y:</text>
+
+		  	<select id="yAchse" name="y">
+			    <option value="leer" selected></option>
+			   	<option value="danceability">	Danceability	</option>
+			    <option value="energy" >		Energy		</option>
+			    <option value="tempo">			Tempo		</option>
+			    <option value="playcount">		Playcount	</option>
+			    <option value="loudness">		Loudness	</option>
+			    <option value="jahr">			Jahr		</option>
+
+		  	</select>
+		 </p>
+
+		<p id="kreisGrosse" style="margin-left:20% ;">
+		 Kreis Größe:
+
+			<select id="kreisGrosseSelect" name="x" style="margin-left: 40px;">
+			    <option value="leer" selected></option>
+			    <option value="danceability">	Danceability</option>
+			    <option value="energy">			Energy		</option>
+			    <option value="tempo">			Tempo		</option>
+			    <option value="playcount">		Playcount	</option>
+			    <option value="loudness">		Loudness	</option>
+			</select>
+		</p>
+		<p style="margin-left:20% ;">
+		Color Filter
+			<select id="colorFilter" style="margin-left: 47px;">
+			    <option value="leer" selected></option>
+			    <option value="danceability" >	Danceability</option>
+		   		<option value="energy" >		Energy		</option>
+		    	<option value="tempo" >			Tempo		</option>
+		    	<option value="genre" >			Genre		</option>
+		    	<option value="key" >			Key			</option>
+		  	</select>
+		</p>
 
 
-<div id="colorDanceability">
-	<span class="slider">
+		<div id="colorDanceability" style="margin-left:14% ;">
+			<span class="slider">
+				<input id="colorDanceability" type="slider" name="price" value="0.0;1.0" />
+			</span>
+			<div class="colors" style="margin-left:10% ;">
+				<span style="background-color: rgba(153, 0, 0, .25)"></span>
+				<span style="background-color: rgba(153, 0, 0, .4)"></span>
+				<span style="background-color: rgba(153, 0, 0, .55)"></span>
+				<span style="background-color: rgba(153, 0, 0, .7)"></span>
+				<span style="background-color: rgba(153, 0, 0, .85)"></span>
+				<span style="background-color: rgba(153, 0, 0, 1)"></span>
+			</div>
+		</div>
 
-		<input id="colorDanceability" type="slider" name="price" value="0.0;1.0" />
+		<div id="colorEnergy" style="margin-left:14% ;">
+			<span class="slider">
+				<input type="slider" name="price" value="0.0;1.0" />
+			</span>
+			<div class="colors" style="margin-left:10% ;">
+					<span style="background-color: rgba(153, 0, 0, .25)"></span>
+					<span style="background-color: rgba(153, 0, 0, .4)"></span>
+					<span style="background-color: rgba(153, 0, 0, .55)"></span>
+					<span style="background-color: rgba(153, 0, 0, .7)"></span>
+					<span style="background-color: rgba(153, 0, 0, .85)"></span>
+					<span style="background-color: rgba(153, 0, 0, 1)"></span>
+			</div>
+		</div>
+
+		<div id="colorTempo" style="margin-left:14% ;">
+			<span class="slider">
+				<input type="slider" name="price" value="50;200" />
+			</span>
+			<div class="colors" style="margin-left:10% ;">
+				<span style="background-color: rgba(153, 0, 0, .25)"></span>
+				<span style="background-color: rgba(153, 0, 0, .4)"></span>
+				<span style="background-color: rgba(153, 0, 0, .55)"></span>
+				<span style="background-color: rgba(153, 0, 0, .7)"></span>
+				<span style="background-color: rgba(153, 0, 0, .85)"></span>
+				<span style="background-color: rgba(153, 0, 0, 1)"></span>
+			</div>
+		</div>
+
+		<div id="colorKey">
+
+		  	<!-- Keyboard with the colors that we are going to use -->
+			<br>
+
+			<svg width="350" height="150" style=" margin-left: 20%;">
+
+			<!-- notes fields -->
+			<rect clickState="-1" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+
+			<polygon 	clickState="0" class="C" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="1" class="CS" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
+			<polygon 	clickState="2" class="D" points="50,100 65,100 65,50  85,50 85,100  100,100 100,150 50,150" 		style="fill:rgb(106,61,154);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="3" class="DS" x="85" 	y="50" 	width="30" height="50" 									style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="4" class="E" points="100,100 115,100 115,50  150,50 150,100  150,150 100,150 "	 	style="fill:rgb(177,89,40);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<polygon 	clickState="5" class="F" points="150,50 185,50 185,100  200,100 200,150  150,150 " 				style="fill:rgb(227,26,28);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="6" class="FS" x="185" 	y="50" 	width="30" height="50" 								style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="7" class="G" points="200,100 215,100 215,50  235,50 235,100  250,100 250,150 200,150" style="fill:rgb(255,127,0);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="8" class="GS" x="235" 	y="50" 	width="30" height="50" 								style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="9" class="A" points="250,100 265,100 265,50  285,50 285,100  300,100 300,150 250,150" style="fill:rgb(51,160,44);   	stroke-width:1; stroke:rgb(255,255,255);" />
+			<rect 		clickState="10" class="AS" x="285" 	y="50" 	width="30" height="50" 								style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="11" class="B" points="300,100 315,100 315,50  350,50 350,150  300,150  "	 			style="fill:rgb(255,255,153);   stroke-width:1; stroke:rgb(255,255,255);" />
+
+			<!-- circles for notes of keys -->
+				<circle clickState="0" class="C" cx="24" cy="125" r="14"  fill="white" />
+				<circle clickState="2" class="D" cx="74" cy="125" r="14"  fill="white" />
+				<circle clickState="4" class="E" cx="124" cy="125" r="14"  fill="white" />
+				<circle clickState="5" class="F" cx="174" cy="125" r="14"  fill="white" />
+				<circle clickState="7" class="G" cx="224" cy="125" r="14"  fill="white" />
+				<circle clickState="9" class="A" cx="274" cy="125" r="14"  fill="white" />
+				<circle clickState="11" class="B" cx="324" cy="125" r="14"  fill="white" />
+			<!-- text for notes of keys -->
+				<text clickState="0" class="C" x="19" y="130" fill="black"> C </text>
+				<text clickState="2" class="D" x="69" y="130" fill="black"> D </text>
+				<text clickState="4" class="E" x="119" y="130" fill="black"> E </text>
+				<text clickState="5" class="F" x="169" y="130" fill="black"> F </text>
+				<text clickState="7" class="G" x="219" y="130" fill="black"> G </text>
+				<text clickState="9" class="A" x="269" y="130" fill="black"> A </text>
+				<text clickState="11" class="B" x="319" y="130" fill="black"> B </text>
+			<!-- circles for notes of keys -->
+				<circle clickState="1" class="CS" cx="50" cy="75" r="12"  fill="white" />
+				<circle clickState="3" class="DS" cx="100" cy="75" r="12"  fill="white" />
+				<circle clickState="6" class="FS" cx="200" cy="75" r="12"  fill="white" />
+				<circle clickState="8" class="GA" cx="250" cy="75" r="12"  fill="white" />
+				<circle clickState="10" class="AS" cx="300" cy="75" r="12"  fill="white" />
+			<!-- text for notes of keys -->
+				<text clickState="1" class="CS" x="42" y="80" fill="black"> C# </text>
+				<text clickState="3" class="DS" x="92" y="80" fill="black"> D# </text>
+				<text clickState="6" class="FS" x="192" y="80" fill="black"> F# </text>
+				<text clickState="8" class="GS" x="242" y="80" fill="black"> G# </text>
+				<text clickState="10" class="AS" x="292" y="80" fill="black"> A# </text>
+
+			</svg>
+			<p style="text-align: center;">*Wenn die Metada "KEY" vom Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
+
+		</div>
+
+		<!-- Table for the color selection of genre -->
+		<div id="colorGenre" style="margin-left:30% ;">
+			<br>
+			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">
+			</table>
+		</div>
+
+		<button id="showButton" style="margin-left:46%;">Zeigen</button>
+
+	</div><!-- end tag left -->
+
+	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
+	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
+	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
+	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
+	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
+
+	<div name="tag-right" style ="width:600px;float:left;" >
+		<p id="achsen" style="margin-left:20%;">
+			<text >Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</text>
+
+			<text >x:</text>
 
 
-<script type="text/javascript">
+		  	<select id="xAchse2" name="x">
+			    <option value="leer" selected></option>
+			    <option value="danceability">	Danceability	</option>
+			    <option value="energy">			Energy		</option>
+			    <option value="tempo">			Tempo		</option>
+			    <option value="playcount">		Playcount	</option>
+			    <option value="loudness">		Loudness	</option>
+			    <option value="jahr">			Jahr		</option>
 
-</script>
+			</select>
+			&nbsp;&nbsp;
+			<text>y:</text>
+		  	<select id="yAchse2" name="y">
+			    <option value="leer" selected></option>
+			   	<option value="danceability">	Danceability	</option>
+			    <option value="energy" >		Energy		</option>
+			    <option value="tempo">			Tempo		</option>
+			    <option value="playcount">		Playcount	</option>
+			    <option value="loudness">		Loudness	</option>
+			    <option value="jahr">			Jahr		</option>
 
+		  	</select>
 
-	</span>
-	<div class="colors">
-		<span style="background-color: rgba(153, 0, 0, .25)"></span>
-		<span style="background-color: rgba(153, 0, 0, .4)"></span>
-		<span style="background-color: rgba(153, 0, 0, .55)"></span>
-		<span style="background-color: rgba(153, 0, 0, .7)"></span>
-		<span style="background-color: rgba(153, 0, 0, .85)"></span>
-		<span style="background-color: rgba(153, 0, 0, 1)"></span>
+		 </p>
+
+		 <p id="kreisGrosse2" style="margin-left:20% ;">
+		 Kreis Größe:
+
+			<select id="kreisGrosseSelect2" name="x" style=" margin-left: 40px;">
+			    <option value="leer" selected></option>
+			    <option value="danceability">	Danceability</option>
+			    <option value="energy">			Energy		</option>
+			    <option value="tempo">			Tempo		</option>
+			    <option value="playcount">		Playcount	</option>
+			    <option value="loudness">		Loudness	</option>
+			</select>
+		</p>
+
+		<p style="margin-left:20% ;">
+		Color Filter:
+			<select id="colorFilter2" style="margin-left: 43px;">
+			    <option value="leer" selected></option>
+			    <option value="danceability" >	Danceability</option>
+		   		<option value="energy" >		Energy		</option>
+		    	<option value="tempo" >			Tempo		</option>
+		    	<option value="genre" >			Genre		</option>
+		    	<option value="key" >			Key			</option>
+		  	</select>
+		</p>
+
+		<div id="colorDanceability2" style="margin-left:14% ;">
+			<span class="slider">
+				<input id="colorDanceability2" type="slider" name="price" value="0.0;1.0" />
+			</span>
+			<div class="colors" style="margin-left:10% ;">
+				<span style="background-color: rgba(153, 0, 0, .25)"></span>
+				<span style="background-color: rgba(153, 0, 0, .4)"></span>
+				<span style="background-color: rgba(153, 0, 0, .55)"></span>
+				<span style="background-color: rgba(153, 0, 0, .7)"></span>
+				<span style="background-color: rgba(153, 0, 0, .85)"></span>
+				<span style="background-color: rgba(153, 0, 0, 1)"></span>
+			</div>
+		</div>
+
+		<div id="colorEnergy2" style="margin-left:14% ;">
+			<span class="slider">
+				<input type="slider" name="price" value="0.0;1.0" />
+			</span>
+			<div class="colors" style="margin-left:10% ;">
+					<span style="background-color: rgba(153, 0, 0, .25)"></span>
+					<span style="background-color: rgba(153, 0, 0, .4)"></span>
+					<span style="background-color: rgba(153, 0, 0, .55)"></span>
+					<span style="background-color: rgba(153, 0, 0, .7)"></span>
+					<span style="background-color: rgba(153, 0, 0, .85)"></span>
+					<span style="background-color: rgba(153, 0, 0, 1)"></span>
+			</div>
+		</div>
+
+		<div id="colorTempo2" style="margin-left:14% ;">
+			<span class="slider">
+				<input type="slider" name="price" value="50;200" />
+			</span>
+			<div class="colors" style="margin-left:10% ;">
+				<span style="background-color: rgba(153, 0, 0, .25)"></span>
+				<span style="background-color: rgba(153, 0, 0, .4)"></span>
+				<span style="background-color: rgba(153, 0, 0, .55)"></span>
+				<span style="background-color: rgba(153, 0, 0, .7)"></span>
+				<span style="background-color: rgba(153, 0, 0, .85)"></span>
+				<span style="background-color: rgba(153, 0, 0, 1)"></span>
+			</div>
+		</div>
+
+		<div id="colorKey2">
+
+		  	<!-- Keyboard with the colors that we are going to use -->
+			<br>
+
+				<svg width="350" height="150" style=" margin-left: 20%;">
+
+			<!-- notes fields -->
+			<rect clickState="0" class="none" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+
+			<polygon 	clickState="0" class="C1" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="1" class="CS1" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
+			<polygon 	clickState="2" class="D1" points="50,100 65,100 65,50  85,50 85,100  100,100 100,150 50,150" 		style="fill:rgb(106,61,154);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="3" class="DS1" x="85" 	y="50" 	width="30" height="50" 									style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="4" class="E1" points="100,100 115,100 115,50  150,50 150,100  150,150 100,150 "	 	style="fill:rgb(177,89,40);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<polygon 	clickState="5" class="F1" points="150,50 185,50 185,100  200,100 200,150  150,150 " 				style="fill:rgb(227,26,28);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="6" class="FS1" x="185" 	y="50" 	width="30" height="50" 								style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="7" class="G1" points="200,100 215,100 215,50  235,50 235,100  250,100 250,150 200,150" style="fill:rgb(255,127,0);   	stroke-width:1; stroke:rgb(255,255,255);" />
+		  	<rect 		clickState="8" class="GS1" x="235" 	y="50" 	width="30" height="50" 								style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="9" class="A1" points="250,100 265,100 265,50  285,50 285,100  300,100 300,150 250,150" style="fill:rgb(51,160,44);   	stroke-width:1; stroke:rgb(255,255,255);" />
+			<rect 		clickState="10" class="AS1" x="285" 	y="50" 	width="30" height="50" 								style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<polygon 	clickState="11" class="B1" points="300,100 315,100 315,50  350,50 350,150  300,150  "	 			style="fill:rgb(255,255,153);   stroke-width:1; stroke:rgb(255,255,255);" />
+
+			<!-- circles for notes of keys -->
+				<circle clickState="0" class="C1" cx="24" cy="125" r="14"  fill="white" />
+				<circle clickState="2" class="D1" cx="74" cy="125" r="14"  fill="white" />
+				<circle clickState="4" class="E1" cx="124" cy="125" r="14"  fill="white" />
+				<circle clickState="5" class="F1" cx="174" cy="125" r="14"  fill="white" />
+				<circle clickState="7" class="G1" cx="224" cy="125" r="14"  fill="white" />
+				<circle clickState="9" class="A1" cx="274" cy="125" r="14"  fill="white" />
+				<circle clickState="11" class="B1" cx="324" cy="125" r="14"  fill="white" />
+			<!-- text for notes of keys -->
+				<text clickState="0" class="C1" x="19" y="130" fill="black"> C </text>
+				<text clickState="2" class="D1" x="69" y="130" fill="black"> D </text>
+				<text clickState="4" class="E1" x="119" y="130" fill="black"> E </text>
+				<text clickState="5" class="F1" x="169" y="130" fill="black"> F </text>
+				<text clickState="7" class="G1" x="219" y="130" fill="black"> G </text>
+				<text clickState="9" class="A1" x="269" y="130" fill="black"> A </text>
+				<text clickState="11" class="B1" x="319" y="130" fill="black"> B </text>
+			<!-- circles for notes of keys -->
+				<circle clickState="1" class="CS1" cx="50" cy="75" r="12"  fill="white" />
+				<circle clickState="3" class="DS1" cx="100" cy="75" r="12"  fill="white" />
+				<circle clickState="6" class="FS1" cx="200" cy="75" r="12"  fill="white" />
+				<circle clickState="8" class="GA1" cx="250" cy="75" r="12"  fill="white" />
+				<circle clickState="10" class="AS1" cx="300" cy="75" r="12"  fill="white" />
+			<!-- text for notes of keys -->
+				<text clickState="1" class="CS1" x="42" y="80" fill="black"> C# </text>
+				<text clickState="3" class="DS1" x="92" y="80" fill="black"> D# </text>
+				<text clickState="6" class="FS1" x="192" y="80" fill="black"> F# </text>
+				<text clickState="8" class="GS1" x="242" y="80" fill="black"> G# </text>
+				<text clickState="10" class="AS1" x="292" y="80" fill="black"> A# </text>
+
+			</svg>
+			<p style="text-align: center;">*Wenn die Metada "KEY" vom Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
+
+		</div>
+
+		<!-- Table for the color selection of genre -->
+		<div id="colorGenre1" style="margin-left:30% ;">
+			<br>
+			<table id="tableColor" bgcolor="silver" cellpadding="5" align="left" width="20%">
+			</table>
+		</div>
+
+		<button id="showButton2" style="margin-left:46%;">Zeigen</button>
+
 	</div>
-</div>
-
-
-<div id="colorEnergy">
-<span class="slider">
-
-	<input type="slider" name="price" value="0.0;1.0" />
-	</span>
-
-<div class="colors">
-	<span style="background-color: rgba(153, 0, 0, .25)"></span>
-	<span style="background-color: rgba(153, 0, 0, .4)"></span>
-	<span style="background-color: rgba(153, 0, 0, .55)"></span>
-	<span style="background-color: rgba(153, 0, 0, .7)"></span>
-	<span style="background-color: rgba(153, 0, 0, .85)"></span>
-	<span style="background-color: rgba(153, 0, 0, 1)"></span>
-</div>
-</div>
-
-<div id="colorTempo">
-<span class="slider">
-	<input type="slider" name="price" value="50;200" />
-</span>
-<div class="colors">
-	<span style="background-color: rgba(153, 0, 0, .25)"></span>
-	<span style="background-color: rgba(153, 0, 0, .4)"></span>
-	<span style="background-color: rgba(153, 0, 0, .55)"></span>
-	<span style="background-color: rgba(153, 0, 0, .7)"></span>
-	<span style="background-color: rgba(153, 0, 0, .85)"></span>
-	<span style="background-color: rgba(153, 0, 0, 1)"></span>
-</div>
-</div>
-
-
-<div id="jahr"> 
-<p><strong>Jahr:</strong></p> 
-<div class="slider">
-	<input type="slider" name="year" value="1990;2016" />
-</span>
-</div> 
-
-
-
-
-<div id="colorKey">
-  	<!-- Keyboard with the colors that we are going to use -->
-	<br>
-
-	<svg width="350" height="150" >
-
-  	<!-- notes (C,D,E,F,G,A,B)-->
-		<rect x="0" 	y="0" 	width="50" height="150" 	style="fill:rgb(31,120,180);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="50" 	y="0" 	width="50" height="150"		style="fill:rgb(106,61,154);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="100" 	y="0" 	width="50" height="150" 	style="fill:rgb(177,89,40);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="150" 	y="0" 	width="50" height="150" 	style="fill:rgb(227,26,28);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="200" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,127,0);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="250" 	y="0" 	width="50" height="150" 	style="fill:rgb(51,160,44);		stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="300" 	y="0" 	width="50" height="150" 	style="fill:rgb(255,255,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-
-	<!-- sharp notes (C# ,D# ,F#, G#, A#) -->
-		<rect x="35" 	y="50" 	width="30" height="50" 		style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="85" 	y="50" 	width="30" height="50" 		style="fill:rgb(202,178,214);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="185" 	y="50" 	width="30" height="50" 		style="fill:rgb(251,154,153);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="235" 	y="50" 	width="30" height="50" 		style="fill:rgb(253,191,111);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-		<rect x="285" 	y="50" 	width="30" height="50" 		style="fill:rgb(178,223,138);	stroke-width:1;	stroke:rgb(255,255,255)"/>
-
-		<rect x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
-	<!-- circles for notes of keys -->
-		<circle cx="24" cy="125" r="14"  fill="white" />
-		<circle cx="74" cy="125" r="14"  fill="white" />
-		<circle cx="124" cy="125" r="14"  fill="white" />
-		<circle cx="174" cy="125" r="14"  fill="white" />
-		<circle cx="224" cy="125" r="14"  fill="white" />
-		<circle cx="274" cy="125" r="14"  fill="white" />
-		<circle cx="324" cy="125" r="14"  fill="white" />
-	<!-- circles for notes of keys -->
-		<text x="19" y="130" fill="black"> C </text>
-		<text x="69" y="130" fill="black"> D </text>
-		<text x="119" y="130" fill="black"> E </text>
-		<text x="169" y="130" fill="black"> F </text>
-		<text x="219" y="130" fill="black"> G </text>
-		<text x="269" y="130" fill="black"> A </text>
-		<text x="319" y="130" fill="black"> B </text>
-
-		<circle cx="50" cy="75" r="12"  fill="white" />
-		<circle cx="100" cy="75" r="12"  fill="white" />
-		<circle cx="200" cy="75" r="12"  fill="white" />
-		<circle cx="250" cy="75" r="12"  fill="white" />
-		<circle cx="300" cy="75" r="12"  fill="white" />
-
-		<text x="42" y="80" fill="black"> C# </text>
-		<text x="92" y="80" fill="black"> D# </text>
-		<text x="192" y="80" fill="black"> F# </text>
-		<text x="242" y="80" fill="black"> A# </text>
-		<text x="292" y="80" fill="black"> G# </text>
-
-	</svg>
-	<p>*Wenn die Metada "KEY" von eine Lied nicht vorhanden ist es wird Schwarz gezeigt.</p>
-
-</div>
-
-<!-- Table for the color selection of genre -->
-
-<div id="colorGenre">
-<br>
-<table bgcolor="silver" cellpadding="5" align="left" width="20%">
-    <tr align="center">
-    <td>genre1</td>
-    <td bgcolor="blue">genre2</td>
-    <td bgcolor="red">genre3</td>
-    </tr>
-    <tr align="center">
-    <td bgcolor="green">genre4</td>
-    <td bgcolor="pink">genre5</td>
-    <td bgcolor="braun">genre6</td>
-    </tr>
-    <tr align="center" bgcolor="purple">
-    <td>genre7</td>
-    <td bgcolor="yellow">genre8</td>
-    <td bgcolor="orange">genre9</td>
-    </tr>
-</table>
-</div>
-<div>
-</div>
-
-<button id="showButton" >Zeigen</button>
+</div><!-- end of div tags -->
 
 	</body>
 </html>
