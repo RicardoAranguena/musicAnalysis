@@ -3,7 +3,7 @@
 <head>
 		<meta charset="UTF-8">
 
-		<link rel="stylesheet" href="styles.css" type="text/css">
+		<!-- link rel="stylesheet" href="styles.css" type="text/css"> -->
 		<link rel="stylesheet" href="css/jslider.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
@@ -48,20 +48,30 @@
 </head>
 <body>
 <div name="header-wraper" style="width:100%;">
-<div name="header" style="width: 50%;  margin: 0 auto;">
-	<p style="text-align: center" >MUSIC ANALYSIS</p>
-	<br>
+	<div name="header" style="width: 50%;  margin: 0 auto;">
+		<p style="text-align: center" >MUSIC ANALYSIS</p>
+		<br>
+		
+		<div id="jahr" style="align: center">
+			<p style="text-align: center" >Please select the range of years that should be analized</p>
+			<p style="text-align: center" ><strong>Jahr:</strong></p>
+			<div class="slider" style="margin-left: 20%;" >
+				<input type="slider" name="year" value="1990;2016" />
+			</span>
+		</div>
+	</div>	
+</div>
+
+
+	<div id="canvas" style="width:1250;overflow: hidden;">
+		<div id=canvas-left  style="width:650px;float:left;">
+			<div class=canvasLeft> </div>
+		</div>
 	
-<div id="jahr" style="align: center">
-	<p style="text-align: center" >Please select the range of years that should be analized</p>
-	<p style="text-align: center" ><strong>Jahr:</strong></p>
-	<div class="slider" style="margin-left: 20%;" >
-		<input type="slider" name="year" value="1990;2016" />
-	</span>
-</div>
-</div>	
-</div>
-	<div class=canvas> </div>
+		<div id=canvas-right style ="width:600px;float:left; " >		
+			<div class=canvasRight > </div>
+ 		</div>
+ 	</div>
 
 	<script>
 
@@ -121,31 +131,32 @@
 	marlon roudette ft stewart,everybody feeling something,house,-10.547,0.7543,9,107.000,2014,0.7429,362830,3,0.4932\n\
 	Nina Kraviz,Iâ€™m Week (Original Mix),deepHouse,-6.572,0.4932,8,96.000,2016,0.8472,10273645,2,0.8472";
 
-
-
-
-		//here we will make the canvas where we will put the circles
-		var container = d3.select(".canvas").append("svg").attr("width",1300).attr("height",550).attr("class","svgCanvas");
-
+	
 //	canvas left
-		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
- 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+//		var container = d3.select(".canvas").append("svg").attr("width",650).attr("height",550).attr("class","svgCanvas");
 
-		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		var ySpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+		var containerLeft = d3.select(".canvasLeft").append("svg").attr("width",600).attr("height",550).attr("class","svgCanvasLeft");
+	
+		var axeX = containerLeft.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+ 		var xSpike = containerLeft.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
 
-		var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-		var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+		var axeY = containerLeft.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var ySpike = containerLeft.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+		var separationLineX = containerLeft.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+		var separationLineY = containerLeft.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
 
 //	canvas right		
-		var axeX = container.append("line").attr("x1",650).attr("y1",500).attr("x2",1250).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
- 		var xSpike = container.append("polygon").attr("points","1250,500 1230,495 1230,505").style("fill","red").style("stroke","red").style("stroke-width",2);
+		var containerRight = d3.select(".canvasRight").append("svg").attr("width",600).attr("height",550).attr("class","svgCanvasRight");
+	
+		var axeX = containerRight.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+ 		var xSpike = containerRight.append("polygon").attr("points","600,500 580,495 580,505").style("fill","red").style("stroke","red").style("stroke-width",2);
 
-		var axeY = container.append("line").attr("x1",650).attr("y1",0).attr("x2",650).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		var ySpike = container.append("polygon").attr("points","650,0 645,20 655,20	").style("fill","red").style("stroke","red").style("stroke-width",2);
+		var axeY = containerRight.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var ySpike = containerRight.append("polygon").attr("points","100,0 95,20 105,20	").style("fill","red").style("stroke","red").style("stroke-width",2);
 
-		var separationLineX = container.append("line").attr("x1",950).attr("y1",20).attr("x2",950).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-		var separationLineY = container.append("line").attr("x1",720).attr("y1",250).attr("x2",1180).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+		var separationLineX = containerRight.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+		var separationLineY = containerRight.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
 //	end of canvas
 		
 		
@@ -263,7 +274,6 @@ return farbn;
 	var sliderLinks ;
 	var sliderRechts;
 
-	cleaner();
 
 $(document).ready(function(){
 
@@ -833,10 +843,11 @@ for (var i = 0; i < parsedCSV.length; i++) {
 <!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
 
 
-<div name="tags" style="width:1150;margin-left: 100px;overflow: hidden;">
-	<div name="tag-left" class="tag-left" style="width:550px;float:left;">
- 
-		<p id="achsen" style="margin-left:20%;overflow: hidden;">
+
+<div id="tags" name="tags" style="width:1150;margin-left: 100px;overflow: hidden;">
+	<div id="tags-left" name="tag-left" style="width:550px;float:left; ">
+
+ 		<p id="achsen" style="margin-left:20%;overflow: hidden;">
 		Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<text >x:</text>
 			
@@ -1004,8 +1015,9 @@ for (var i = 0; i < parsedCSV.length; i++) {
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	
-	<div name="tag-right" class="tag-right" style ="width:600px;float:left;" >		
-		<p id="achsen" style="margin-left:20%;">	
+	<div name="tag-right" style ="width:600px;float:left; " >		
+		
+ 		<p id="achsen" style="margin-left:20%;">	
 			<text >Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</text>
 		

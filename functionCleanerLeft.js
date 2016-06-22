@@ -1,7 +1,7 @@
 	function cleanerLeft(xAchseTag,yAchseTag){
 	
 		var cleaner = container.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",600).attr("fill","blue");
-var test=  container.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner left");
+		var test=  container.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner left");
 		
 		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
