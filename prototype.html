@@ -26,8 +26,7 @@
 	    <script type="text/javascript" src="functionCleaner.js"></script>
 		<script type="text/javascript" src="SliderHideFunction.js"></script>
 		<script type="text/javascript" src="functionCleanerLeft.js"></script>
-		<script type="text/javascript" src="rightCanvas.js"></script>
-
+	
 
 		<title>Music Analysis </title>
 
@@ -64,8 +63,17 @@
 	</div>
 </div>
 
-<div class=canvas> </div>
 
+	<div id="canvas" style="width:1250;overflow: hidden;">
+		<div id=canvas-left  style="width:650px;float:left;">
+			<div class=canvasLeft> </div>
+		</div>
+	
+		<div id=canvas-right style ="width:600px;float:left; " >		
+			<div class=canvasRight > </div>
+ 		</div>
+ 	</div>
+ 	
 <script>
 	/*to dos hoy
 		-hacer que el boton zeigen funcione a la izquierda
@@ -126,29 +134,34 @@
 	Adele,Skyfall (Montmartre Remix),deepHouse,-9.673,0.9213,8,110.000,2012,0.7474,172635,4,0.8372\n\
 	marlon roudette ft stewart,everybody feeling something,house,-10.547,0.7543,9,107.000,2014,0.7429,362830,3,0.4932\n\
 	Nina Kraviz,Iâ€™m Week (Original Mix),deepHouse,-6.572,0.4932,8,96.000,2016,0.8472,10273645,2,0.8472";
-		//here we will make the canvas where we will put the circles
-		var container = d3.select(".canvas").append("svg").attr("width",1300).attr("height",550).attr("class","svgCanvas");
-//	canvas left
-		var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
- 		var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
-		var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		var ySpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
-		var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-		var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
-		var origin =  container.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
-		var yPlus =  container.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
-		var xPlus =  container.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
-//	canvas right
-		var axeX = container.append("line").attr("x1",650).attr("y1",500).attr("x2",1250).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
- 		var xSpike = container.append("polygon").attr("points","1250,500 1230,495 1230,505").style("fill","red").style("stroke","red").style("stroke-width",2);
-		var axeY = container.append("line").attr("x1",650).attr("y1",0).attr("x2",650).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-		var ySpike = container.append("polygon").attr("points","650,0 645,20 655,20	").style("fill","red").style("stroke","red").style("stroke-width",2);
-		var separationLineX = container.append("line").attr("x1",950).attr("y1",20).attr("x2",950).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-		var separationLineY = container.append("line").attr("x1",720).attr("y1",250).attr("x2",1180).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
-		var origin =  container.append("text").attr("x",630).attr("y",520).attr("id","xAchseText").text("0");
-		var yPlus =  container.append("text").attr("x",630).attr("y",20).attr("id","xAchseText").text("+");
-		var xPlus =  container.append("text").attr("x", 1230).attr("y",520).attr("id","xAchseText").text("+");
-//	end of canvas
+
+
+	var containerLeft = d3.select(".canvasLeft").append("svg").attr("width",600).attr("height",550).attr("class","svgCanvasLeft");
+
+	var axeX = containerLeft.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var xSpike = containerLeft.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+	var axeY = containerLeft.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+	var ySpike = containerLeft.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+	var separationLineX = containerLeft.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+	var separationLineY = containerLeft.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+
+//canvas right		
+	var containerRight = d3.select(".canvasRight").append("svg").attr("width",600).attr("height",550).attr("class","svgCanvasRight");
+
+	var axeX = containerRight.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+		var xSpike = containerRight.append("polygon").attr("points","600,500 580,495 580,505").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+	var axeY = containerRight.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+	var ySpike = containerRight.append("polygon").attr("points","100,0 95,20 105,20	").style("fill","red").style("stroke","red").style("stroke-width",2);
+
+	var separationLineX = containerRight.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+	var separationLineY = containerRight.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+//end of canvas
+
+
+
 	function parseCSV(music){
 			  var lines = music.split("\n"); //split the csv in rows
 			  var metadata = lines[0].split(","); //first row of the csv file that contains the name of the metadata that we are using
@@ -189,7 +202,7 @@
 	var loudnessTop, loudnessBottom;
 	//so bald man betätigt den Buttton von Slider, sliderLinks und sliderRechts uebernehmen  die neue ausgewählte Grenze
 	var xAchseOption1, xAchseArray1=[];
-	var yAchse1Option1, yAchse1Array1=[];
+	var yAchseOption1, yAchseArray1=[];
 	var kreisGrosseOption1, kreisGrosseArray1=[];
 	var colorFilterOption1, colorFilterArray1=[];
 	var sliderLinks1, sliderRechts1;
@@ -288,9 +301,9 @@ $(document).ready(function(){
 			}
 		}//end for
 		//wort an die achsen schreiben
-		var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
+		var titleX = containerLeft.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 		if(xAchseOption.val()!="leer"){
-			var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
+			var xText =  containerLeft.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
 		}
 		yAchseOption = $("#yAchse option:selected");
 			for (var i = 0; i < parsedCSV.length; i++) {
@@ -315,9 +328,10 @@ $(document).ready(function(){
 				}
 			}//end for
 		//wort an die achsen schreiben
-		var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
+		
+		var titleY = containerLeft.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 		if(yAchseOption.val()!="leer"){
-			var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
+			var yText =  containerLeft.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
 		}
 	});
 	$("#kreisGrosse").change(function(){
@@ -462,23 +476,23 @@ $(document).ready(function(){
 	
 	function cleanerLeft(){
 		
-				var cleaner = container.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",600).attr("fill","white");
-		//	var test=  container.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner left");
+				var cleaner = containerLeft.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",600).attr("fill","white");
+		//	var test=  containerLeft.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner left");
 							
-				var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+				var axeX = containerLeft.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = containerLeft.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
 				
-				var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-				var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+				var axeY = containerLeft.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+				var xSpike = containerLeft.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
 				
-				var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-				var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+				var separationLineX = containerLeft.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+				var separationLineY = containerLeft.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
 				
-				var origin =  container.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
-				var yPlus =  container.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
-				var xPlus =  container.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
- 				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
- 				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
+				var origin =  containerLeft.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
+				var yPlus =  containerLeft.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
+				var xPlus =  containerLeft.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
+ 				var xText =  containerLeft.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
+ 				var yText =  containerLeft.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
 				return;
 	}
 			
@@ -486,7 +500,7 @@ $(document).ready(function(){
 		cleanerLeft();
 		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 		for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -498,18 +512,18 @@ $(document).ready(function(){
 //this functions are for the showing of only the circles of a note. The rest will be fuzzy
 //make all the circles transparent but the c
 // if clicked again turned normal
-	$(".C").click(function(){	       
+		$(".negro").click(function(){	       
 		cleanerLeft();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="0"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -521,7 +535,41 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
+				.attr('cx', xAchseArray[i] )
+				.attr('cy',yAchseArray[i]);
+				circle.attr('r',kreisGrosseArray[i]);
+				if(colorFilterOption.val()==="key"){
+						circle.attr('fill',colorKey(colorFilterArray[i]));
+				}
+			}
+			$(this).attr("clickState",0);
+		}
+	});
+	$(".C").click(function(){	       
+		cleanerLeft();
+		if($(this).attr('clickState')=="0"){
+			for (var i = 0; i < parsedCSV.length; i++) {
+				if(colorFilterArray[i]=="0"){
+					var circle = containerLeft.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy', yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"green");
+				}else{
+					var circle2 = containerLeft.append('circle')
+					.attr('cx', xAchseArray[i] )
+					.attr('cy',yAchseArray[i])
+					.attr('r',kreisGrosseArray[i])
+					.attr('fill',"black")
+					.attr('fill-opacity',"0.2");
+				}
+			}
+			$(this).attr("clickState",1);
+		}else{
+			//regreso a lo normal
+			for (var i = 0; i < parsedCSV.length; i++) {
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -537,13 +585,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="1"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -555,7 +603,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -571,13 +619,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="2"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -589,7 +637,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -605,13 +653,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="3"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -623,7 +671,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -639,13 +687,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="4"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -657,7 +705,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -673,13 +721,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="5"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -691,7 +739,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -707,13 +755,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="6"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -725,7 +773,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -741,13 +789,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="7"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -759,7 +807,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -774,13 +822,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="8"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -792,7 +840,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -807,13 +855,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="9"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -825,7 +873,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -841,13 +889,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="10"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -859,7 +907,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -875,13 +923,13 @@ $(document).ready(function(){
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if(colorFilterArray[i]=="11"){
-					var circle = container.append('circle')
+					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
 					.attr('fill',"green");
 				}else{
-					var circle2 = container.append('circle')
+					var circle2 = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy',yAchseArray[i])
 					.attr('r',kreisGrosseArray[i])
@@ -893,7 +941,7 @@ $(document).ready(function(){
 		}else{
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
-				var circle = container.append('circle')
+				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
@@ -931,19 +979,19 @@ $(document).ready(function(){
 		
 		});
 		$('#yAchse1').change(function(){
-				$("#xAchse11 option").show();
+				$("#xAchse1 option").show();
 				//$("#kreisGrosse1Select1 option").show();
 				//$("#colorFilter1 option").show();
 		
 		
-				$("#xAchse11 option[value="+$(this).val()+"]").hide();
+				$("#xAchse1 option[value="+$(this).val()+"]").hide();
 				//$("#kreisGrosse1Select1 option[value="+$(this).val()+"]").hide();
 				//$("#colorFilter1 option[value="+$(this).val()+"]").hide();
 		
 				//$("#kreisGrosse1Select1 option[value="+$("#xAchse1").val()+"]").hide();
 				//$("#colorFilter1 option[value="+$("#xAchse1").val()+"]").hide();
 		});
-		$('#kreisGrosse1Select1').change(function(){
+		$('#kreisGrosseSelect1').change(function(){
 				$("#xAchse1 option").show();
 				$("#yAchse1 option").show();
 			    $("#colorFilter1 option").show();
@@ -985,53 +1033,53 @@ $(document).ready(function(){
 				}else if (xAchseOption1.val() ==="loudness")		{ 
 					xAchseArray1.push(parsedCSV[i]["loudness"] +100);//loudness has to be bigger than -200 db
 					//console.log("xAchse array " + xAchseArray1[i] +" in die position " + i);
-				}	else if (xAchseOption1.val() ==="jahr")	{ xAchse = xAchseOption1.val();  
+				}	else if (xAchseOption1.val() ==="jahr")	{ 
 					xAchseArray1.push(parsedCSV[i]["jahr"] +100);
 					//console.log("xAchse array " + xAchseArray1[i] +" in die position " + i);
 				}
 			}//end for	
 				
 			//wort an die achsen schreiben
-			var titleX = container.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
+
+			var titleX = containerRight.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 			if(xAchseOption1.val()!="leer"){
-				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption1.val());
+				var xText =  containerRight.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption1.val());
 			}
-			yAchse1Option1 = $("#yAchse1 option:selected");
+			yAchseOption1 = $("#yAchse1 option:selected");
 				for (var i = 0; i < parsedCSV.length; i++) {
-					if 	(yAchse1Option1.val() ==="danceability")	{ 
-						yAchse1Array1.push((parsedCSV[i]["danceability"]*1000)/2);
+					if 	(yAchseOption1.val() ==="danceability")	{ 
+						yAchseArray1.push((parsedCSV[i]["danceability"]*1000)/2);
 						//console.log("yAchse1 array " + yAchse1Array1[i] +" in die position " + i);
-					}else if (yAchse1Option1.val() ==="energy") { 
-						yAchse1Array1.push((parsedCSV[i]["energy"]*1000)/2);
+					}else if (yAchseOption1.val() ==="energy") { 
+						yAchseArray1.push((parsedCSV[i]["energy"]*1000)/2);
 						//console.log("yAchse1 array " + yAchse1Array1[i] +" in die position " + i);
-					}else if (yAchse1Option1.val() ==="tempo") { 
-						yAchse1Array1.push((parsedCSV[i]["tempo"]*1000)/2);
+					}else if (yAchseOption1.val() ==="tempo") { 
+						yAchseArray1.push((parsedCSV[i]["tempo"]*1000)/2);
 						//console.log("yAchse1 array " + xAchseArray1[i] +" in die position " + i);
-					}else if (yAchse1Option1.val() ==="playcount") { 
-						yAchse1Array1.push((parsedCSV[i]["playcount"]*1000)/2);
+					}else if (yAchseOption1.val() ==="playcount") { 
+						yAchseArray1.push((parsedCSV[i]["playcount"]*1000)/2);
 						//console.log("yAchse1 array " + xAchseArray1[i] +" in die position " + i);
-					}else if (yAchse1Option1.val() ==="loudness")	{
-						yAchse1Array1.push((parsedCSV[i]["loudness"]*1000)/2);
+					}else if (yAchseOption1.val() ==="loudness")	{
+						yAchseArray1.push((parsedCSV[i]["loudness"]*1000)/2);
 						//console.log("yAchse1 array " + xAchseArray1[i] +" in die position " + i);
-					}else if (yAchse1Option1.val() ==="jahr")	{ 
-						yAchse1Array1.push((parsedCSV[i]["jahr"]*1000)/2);
+					}else if (yAchseOption1.val() ==="jahr")	{ 
+						yAchseArray1.push((parsedCSV[i]["jahr"]*1000)/2);
 						//console.log("yAchse1 array " + xAchseArray1[i] +" in die position " + i);
 					}
 						
 				}//end for
-				
+		
 			//wort an die achsen schreiben
-			var titleY = container.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
-			if(yAchse1Option1.val()!="leer"){
-				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchse1Text").text(yAchse1Option1.val());
+			var titleY = containerRight.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
+			if(yAchseOption1.val()!="leer"){
+				var yText =  containerRight.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchse1Text").text(yAchseOption1.val());
 			}
 		});
 						
 		$("#kreisGrosse1").change(function(){
-			kreisGrosseOption1 = $("#kreisGrosse1Select1 option:selected");
+			kreisGrosseOption1 = $("#kreisGrosseSelect1 option:selected");
 			var type = kreisGrosseOption1.val();
 			kreisGrosseArray1=[];
-			
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if	(type ==="danceability"){ 
 					kreisGrosseArray1.push(parsedCSV[i][type]*20); 
@@ -1053,9 +1101,9 @@ $(document).ready(function(){
 					kreisGrosseArray1.push(((parsedCSV[i][type]*20)*(-1))/10); 
 //	 				console.log("kreisGrosseOption1 variable " + type + " array : " + kreisGrosseArray1); 
 				}
-				
 			}
 		});
+		
 		
 		function initGenreTable(){
 		var array = [];
@@ -1179,23 +1227,23 @@ $(document).ready(function(){
 		
 		function cleanerRight(){ //noch anzupassen
 			
-					var cleaner = container.append("rect").attr("x",600).attr("y",0).attr("width",700).attr("height",700).attr("fill","white");
-			//	var test=  container.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner right");
+					var cleaner = containerRight.append("rect").attr("x",600).attr("y",0).attr("width",700).attr("height",700).attr("fill","white");
+			//	var test=  containerRight.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner right");
 								
-					var axeX = container.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-					var xSpike = container.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+					var axeX = containerRight.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+					var xSpike = containerRight.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
 					
-					var axeY = container.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-					var xSpike = container.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+					var axeY = containerRight.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+					var xSpike = containerRight.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
 					
-					var separationLineX = container.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-					var separationLineY = container.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+					var separationLineX = containerRight.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+					var separationLineY = containerRight.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
 					
-					var origin =  container.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
-					var yPlus =  container.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
-					var xPlus =  container.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
-	 				var xText =  container.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption1.val());
-	 				var yText =  container.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchse1Text").text(yAchse1Option1.val());
+					var origin =  containerRight.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
+					var yPlus =  containerRight.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
+					var xPlus =  containerRight.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
+	 				var xText =  containerRight.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption1.val());
+	 				var yText =  containerRight.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchse1Text").text(yAchseOption1.val());
 					return;
 		}
 				
@@ -1203,9 +1251,14 @@ $(document).ready(function(){
 			cleanerRight();
 			//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 			for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+				console.log("xArray "+ xAchseArray1[i]);
+				console.log("yArray "+ yAchseArray1[i]);
+				console.log("kreisGrosse "+ kreisGrosseArray1[i]);
+				console.log("colorFilterArray1 "+ colorFilterArray1[i] );
+				
+				var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy', yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
 					if(colorFilterOption1.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
@@ -1215,18 +1268,18 @@ $(document).ready(function(){
 	//this functions are for the showing of only the circles of a note. The rest will be fuzzy
 	//make all the circles transparent but the c
 	// if clicked again turned normal
-		$(".C1").click(function(){	       
+		$(".negro1").click(function(){	       
 			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="0"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1238,7 +1291,41 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
+					.attr('cx', xAchseArray1[i] )
+					.attr('cy',yAchse1Array1[i]);
+					circle.attr('r',kreisGrosseArray1[i]);
+					if(colorFilterOption1.val()==="key"){
+							circle.attr('fill',colorKey(colorFilterArray1[i]));
+					}
+				}
+				$(this).attr("clickState",0);
+			}
+		});
+		$(".C1").click(function(){	       
+			cleanerRight();
+			if($(this).attr('clickState')=="0"){
+				for (var i = 0; i < parsedCSV.length; i++) {
+					if(colorFilterArray1[i]=="0"){
+						var circle = containerRight.append('circle')
+						.attr('cx', xAchseArray1[i] )
+						.attr('cy', yAchse1Array1[i])
+						.attr('r',kreisGrosseArray1[i])
+						.attr('fill',"green");		
+					}else{
+						var circle2 = containerRight.append('circle')
+						.attr('cx', xAchseArray1[i] )
+						.attr('cy',yAchse1Array1[i])
+						.attr('r',kreisGrosseArray1[i])
+						.attr('fill',"black")
+						.attr('fill-opacity',"0.2");		
+					}
+				}
+				$(this).attr("clickState",1);
+			}else{
+				//regreso a lo normal
+				for (var i = 0; i < parsedCSV.length; i++) {
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1254,13 +1341,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="1"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1272,7 +1359,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1288,13 +1375,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="2"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1306,7 +1393,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1322,13 +1409,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="3"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1340,7 +1427,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1356,13 +1443,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="4"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1374,7 +1461,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1390,13 +1477,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="5"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1408,7 +1495,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1424,13 +1511,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="6"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1442,7 +1529,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1458,13 +1545,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="7"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1476,7 +1563,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1491,13 +1578,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="8"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1509,7 +1596,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1524,13 +1611,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="9"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1542,7 +1629,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1558,13 +1645,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="10"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1576,7 +1663,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1592,13 +1679,13 @@ $(document).ready(function(){
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					if(colorFilterArray1[i]=="11"){
-						var circle = container.append('circle')
+						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"green");		
 					}else{
-						var circle2 = container.append('circle')
+						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy',yAchse1Array1[i])
 						.attr('r',kreisGrosseArray1[i])
@@ -1610,7 +1697,7 @@ $(document).ready(function(){
 			}else{
 				//regreso a lo normal
 				for (var i = 0; i < parsedCSV.length; i++) {
-					var circle = container.append('circle')
+					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
 					.attr('cy',yAchse1Array1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
@@ -1737,7 +1824,7 @@ $(document).ready(function(){
 			<svg width="350" height="150" style=" margin-left: 20%;">
 
 			<!-- notes fields -->
-			<rect clickState="-1" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<rect clickState="-1" class="negro" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
 
 			<polygon 	clickState="0" class="C" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
 		  	<rect 		clickState="1" class="CS" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
@@ -1913,7 +2000,7 @@ $(document).ready(function(){
 				<svg width="350" height="150" style=" margin-left: 20%;">
 
 			<!-- notes fields -->
-			<rect clickState="0" class="none" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
+			<rect clickState="0" class="negro1" x="0" y="0" width="350" height="50" style="fill=rgb(0,0,0); stroke-width:1;	stroke:rgb(255,255,255)"/>
 
 			<polygon 	clickState="0" class="C1" points="0,50 35,50 35,100 50,100 50,150 0,150" 							style="fill:rgb(31,120,180);   	stroke-width:1; stroke:rgb(255,255,255);" />
 		  	<rect 		clickState="1" class="CS1" x="35" 	y="50" 	width="30" height="50" 		  							style="fill:rgb(166,206,227);	stroke-width:1;	stroke:rgb(255,255,255);" />
