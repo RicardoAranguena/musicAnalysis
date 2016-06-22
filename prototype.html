@@ -194,7 +194,7 @@
 	});
 //	console.log(parsedCSV); //show the array of objects
 //	var counter = parsedCSV.length;
-	var xAchseOption, xAchseArray=[];
+	var xAchseOption, xAchseArray1=[];
 	var yAchseOption, yAchseArray=[];
 	var kreisGrosseOption, kreisGrosseArray=[];
 	var colorFilterOption, colorFilterArray=[];
@@ -942,8 +942,8 @@ $(document).ready(function(){
 			//regreso a lo normal
 			for (var i = 0; i < parsedCSV.length; i++) {
 				var circle = containerLeft.append('circle')
-				.attr('cx', xAchseArray[i] )
-				.attr('cy',yAchseArray[i]);
+				.attr('cx', yAchseArray1[i] )
+				.attr('cy',kreisGrosseArray1[i]);
 				circle.attr('r',kreisGrosseArray[i]);
 				if(colorFilterOption.val()==="key"){
 						circle.attr('fill',colorKey(colorFilterArray[i]));
@@ -1223,29 +1223,28 @@ $(document).ready(function(){
 		buildSliders();
 		buildSliders();
 		
-		
-		
-		function cleanerRight(){ //noch anzupassen
+		function cleanerRight(){
 			
-					var cleaner = containerRight.append("rect").attr("x",600).attr("y",0).attr("width",700).attr("height",700).attr("fill","white");
-			//	var test=  containerRight.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner right");
-								
-					var axeX = containerRight.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-					var xSpike = containerRight.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
-					
-					var axeY = containerRight.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
-					var xSpike = containerRight.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
-					
-					var separationLineX = containerRight.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
-					var separationLineY = containerRight.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
-					
-					var origin =  containerRight.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
-					var yPlus =  containerRight.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
-					var xPlus =  containerRight.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
-	 				var xText =  containerRight.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption1.val());
-	 				var yText =  containerRight.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchse1Text").text(yAchseOption1.val());
-					return;
-		}
+			var cleaner = containerRight.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",600).attr("fill","white");
+	//	var test=  containerRight.append("text").attr("x",10).attr("y",10).attr("id","xAchseText").text("cleaner left");
+						
+			var axeX = containerRight.append("line").attr("x1",100).attr("y1",500).attr("x2",600).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+			var xSpike = containerRight.append("polygon").attr("points","100,0 95,20 105,20").style("fill","red").style("stroke","red").style("stroke-width",2);
+			
+			var axeY = containerRight.append("line").attr("x1",100).attr("y1",0).attr("x2",100).attr("y2",500).attr("stroke","red").attr("stroke-width",2);
+			var xSpike = containerRight.append("polygon").attr("points","600,500 580,495 580,505	").style("fill","red").style("stroke","red").style("stroke-width",2);
+			
+			var separationLineX = containerRight.append("line").attr("x1",350).attr("y1",20).attr("x2",350).attr("y2",480).attr("stroke","black").attr("stroke-width",1);
+			var separationLineY = containerRight.append("line").attr("x1",120).attr("y1",250).attr("x2",580).attr("y2",250).attr("stroke","black").attr("stroke-width",1);
+			
+			var origin =  containerRight.append("text").attr("x",80).attr("y",520).attr("id","xAchseText").text("0");
+			var yPlus =  containerRight.append("text").attr("x",80).attr("y",20).attr("id","xAchseText").text("+");
+			var xPlus =  containerRight.append("text").attr("x",580).attr("y",520).attr("id","xAchseText").text("+");
+				var xText =  containerRight.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption1.val());
+				var yText =  containerRight.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption1.val());
+			return;
+}	
+		
 				
 		$('#showButton1').click(function(){ 
 			cleanerRight();
@@ -1275,16 +1274,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="0"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1293,9 +1292,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1309,16 +1308,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="0"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1327,9 +1326,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1343,16 +1342,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="1"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1361,9 +1360,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1377,16 +1376,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="2"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1395,9 +1394,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1411,16 +1410,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="3"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1429,9 +1428,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1445,16 +1444,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="4"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1463,9 +1462,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1479,16 +1478,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="5"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1497,9 +1496,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1513,16 +1512,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="6"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1531,9 +1530,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1547,16 +1546,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="7"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1565,9 +1564,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1580,16 +1579,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="8"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1598,9 +1597,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1613,16 +1612,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="9"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1631,9 +1630,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1647,16 +1646,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="10"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1665,9 +1664,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
@@ -1681,16 +1680,16 @@ $(document).ready(function(){
 					if(colorFilterArray1[i]=="11"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy', yAchse1Array1[i])
+						.attr('cy', yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
-						.attr('fill',"green");		
+						.attr('fill',"green");
 					}else{
 						var circle2 = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
-						.attr('cy',yAchse1Array1[i])
+						.attr('cy',yAchseArray1[i])
 						.attr('r',kreisGrosseArray1[i])
 						.attr('fill',"black")
-						.attr('fill-opacity',"0.2");		
+						.attr('fill-opacity',"0.2");
 					}
 				}
 				$(this).attr("clickState",1);
@@ -1699,9 +1698,9 @@ $(document).ready(function(){
 				for (var i = 0; i < parsedCSV.length; i++) {
 					var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
-					.attr('cy',yAchse1Array1[i]);
+					.attr('cy',yAchseArray1[i]);
 					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
+					if(colorFilterOption.val()==="key"){
 							circle.attr('fill',colorKey(colorFilterArray1[i]));
 					}
 				}
