@@ -5,6 +5,7 @@
 
 		<!-- link rel="stylesheet" href="styles.css" type="text/css"> -->
 		<link rel="stylesheet" href="css/jslider.css" type="text/css">
+		<link rel="stylesheet" href="soufiane.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
 		<link rel="stylesheet" href="css/jslider.round.css" type="text/css">
@@ -26,7 +27,8 @@
 	    <script type="text/javascript" src="functionCleaner.js"></script>
 		<script type="text/javascript" src="SliderHideFunction.js"></script>
 		<script type="text/javascript" src="functionCleanerLeft.js"></script>
-	
+	<link href='http://fonts.googleapis.com/css?family=Cuprum' rel='stylesheet' type='text/css'>
+
 
 		<title>Music Analysis </title>
 
@@ -46,9 +48,9 @@
 
 </head>
 <body>
-<div name="header-wraper" style="width:100%;">
+<div name="header-wraper" class="header-wraper">
 	<div name="header" style="width: 50%;  margin: 0 auto;">
-		<p style="text-align: center" >MUSIC ANALYSIS</p>
+		<h1>MUSIC ANALYSIS</h1>
 		<br>
 	
 		<div id="jahr" style="align: center">
@@ -196,7 +198,7 @@
 //	var counter = parsedCSV.length;
 	var xAchseOption, xAchseArray1=[];
 	var yAchseOption, yAchseArray=[];
-	var kreisGrosseOption, kreisGrosseArray=[];
+	var kreisGrosseOption, kreisGrosseArray=[], valueArray=[];
 	var colorFilterOption, colorFilterArray=[];
 	var sliderLinks, sliderRechts;
 	var loudnessTop, loudnessBottom;
@@ -334,32 +336,42 @@ $(document).ready(function(){
 			var yText =  containerLeft.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
 		}
 	});
-	$("#kreisGrosse").change(function(){
-		kreisGrosseOption = $("#kreisGrosseSelect option:selected");
+	$("#colorFilter").change(function(){
+		kreisGrosseOption = $("#colorFilter option:selected");
 		var type = kreisGrosseOption.val();
 		kreisGrosseArray=[];
+		valueArray=[];
 		for (var i = 0; i < parsedCSV.length; i++) {
+		valueArray.push(parsedCSV[i][type]); 
+		
 			if	(type ==="danceability"){ 
 				kreisGrosseArray.push(parsedCSV[i][type]*20); 
-// 				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+ 		//		console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
 			}
 			else if (type ==="energy")		{ 
 				kreisGrosseArray.push(parsedCSV[i][type]*20); 
-// 				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+ 		//		console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
 			}
 			else if (type ==="playcount")	{ 
 				kreisGrosseArray.push((parsedCSV[i][type]*20)/10); 
-// 				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+ 		//		console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
 			}
 			else if (type ==="tempo")		{ 
 				kreisGrosseArray.push((parsedCSV[i][type]*20)/100); 
-// 				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+ 		//		console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
 			}
 			else if (type ==="loudness")	{ 
 				kreisGrosseArray.push(((parsedCSV[i][type]*20)*(-1))/10); 
-// 				console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
-			}
+ 		//		console.log("kreisGrosseOption variable " + type + " array : " + kreisGrosseArray); 
+			} else if (type==="key"){ //key is the color of the circles
+					kreisGrosseArray.push(parsedCSV[i][type]); 
+				}else if (type==="genre"){ //key is the color of the circles
+				//	kreisGrosseArray.push(parsedCSV[i][type]); 
+					//console.log("---------------");
+					//console.log(kreisGrosseArray);
+				}//end 
 		}
+		console.log("kreisGrosseOption variable " + type + " array : " + valueArray); 
 	});
 	function initGenreTable(){
 	var array = [];
@@ -390,7 +402,7 @@ $(document).ready(function(){
 			var td = document.createElement('td');
 			td.setAttribute('bgcolor', colorGenre(array[i]));
 			var font = document.createElement('font');
-			font.setAttribute('color', 'white');
+			font.setAttribute('color', 'black');
 			font.innerHTML = array[i];
 			td.appendChild(font);
 			tr.appendChild(td);
@@ -456,6 +468,7 @@ $(document).ready(function(){
 				$("#colorGenre").show();
 				$("#colorKey").hide();
 				initGenreTable();
+				valueArray.push(parsedCSV[i][colorFilterOption.val()]);
 				colorFilterArray.push(parsedCSV[i][colorFilterOption.val()]);
 			}
 			if (colorFilterOption.val()==="key"){ //key is the color of the circles
@@ -498,17 +511,64 @@ $(document).ready(function(){
 			
 	$('#showButton').click(function(){ 
 		cleanerLeft();
+		console.log(" genreee1 :"+kreisGrosseArray);
+			console.log(" ----------- ");
 		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 		for (var i = 0; i < parsedCSV.length; i++) {
+		console.log("xArray "+ xAchseArray[i]);
+				console.log("yArray "+ yAchseArray[i]);
+				console.log("kreisGrosse "+ kreisGrosseArray[i]);
+				console.log("colorFilterArray "+ colorFilterArray[i] );
 				var circle = containerLeft.append('circle')
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
+				//alert(kreisGrosseArray[i]);
 				if(colorFilterOption.val()==="key"){
 						circle.attr('fill',colorKey(colorFilterArray[i]));
-				}
+				}else{
+								if(colorFilterOption.val()==="genre"){
+					circle.attr('fill',colorGenre(valueArray[i]));
+					console.log(" val genre : "+valueArray[i]);
+					}else{
+				circle.attr('fill',boxes(valueArray[i],parseInt(sliderLinks),parseInt(sliderRechts)));
+					console.log(" val : "+valueArray[i]);
+					
+				} }
 		}
 	});
+	$('#showButton1').click(function(){ 
+			cleanerRight();
+			console.log(" genreee :"+kreisGrosseArray1);
+			console.log(" ----------- ");
+			//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
+			for (var i = 0; i < parsedCSV.length; i++) {
+				console.log("xArray "+ xAchseArray1[i]);
+				console.log("yArray "+ yAchseArray1[i]);
+				console.log("kreisGrosse "+ kreisGrosseArray1[i]);
+				console.log("colorFilterArray1 "+ colorFilterArray1[i] );
+				
+				var circle = containerRight.append('circle')
+					.attr('cx', xAchseArray1[i] )
+					.attr('cy', yAchseArray1[i]);
+					circle.attr('r',kreisGrosseArray1[i]);
+					if(colorFilterOption1.val()==="key"){
+							circle.attr('fill',colorKey(colorFilterArray1[i]));
+					
+					}else{	
+							if(colorFilterOption1.val()==="genre"){
+					circle.attr('fill',colorGenre(colorFilterArray1[i]));
+					console.log(" val : "+colorFilterArray1[i]);
+					}else{
+					circle.attr('fill',boxes(colorFilterArray1[i],parseInt(sliderLinks),parseInt(sliderRechts)));
+					console.log(" val : "+colorFilterArray1[i]);
+			
+				}
+					
+			
+				}
+			}
+		});
 //this functions are for the showing of only the circles of a note. The rest will be fuzzy
 //make all the circles transparent but the c
 // if clicked again turned normal
@@ -1223,6 +1283,66 @@ $(document).ready(function(){
 		buildSliders();
 		buildSliders();
 		
+		function boxes(value,l,r){
+
+
+var strecke = r - l;
+var diff = strecke / 6;
+
+var box1 = l;
+var box2 = box1 + diff;
+var box3 = box2 + diff;
+var box4 = box3 + diff;
+var box5 = box4 + diff;
+var box6 = box5 + diff;
+
+console.log (l+" 2\\\\\\ "+ r);
+console.log ("val: " + value);
+console.log ("differenz: " + diff);
+console.log ("box1: " + box1);
+console.log ("box2: " + box2);
+console.log ("box3: " + box3);
+console.log ("box4: " + box4);
+console.log ("box5: " + box5);
+console.log ("box6: " + box6);
+
+ ///  5   box 7  8 9  44
+var farbn="red";
+if (value >= box1 && value < box2){
+	farbn ="rgba(153, 0, 0, .25)";
+	console.log (" --- 1 --- ");
+}
+
+if (box2 <= value && value < box3){
+	farbn = "rgba(153, 0, 0, .4)";
+	console.log (" --- 2 --- ");
+}
+
+if (box3 <= value && value < box4){
+	farbn = "rgba(153, 0, 0, .55)";
+	console.log (" --- 3 --- ");
+}
+
+if (box4 <= value && value < box5){
+	farbn = "rgba(153, 0, 0, .7)";
+	console.log (" --- 4 --- ");
+}
+
+if (box5 <= value && value < box6){
+	farbn = "rgba(153, 0, 0, .85)"; 
+	console.log (" --- 5 --- ");
+}
+
+if (value >= box6){
+	farbn = "rgba(153, 0, 0, .1)";
+	console.log (" --- 6 --- ");
+};
+
+console.log (" --------- ");
+return farbn;
+
+}
+		
 		function cleanerRight(){
 			
 			var cleaner = containerRight.append("rect").attr("x",0).attr("y",0).attr("width",600).attr("height",600).attr("fill","white");
@@ -1246,24 +1366,7 @@ $(document).ready(function(){
 }	
 		
 				
-		$('#showButton1').click(function(){ 
-			cleanerRight();
-			//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
-			for (var i = 0; i < parsedCSV.length; i++) {
-				console.log("xArray "+ xAchseArray1[i]);
-				console.log("yArray "+ yAchseArray1[i]);
-				console.log("kreisGrosse "+ kreisGrosseArray1[i]);
-				console.log("colorFilterArray1 "+ colorFilterArray1[i] );
-				
-				var circle = containerRight.append('circle')
-					.attr('cx', xAchseArray1[i] )
-					.attr('cy', yAchseArray1[i]);
-					circle.attr('r',kreisGrosseArray1[i]);
-					if(colorFilterOption1.val()==="key"){
-							circle.attr('fill',colorKey(colorFilterArray1[i]));
-					}
-			}
-		});
+		
 	//this functions are for the showing of only the circles of a note. The rest will be fuzzy
 	//make all the circles transparent but the c
 	// if clicked again turned normal
@@ -1717,13 +1820,14 @@ $(document).ready(function(){
 <!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
 <!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! --><!-- end of script!!!!! -->
 
-<div name="tags" style="width:1150;margin-left: 100px;overflow: hidden;">
-	<div name="tag-left" style="width:550px;float:left;">
+<div name="tags" class="tags">
+	<div name="tag-left" class="tag-left">
 
 		<p id="achsen" style="margin-left:20%;overflow: hidden;">
-		Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<text >x:</text>
-
+		
+		<label>Achsen:</label> <!--  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+		
+		<text>X:</text>
 			<select id="xAchse" name="x" >
 			    <option value="leer" selected></option>
 			    <option value="danceability">	Danceability	</option>
@@ -1733,8 +1837,8 @@ $(document).ready(function(){
 			    <option value="loudness">		Loudness	</option>
 			    <option value="jahr">			Jahr		</option>
 			</select>
-			&nbsp;&nbsp;
-			<text>y:</text>
+			<br>
+			<text>Y:</text>
 
 		  	<select id="yAchse" name="y">
 			    <option value="leer" selected></option>
@@ -1746,10 +1850,13 @@ $(document).ready(function(){
 			    <option value="jahr">			Jahr		</option>
 
 		  	</select>
+			
 		 </p>
 
 		<p id="kreisGrosse" style="margin-left:20% ;">
-		 Kreis Größe:
+		
+		
+		<label> Kreis Größe:</label>
 
 			<select id="kreisGrosseSelect" name="x" style="margin-left: 40px;">
 			    <option value="leer" selected></option>
@@ -1759,9 +1866,11 @@ $(document).ready(function(){
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
 			</select>
+			
 		</p>
 		<p style="margin-left:20% ;">
-		Color Filter
+		
+		<label>Color Filter:</label>
 			<select id="colorFilter" style="margin-left: 47px;">
 			    <option value="leer" selected></option>
 			    <option value="danceability" >	Danceability</option>
@@ -1770,6 +1879,7 @@ $(document).ready(function(){
 		    	<option value="genre" >			Genre		</option>
 		    	<option value="key" >			Key			</option>
 		  	</select>
+			
 		</p>
 
 
@@ -1879,7 +1989,7 @@ $(document).ready(function(){
 			</table>
 		</div>
 
-		<button id="showButton" style="margin-left:46%;">Zeigen</button>
+		<button id="showButton" class="btn">Zeigen</button>
 
 	</div><!-- end tag left -->
 
@@ -1889,12 +1999,11 @@ $(document).ready(function(){
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	<!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left --><!-- end tag left -->
 	
-	<div name="tag-right" style ="width:600px;float:left;" >		
-		<p id="achsen1" style="margin-left:20%;">	
-			<text >Achsen:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</text>
-
-			<text >x:</text>
+	<div name="tag-right" class="tag-right" >		
+		<p id="achsen1" style="margin-left:20%;overflow: hidden;">	
+			
+		<label>Achsen:</label>
+			<text >X:</text>
 
 		  	<select id="xAchse1" name="x">
 			    <option value="leer" selected></option>
@@ -1906,8 +2015,8 @@ $(document).ready(function(){
 			    <option value="jahr">			Jahr		</option>
 
 			</select>
-			&nbsp;&nbsp;
-			<text>y:</text>
+			<br>
+			<text>Y:</text>
 		  	<select id="yAchse1" name="y">
 			    <option value="leer" selected></option>
 			   	<option value="danceability">	Danceability	</option>
@@ -1922,7 +2031,8 @@ $(document).ready(function(){
 		 </p>
 		 
 		 <p id="kreisGrosse1" style="margin-left:20% ;">
-		 Kreis Größe:
+		 
+		 <label>Kreis Größe:</label>
 		 
 			<select id="kreisGrosseSelect1" name="x" style=" margin-left: 40px;">
 			    <option value="leer" selected></option>
@@ -1932,10 +2042,12 @@ $(document).ready(function(){
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
 			</select>
+			
 		</p>
 
 		<p style="margin-left:20% ;">
-		Color Filter:
+		
+		<label>Color Filter:</label>
 			<select id="colorFilter1" style="margin-left: 43px;">
 			    <option value="leer" selected></option>
 			    <option value="danceability" >	Danceability</option>
@@ -1944,6 +2056,7 @@ $(document).ready(function(){
 		    	<option value="genre" >			Genre		</option>
 		    	<option value="key" >			Key			</option>
 		  	</select>
+			
 		</p>
 		
 		<div id="colorDanceability1" style="margin-left:14% ;">
@@ -2055,7 +2168,7 @@ $(document).ready(function(){
 			</table>
 		</div>
 
-		<button id="showButton1" style="margin-left:46%;">Zeigen</button>		
+		<button id="showButton1" class="btn">Zeigen</button>		
 
 	</div>
 </div><!-- end of div tags -->
