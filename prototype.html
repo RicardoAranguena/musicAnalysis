@@ -30,7 +30,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Cuprum' rel='stylesheet' type='text/css'>
 
 
-		<title>Music Analysis </title>
+		<title> ANALYSING MUSIC LISTENING </title>
 
 		<style>
 		.slider {
@@ -50,7 +50,7 @@
 <body>
 <div name="header-wraper" class="header-wraper">
 	<div name="header" style="width: 50%;  margin: 0 auto;">
-		<h1>MUSIC ANALYSIS</h1>
+		<h1> ANALYSING MUSIC LISTENING </h1>
 		<br>
 	
 		<div id="jahr" style="align: center">
@@ -586,6 +586,11 @@ $(document).ready(function(){
 			
 	$('#showButton').click(function(){ 
 		cleanerLeft();
+		
+		if(colorFilterOption.val()=="genre"){
+		kreisGrosseArray=[28,42,18,4,4,6,4,2,16,6,2,4,4,4,6,2,6,10,4,6,4,6,4,8,6,2,2,6,4,8,6,4];
+		}
+		
 		console.log(" genreee1 :"+kreisGrosseArray);
 			console.log(" ----------- ");
 		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
@@ -1347,6 +1352,7 @@ $(document).ready(function(){
 			for (var i = 0; i < parsedCSV.length; i++) {
 				var genre = parsedCSV[i]["genre"];
 				var saved = false;
+				
 				for(var j = 0; j < array.length; j++){
 					if(genre === array[j]){
 						saved = true;
@@ -1395,7 +1401,6 @@ $(document).ready(function(){
 		$("#colorKey1").hide();
 		$('#colorFilter1').change(function(){
 			colorFilterOption1 = $('#colorFilter1 option:selected');
-		
 			colorFilterArray1=[];
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if (colorFilterOption1.val()==="leer"){
@@ -1423,6 +1428,7 @@ $(document).ready(function(){
 					$("#colorTempo1").hide();
 					$("#colorGenre1").hide();
 					$("#colorKey1").hide();
+					
 					colorFilterArray1.push(parsedCSV[i][colorFilterOption1.val()]); 
 				}
 				if (colorFilterOption1.val()==="tempo"){
@@ -1441,8 +1447,8 @@ $(document).ready(function(){
 					$("#colorGenre1").show();
 					$("#colorKey1").hide();
 					initGenreTable();
-					
 					colorFilterArray1.push(parsedCSV[i][colorFilterOption1.val()]); 
+					
 				}
 				if (colorFilterOption1.val()==="key"){ //key is the color of the circles
 					$("#colorDanceability1").hide();
