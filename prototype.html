@@ -104,7 +104,7 @@
 	//hier komm die spotify data retrieving , zur zeit einfach eine selbst gebastete csv
 	//		Artist,title,genre,loudness (from -60 db to 0),energy (from 0.0 to 1.0),key (0 = C / 1 = C_/D_ / 2 = D and so on),tempo,Jahr,danceability,duration  (in milliseconds),playcount,hotness\n\
 	var music="Artist,title,genre,loudness,energy,key,tempo,Jahr,danceability,duration,playcount,hotness\n\
-	s-man,dangerous thoughts,dance,-12.733,0.626,1,121.000,2014,0.0808,535223,14,0.5183\n\
+	s-man,dangerous thoughts,dance,-12.733,0.626,11,121.000,2014,0.0808,535223,14,0.5183\n\
 	pitbull,el taxi,latinParty,-10.249,0.823,2,101.000,2015,0.1232,539182,21,0.2129\n\
 	bontan,firefly,dance,-7.134,0.923,8,95.000,1999,0.9213,497493,9,0.4382\n\
 	Kieser.Velten,Bossa Jam,Lounge / Nu Jazz / House,-10.231,0.2129,12,120.000,2004,0.7543,728371,2,0.8847\n\
@@ -209,6 +209,9 @@
 	var colorFilterOption1, colorFilterArray1=[];
 	var sliderLinks1, sliderRechts1;
 	var loudnessTop1, loudnessBottom1;
+	var artist=[],title=[];
+	
+	
 $(document).ready(function(){
 	//so bald man betätigt den Buttton von Slider, "range" uebernimmt  die neue ausgewählte Grenze
 	//wert wird gespeichert in range im Form 0.3;0.8
@@ -279,8 +282,14 @@ $(document).ready(function(){
 	$('#achsen').change(function(){
 		xAchseArray = [];
 		yAchseArray = [];
+		artist= [];
+		title= [];
 		xAchseOption = $("#xAchse option:selected");
 		for (var i = 0; i < parsedCSV.length; i++) {
+			
+			artist.push(parsedCSV[i]["Artist"]);
+			title.push(parsedCSV[i]["title"]);
+
 			if 	(xAchseOption.val() ==="danceability")	{
 				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
 				//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
@@ -520,10 +529,12 @@ $(document).ready(function(){
 				console.log("kreisGrosse "+ kreisGrosseArray[i]);
 				console.log("colorFilterArray "+ colorFilterArray[i] );
 				var circle = containerLeft.append('circle')
+				.attr('class',"kreisLeft")
 				.attr('cx', xAchseArray[i] )
 				.attr('cy',yAchseArray[i]);
 				circle.attr('r',kreisGrosseArray[i]);
 				//alert(kreisGrosseArray[i]);
+				
 				if(colorFilterOption.val()==="key"){
 						circle.attr('fill',colorKey(colorFilterArray[i]));
 				}else{
@@ -535,8 +546,37 @@ $(document).ready(function(){
 					console.log(" val : "+valueArray[i]);
 					
 				} }
+
+				var kreisArtist = containerLeft.append("text").attr("x",xAchseArray[i]).attr("y",yAchseArray[i]-5).attr("class","kreisArtist").text(artist[i]);
+				$(".kreisArtist").hide();
+ 				var kreisTitle = containerLeft.append("text").attr("x",xAchseArray[i]).attr("y",yAchseArray[i]+15).attr("class","kreisTitle").text(title[i]);
+ 				$(".kreisTitle").hide();
+					
+//  				$(".kreisTitle").mouseenter(function(){
+//  					 $(".kreisTitle").show();
+//  					});
+		
 		}
 	});
+	
+ 
+	$(".kreisTitle").mouseover(function(){
+			$(".kreisTitle").show();
+    });
+	
+// 	 $(".kreisTitle").hover(function(){
+// 	        console.log ("funciono el hover! ");
+// 	    },
+// 	    function(){
+// 	    	console.log ("funciono el hover! ");
+// 	    });
+
+// 	$(".artist").mouseleave(function(){
+// 		kreisTitle.hide();
+//     });
+	
+	
+	
 	$('#showButton1').click(function(){ 
 			cleanerRight();
 			console.log(" genreee :"+kreisGrosseArray1);
@@ -569,6 +609,11 @@ $(document).ready(function(){
 				}
 			}
 		});
+	
+	
+
+	
+	
 //this functions are for the showing of only the circles of a note. The rest will be fuzzy
 //make all the circles transparent but the c
 // if clicked again turned normal
@@ -576,7 +621,7 @@ $(document).ready(function(){
 		cleanerLeft();
 		if($(this).attr('clickState')=="0"){
 			for (var i = 0; i < parsedCSV.length; i++) {
-				if(colorFilterArray[i]=="0"){
+				if(colorFilterArray[i]=="-1"){
 					var circle = containerLeft.append('circle')
 					.attr('cx', xAchseArray[i] )
 					.attr('cy', yAchseArray[i])
@@ -1374,7 +1419,7 @@ return farbn;
 			cleanerRight();
 			if($(this).attr('clickState')=="0"){
 				for (var i = 0; i < parsedCSV.length; i++) {
-					if(colorFilterArray1[i]=="0"){
+					if(colorFilterArray1[i]=="-1"){
 						var circle = containerRight.append('circle')
 						.attr('cx', xAchseArray1[i] )
 						.attr('cy', yAchseArray1[i])
