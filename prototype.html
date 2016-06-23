@@ -298,8 +298,8 @@ $(document).ready(function(){
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}else if (xAchseOption.val() ==="tempo")  	{
 				//für tempo sollen wir sehen wie wir die daten von spotify bekommen. Wenn es ist tempo 120.000 man kann nicht *1000/2+100 machen
-				xAchseArray.push(parsedCSV[i][xAchseOption.val()] +100);
-				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+				xAchseArray.push(((parseInt(parsedCSV[i][xAchseOption.val()])-50)*3.3)+100);
+				console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}else if (xAchseOption.val() ==="playcount"){
 				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*50)/2) +100);
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
@@ -311,12 +311,15 @@ $(document).ready(function(){
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}
 		}//end for
+		
+		
 		//wort an die achsen schreiben
 		var titleX = containerLeft.append("rect").attr("x",250).attr("y",505).attr("width",160).attr("height",45).attr("fill","white");
 		if(xAchseOption.val()!="leer"){
 			var xText =  containerLeft.append("text").attr("x",300).attr("y",520).attr("id","xAchseText").text(xAchseOption.val());
 		}
 		yAchseOption = $("#yAchse option:selected");
+		var num;
 			for (var i = 0; i < parsedCSV.length; i++) {
 				if 	(yAchseOption.val() ==="danceability")	{
 					yAchseArray.push((parsedCSV[i]["danceability"]*1000)/2);
@@ -325,8 +328,10 @@ $(document).ready(function(){
 					yAchseArray.push((parsedCSV[i]["energy"]*1000)/2);
 					//console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="tempo") {
-					yAchseArray.push((parsedCSV[i]["tempo"]*1000)/2);
-					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+					num = (parseInt(parsedCSV[i][yAchseOption.val()])) ;
+					console.log("el num numero "+num);
+					yAchseArray.push( (num + 450) - (3.3* (num-50) ) );
+					console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="playcount") {
 					yAchseArray.push(((parsedCSV[i]["playcount"]*50)/2) +100);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
@@ -524,10 +529,11 @@ $(document).ready(function(){
 			console.log(" ----------- ");
 		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 		for (var i = 0; i < parsedCSV.length; i++) {
-		console.log("xArray "+ xAchseArray[i]);
-				console.log("yArray "+ yAchseArray[i]);
-				console.log("kreisGrosse "+ kreisGrosseArray[i]);
-				console.log("colorFilterArray "+ colorFilterArray[i] );
+// 				console.log("xArray "+ xAchseArray[i]);
+// 				console.log("yArray "+ yAchseArray[i]);
+// 				console.log("kreisGrosse "+ kreisGrosseArray[i]);
+// 				console.log("colorFilterArray "+ colorFilterArray[i] );
+		
 				var circle = containerLeft.append('circle')
 				.attr('class',"kreisLeft")
 				.attr('cx', xAchseArray[i] )
@@ -583,10 +589,10 @@ $(document).ready(function(){
 			console.log(" ----------- ");
 			//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 			for (var i = 0; i < parsedCSV.length; i++) {
-				console.log("xArray "+ xAchseArray1[i]);
-				console.log("yArray "+ yAchseArray1[i]);
-				console.log("kreisGrosse "+ kreisGrosseArray1[i]);
-				console.log("colorFilterArray1 "+ colorFilterArray1[i] );
+// 				console.log("xArray "+ xAchseArray1[i]);
+// 				console.log("yArray "+ yAchseArray1[i]);
+// 				console.log("kreisGrosse "+ kreisGrosseArray1[i]);
+// 				console.log("colorFilterArray1 "+ colorFilterArray1[i] );
 				
 				var circle = containerRight.append('circle')
 					.attr('cx', xAchseArray1[i] )
