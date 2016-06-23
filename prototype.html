@@ -289,7 +289,7 @@ $(document).ready(function(){
 			
 			artist.push(parsedCSV[i]["Artist"]);
 			title.push(parsedCSV[i]["title"]);
-
+ var aux;
 			if 	(xAchseOption.val() ==="danceability")	{
 				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*1000)/2) +100);
 				//console.log("arreglando el arreglo vamos a ver !!!!!! xAchse array " + xAchseArray[i] +" in die position " + i);
@@ -303,8 +303,11 @@ $(document).ready(function(){
 				xAchseArray.push(((parsedCSV[i][xAchseOption.val()]*50)/2) +100);
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}else if (xAchseOption.val() ==="loudness")		{
-				xAchseArray.push(parsedCSV[i]["loudness"] *(-1)/100+300);//loudness has to be bigger than -200 db   //-10.249
-				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
+				aux = parseInt(parsedCSV[i]["loudness"]) ;
+				aux = aux * -1; 
+				console.log("auxiliar " + aux );
+				xAchseArray.push(600- (25 * aux)  );//loudness has to be bigger than -200 db   //-10.249
+				console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 			}	else if (xAchseOption.val() ==="jahr")	{ xAchse = xAchseOption.val();     //2014
 				xAchseArray.push(((parsedCSV[i]["Jahr"]) /4));
 				//console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
@@ -335,15 +338,74 @@ $(document).ready(function(){
 					yAchseArray.push(((parsedCSV[i]["playcount"]*50)/2) +100);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}else if (yAchseOption.val() ==="loudness")	{
-					yAchseArray.push(parsedCSV[i]["loudness"] *(-1)/100+300);
-					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
+					aux = parseInt(parsedCSV[i]["loudness"]) ;
+					aux = aux * -1; 
+					console.log("auxiliar " + aux );
+					yAchseArray.push(25 * aux  );//loudness has to be bigger than -200 db   //-10.249
+					console.log("yAchse array " + yAchseArray[i] +" in die position " + i);
+					
 				}else if (yAchseOption.val() ==="jahr")	{
 					yAchseArray.push(((parsedCSV[i]["Jahr"]) /4)-300);
 					//console.log("yAchse array " + xAchseArray[i] +" in die position " + i);
 				}
 			}//end for
 		//wort an die achsen schreiben
+		if(xAchseOption.val() ==="danceability" ||xAchseOption.val() ==="energy" || xAchseOption.val() ==="playcount" ){
+			var valuesX = containerLeft.append("rect").attr("x",530).attr("y",505).attr("width",70).attr("height",30).attr("fill","white");
+			var coverOrigin = containerLeft.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+			var newOriginX =  containerLeft.append("rect").attr("x",100).attr("y",505).attr("width",70).attr("height",20).attr("fill","white");
+		}
+		if(xAchseOption.val() ==="tempo"){
+			var valuesX = containerLeft.append("rect").attr("x",530).attr("y",505).attr("width",70).attr("height",30).attr("fill","white");
+			var xTextval =  containerLeft.append("text").attr("x",530).attr("y",520).text("200 bpm");
+			var coverOrigin = containerLeft.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+			var newOriginX =  containerLeft.append("rect").attr("x",100).attr("y",505).attr("width",70).attr("height",20).attr("fill","white");
+			var xTextvalOrign =  containerLeft.append("text").attr("x",100).attr("y",520).text("50 bpm");
+		}
+		if(xAchseOption.val() ==="loudness"){
+			var valuesX = containerLeft.append("rect").attr("x",550).attr("y",505).attr("width",50).attr("height",30).attr("fill","white");
+			var xTextval =  containerLeft.append("text").attr("x",550).attr("y",520).text("0 db");
+			var coverOrigin = containerLeft.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+			var newOriginX =  containerLeft.append("rect").attr("x",100).attr("y",505).attr("width",50).attr("height",20).attr("fill","white");
+			var xTextvalOrign =  containerLeft.append("text").attr("x",100).attr("y",520).text("-30 db");
+		}
+			
 		
+		if(yAchseOption.val() ==="danceability" ||yAchseOption.val() ==="energy" || yAchseOption.val() ==="playcount" ){
+			var valuesY = containerLeft.append("rect").attr("x",60).attr("y",10).attr("width",35).attr("height",70).attr("fill","white");
+			var coverOrigin = containerLeft.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+			var newOriginX =  containerLeft.append("rect").attr("x",60).attr("y",430).attr("width",35).attr("height",70).attr("fill","white");
+		}
+		if(yAchseOption.val() ==="tempo"){
+			var valuesY = containerLeft.append("rect").attr("x",60).attr("y",10).attr("width",35).attr("height",70).attr("fill","white");
+			var yTextval =  containerLeft.append("text").attr("x",60).attr("y",30).text("200");
+			var yTextval =  containerLeft.append("text").attr("x",60).attr("y",60).text("bpm");
+			
+			var coverOrigin = containerLeft.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+			
+			var newOriginX =  containerLeft.append("rect").attr("x",60).attr("y",430).attr("width",35).attr("height",70).attr("fill","white");
+			var xTextvalOrign =  containerLeft.append("text").attr("x",60).attr("y",450).text("50");
+			var xTextvalOrign =  containerLeft.append("text").attr("x",60).attr("y",480).text("bpm");
+		}
+		if(yAchseOption.val() ==="loudness"){
+	
+			var valuesY = containerLeft.append("rect").attr("x",60).attr("y",10).attr("width",35).attr("height",70).attr("fill","white");
+			var yTextval =  containerLeft.append("text").attr("x",60).attr("y",30).text("0");
+			var yTextval =  containerLeft.append("text").attr("x",60).attr("y",60).text("db");
+			
+			var coverOrigin = containerLeft.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+			
+			var newOriginX =  containerLeft.append("rect").attr("x",60).attr("y",430).attr("width",35).attr("height",70).attr("fill","white");
+			var xTextvalOrign =  containerLeft.append("text").attr("x",60).attr("y",450).text("-30");
+			var xTextvalOrign =  containerLeft.append("text").attr("x",60).attr("y",480).text("db");
+		}
+		
+		
+		
+	
+		
+			
+			
 		var titleY = containerLeft.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 		if(yAchseOption.val()!="leer"){
 			var yText =  containerLeft.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchseText").text(yAchseOption.val());
@@ -1141,8 +1203,11 @@ $(document).ready(function(){
 					xAchseArray1.push(parsedCSV[i][xAchseOption1.val()] +100);
 					//console.log("xAchse array " + xAchseArray1[i] +" in die position " + i);
 				}else if (xAchseOption1.val() ==="loudness")		{ 
-					xAchseArray1.push(parsedCSV[i]["loudness"] +100);//loudness has to be bigger than -200 db
-					//console.log("xAchse array " + xAchseArray1[i] +" in die position " + i);
+					aux = parseInt(parsedCSV[i]["loudness"]) ;
+					aux = aux * -1; 
+				//	console.log("auxiliar " + aux );
+					xAchseArray.push(600- (4,1 * aux)  );//loudness has to be bigger than -200 db   //-10.249
+				//	console.log("xAchse array " + xAchseArray[i] +" in die position " + i);
 				}	else if (xAchseOption1.val() ==="jahr")	{ 
 					xAchseArray1.push(parsedCSV[i]["jahr"] +100);
 					//console.log("xAchse array " + xAchseArray1[i] +" in die position " + i);
@@ -1183,6 +1248,64 @@ $(document).ready(function(){
 				}//end for
 		
 			//wort an die achsen schreiben
+				if(xAchseOption1.val() ==="danceability" ||xAchseOption1.val() ==="energy" || xAchseOption1.val() ==="playcount" ){
+					var valuesX = containerRight.append("rect").attr("x",530).attr("y",505).attr("width",70).attr("height",30).attr("fill","white");
+					var coverOrigin = containerRight.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+					var newOriginX =  containerRight.append("rect").attr("x",100).attr("y",505).attr("width",70).attr("height",20).attr("fill","white");
+				}
+				if(xAchseOption1.val() ==="tempo"){
+					var valuesX = containerRight.append("rect").attr("x",530).attr("y",505).attr("width",70).attr("height",30).attr("fill","white");
+					var xTextval =  containerRight.append("text").attr("x",530).attr("y",520).text("200 bpm");
+					var coverOrigin = containerRight.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+					var newOriginX =  containerRight.append("rect").attr("x",100).attr("y",505).attr("width",70).attr("height",20).attr("fill","white");
+					var xTextvalOrign =  containerRight.append("text").attr("x",100).attr("y",520).text("50 bpm");
+				}
+					
+				
+				if(xAchseOption1.val() ==="loudness"){
+					var valuesX = containerRight.append("rect").attr("x",550).attr("y",505).attr("width",50).attr("height",30).attr("fill","white");
+					var xTextval =  containerRight.append("text").attr("x",550).attr("y",520).text("0 db");
+					var coverOrigin = containerRight.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+					var newOriginX =  containerRight.append("rect").attr("x",100).attr("y",505).attr("width",50).attr("height",20).attr("fill","white");
+					var xTextvalOrign =  containerRight.append("text").attr("x",100).attr("y",520).text("-30 db");
+				}
+				
+				
+				
+				if(yAchseOption1.val() ==="danceability" ||yAchseOption1.val() ==="energy" || yAchseOption1.val() ==="playcount" ){
+					var valuesY = containerRight.append("rect").attr("x",60).attr("y",10).attr("width",35).attr("height",70).attr("fill","white");
+					var coverOrigin = containerRight.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+					var newOriginX =  containerRight.append("rect").attr("x",60).attr("y",430).attr("width",35).attr("height",70).attr("fill","white");
+				}
+				if(yAchseOption1.val() ==="tempo"){
+					var valuesY = containerRight.append("rect").attr("x",60).attr("y",10).attr("width",35).attr("height",70).attr("fill","white");
+					var yTextval =  containerRight.append("text").attr("x",60).attr("y",30).text("200");
+					var yTextval =  containerRight.append("text").attr("x",60).attr("y",60).text("bpm");
+					
+					var coverOrigin = containerRight.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+					
+					var newOriginX =  containerRight.append("rect").attr("x",60).attr("y",430).attr("width",35).attr("height",70).attr("fill","white");
+					var xTextvalOrign =  containerRight.append("text").attr("x",60).attr("y",450).text("50");
+					var xTextvalOrign =  containerRight.append("text").attr("x",60).attr("y",480).text("bpm");
+				}
+				if(yAchseOption1.val() ==="loudness"){
+			
+					var valuesY = containerRight.append("rect").attr("x",60).attr("y",10).attr("width",35).attr("height",70).attr("fill","white");
+					var yTextval =  containerRight.append("text").attr("x",60).attr("y",30).text("0");
+					var yTextval =  containerRight.append("text").attr("x",60).attr("y",60).text("db");
+					
+					var coverOrigin = containerRight.append("rect").attr("x",70).attr("y",500).attr("width",20).attr("height",30).attr("fill","white");
+					
+					var newOriginX =  containerRight.append("rect").attr("x",60).attr("y",430).attr("width",35).attr("height",70).attr("fill","white");
+					var xTextvalOrign =  containerRight.append("text").attr("x",60).attr("y",450).text("-30");
+					var xTextvalOrign =  containerRight.append("text").attr("x",60).attr("y",480).text("db");
+				}
+				
+				
+				
+				
+			
+			
 			var titleY = containerRight.append("rect").attr("x",50).attr("y",170).attr("width",46).attr("height",160).attr("fill","white");
 			if(yAchseOption1.val()!="leer"){
 				var yText =  containerRight.append("text").attr("x",220).attr("y",-70).attr("transform","rotate(90)").attr("id","yAchse1Text").text(yAchseOption1.val());
@@ -1888,7 +2011,7 @@ return farbn;
 			    <option value="tempo">			Tempo		</option>
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
-			    <option value="jahr">			Jahr		</option>
+			    <!-- option value="jahr">			Jahr		</option-->
 			</select>
 			<br>
 			<text>Y:</text>
@@ -1900,8 +2023,7 @@ return farbn;
 			    <option value="tempo">			Tempo		</option>
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
-			    <option value="jahr">			Jahr		</option>
-
+			  	<!--  option value="jahr">			Jahr		</option-->
 		  	</select>
 			
 		 </p>
@@ -2065,7 +2187,7 @@ return farbn;
 			    <option value="tempo">			Tempo		</option>
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
-			    <option value="jahr">			Jahr		</option>
+			    <!--  option value="jahr">			Jahr		</option-->
 
 			</select>
 			<br>
@@ -2077,8 +2199,7 @@ return farbn;
 			    <option value="tempo">			Tempo		</option>
 			    <option value="playcount">		Playcount	</option>
 			    <option value="loudness">		Loudness	</option>
-			    <option value="jahr">			Jahr		</option>
-
+			    <!--  option value="jahr">			Jahr		</option-->
 		  	</select>
 
 		 </p>
