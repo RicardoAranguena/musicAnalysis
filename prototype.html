@@ -10595,7 +10595,10 @@ Art in Motion,What You Say (Original Mix),deepHouse,-7.242,0.0479,1,128,40544,7 
 		rowObject["hotness"] = parseFloat(rowObject["hotness"]);
 		return rowObject;
 	});
-	console.log(parsedCSV); //show the array of objects
+	//console.log(parsedCSV); //show the array of objects
+jQuery.each( parsedCSV, function( i, val ) {
+  console.log(val);
+});
 //	var counter = parsedCSV.length;
 	var xAchseOption, xAchseArray1=[];
 	var yAchseOption, yAchseArray=[];
@@ -10609,6 +10612,8 @@ Art in Motion,What You Say (Original Mix),deepHouse,-7.242,0.0479,1,128,40544,7 
 	var kreisGrosseOption1, kreisGrosseArray1=[];
 	var colorFilterOption1, colorFilterArray1=[];
 	var sliderLinks1, sliderRechts1;
+	var jahr1=1990;
+	var jahr2=2016;
 	var loudnessTop1, loudnessBottom1;
 	var artist=[],title=[];
 	
@@ -11006,6 +11011,8 @@ $(document).ready(function(){
 			console.log(" ----------- ");
 		//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 		for (var i = 0; i < parsedCSV.length; i++) {
+		if(parsedCSV[i]['Jahr']>=jahr1 && parsedCSV[i]['Jahr']<=jahr2 ){
+		
 // 				console.log("xArray "+ xAchseArray[i]);
 // 				console.log("yArray "+ yAchseArray[i]);
 // 				console.log("kreisGrosse "+ kreisGrosseArray[i]);
@@ -11040,6 +11047,7 @@ $(document).ready(function(){
 //  					});
 		
 		}
+		}
 	});
 	
  
@@ -11064,8 +11072,10 @@ $(document).ready(function(){
 			cleanerRight();
 			console.log(" genreee :"+kreisGrosseArray1);
 			console.log(" ----------- ");
+			console.log('jahr 1 :'+jahr1+' | '+jahr2);
 			//poner el siguiente for como funcion aparte para poder usarlo en los click de las notas
 			for (var i = 0; i < parsedCSV.length; i++) {
+			if(parsedCSV[i]['Jahr']>=jahr1 && parsedCSV[i]['Jahr']<=jahr2 ){
 // 				console.log("xArray "+ xAchseArray1[i]);
 // 				console.log("yArray "+ yAchseArray1[i]);
 // 				console.log("kreisGrosse "+ kreisGrosseArray1[i]);
@@ -11090,6 +11100,7 @@ $(document).ready(function(){
 					
 			
 				}
+			}
 			}
 		});
 	
@@ -11551,6 +11562,10 @@ $(".B").click(function(){
 			console.log("wert right 1: " + sliderLinks1);
 		
 			console.log("wert right 2: " + sliderRechts1);
+			if($(this).parents("div").attr("id")=="jahr"){
+			jahr1=array[0];
+			jahr2=array[1];
+			}
 		
 		});
 		
